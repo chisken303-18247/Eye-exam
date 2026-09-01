@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>วัดสายตา - Eye Care App</title>
 
 <style>
@@ -15,6 +16,7 @@
   --text:#173322;
   --muted:#6f7d75;
   --danger:#d64545;
+  --orange:#d98b00;
   --font-scale:1;
 }
 
@@ -199,6 +201,7 @@ select{
   cursor:pointer;
   background:#fff;
   color:var(--green);
+  width:100%;
 }
 
 .btn.primary{
@@ -208,6 +211,11 @@ select{
 
 .btn:hover{
   filter:brightness(.96);
+}
+
+.btn:disabled{
+  opacity:.5;
+  cursor:not-allowed;
 }
 
 .info{
@@ -239,6 +247,8 @@ select{
   cursor:pointer;
   padding:4px 0 12px;
 }
+
+/* ================= เมนูด้านล่าง ================= */
 
 .nav{
   position:absolute;
@@ -354,15 +364,6 @@ select{
   cursor:pointer;
 }
 
-.click-row{
-  cursor:pointer;
-  border-radius:12px;
-}
-
-.click-row:hover{
-  background:#f6fbf7;
-}
-
 /* ================= Popup ================= */
 
 .modal-bg{
@@ -429,33 +430,146 @@ select{
   color:#fff;
 }
 
-.access-list{
-  padding-left:20px;
-  line-height:1.8;
+/* ================= ระบบชำระเงิน ================= */
+
+.payment-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.65);
+  z-index:100;
+  display:none;
+  justify-content:center;
+  align-items:center;
+  padding:20px;
 }
 
-/* ================= ระบบวัดสายตา ================= */
-
-.screen-size-box{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
-  margin-top:10px;
+.payment-overlay.show{
+  display:flex;
 }
 
-.screen-option{
-  border:1px solid var(--line);
-  border-radius:14px;
-  padding:12px;
+.payment-card{
+  width:370px;
+  max-width:100%;
   background:#fff;
-  cursor:pointer;
+  border-radius:24px;
+  padding:22px;
+  box-shadow:0 20px 60px #0005;
+}
+
+.payment-head{
   text-align:center;
 }
 
-.screen-option.active{
-  border:2px solid var(--green);
+.payment-icon{
+  width:72px;
+  height:72px;
+  margin:0 auto 10px;
+  border-radius:50%;
   background:var(--green-light);
+  display:grid;
+  place-items:center;
+  font-size:36px;
 }
+
+.payment-head h2{
+  color:var(--green);
+  margin:5px 0;
+}
+
+.payment-price{
+  font-size:44px;
+  color:var(--green);
+  font-weight:900;
+  margin:12px 0;
+}
+
+.payment-price small{
+  font-size:18px;
+}
+
+.payment-detail{
+  background:#f7fbf8;
+  border:1px solid var(--line);
+  border-radius:15px;
+  padding:13px;
+  margin:15px 0;
+}
+
+.payment-row{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  padding:7px 0;
+  border-bottom:1px solid #e8efea;
+}
+
+.payment-row:last-child{
+  border-bottom:0;
+}
+
+.pay-button{
+  width:100%;
+  padding:15px;
+  border:0;
+  border-radius:14px;
+  background:var(--green);
+  color:#fff;
+  font-weight:700;
+  font-size:17px;
+  cursor:pointer;
+}
+
+.cancel-pay{
+  width:100%;
+  margin-top:9px;
+  padding:12px;
+  border:0;
+  background:none;
+  color:var(--muted);
+  cursor:pointer;
+}
+
+.payment-note{
+  font-size:11px;
+  color:var(--muted);
+  text-align:center;
+  line-height:1.5;
+  margin-top:10px;
+}
+
+.payment-success{
+  display:none;
+  text-align:center;
+}
+
+.payment-success.show{
+  display:block;
+}
+
+.success-circle{
+  width:75px;
+  height:75px;
+  border-radius:50%;
+  background:var(--green-light);
+  color:var(--green);
+  font-size:40px;
+  display:grid;
+  place-items:center;
+  margin:10px auto;
+}
+
+.price-badge{
+  display:inline-block;
+  background:#fff7e6;
+  color:#8a6500;
+  padding:6px 10px;
+  border-radius:20px;
+  font-size:12px;
+  font-weight:700;
+  margin-top:7px;
+}
+
+/* ================= ระบบวัดสายตา ================= */
 
 .distance-box{
   text-align:center;
@@ -567,25 +681,233 @@ select{
 
 <body>
 
+
+<!-- =====================================================
+     ระบบชำระเงิน 5 บาท
+===================================================== -->
+
+<div
+  id="paymentOverlay"
+  class="payment-overlay"
+>
+
+  <div class="payment-card">
+
+
+    <!-- หน้าชำระเงิน -->
+
+    <div id="paymentForm">
+
+      <div class="payment-head">
+
+        <div class="payment-icon">
+          👁
+        </div>
+
+        <h2>
+          ค่าบริการวัดสายตา
+        </h2>
+
+        <p>
+          ชำระก่อนเริ่มการทดสอบ
+        </p>
+
+        <div class="payment-price">
+          ฿5
+          <small>
+            / ครั้ง
+          </small>
+        </div>
+
+      </div>
+
+
+      <div class="payment-detail">
+
+        <div class="payment-row">
+
+          <span>
+            บริการ
+          </span>
+
+          <b>
+            ทดสอบการมองเห็น
+          </b>
+
+        </div>
+
+
+        <div class="payment-row">
+
+          <span>
+            จำนวนครั้ง
+          </span>
+
+          <b>
+            1 ครั้ง
+          </b>
+
+        </div>
+
+
+        <div class="payment-row">
+
+          <span>
+            ราคา
+          </span>
+
+          <b style="color:var(--green)">
+            5.00 บาท
+          </b>
+
+        </div>
+
+
+        <div class="payment-row">
+
+          <span>
+            ยอดรวม
+          </span>
+
+          <b style="
+            color:var(--green);
+            font-size:20px;
+          ">
+            ฿5.00
+          </b>
+
+        </div>
+
+      </div>
+
+
+      <button
+        class="pay-button"
+        onclick="confirmPayment()"
+      >
+        💳 ยืนยันการชำระเงิน 5 บาท
+      </button>
+
+
+      <button
+        class="cancel-pay"
+        onclick="closePayment()"
+      >
+        ยกเลิก
+      </button>
+
+
+      <div class="payment-note">
+
+        ระบบต้นแบบ:
+        ปุ่มนี้เป็นการจำลองการชำระเงิน
+        และยังไม่มีการหักเงินจริงจากบัญชีธนาคาร
+
+      </div>
+
+    </div>
+
+
+    <!-- ชำระสำเร็จ -->
+
+    <div
+      id="paymentSuccess"
+      class="payment-success"
+    >
+
+      <div class="success-circle">
+        ✓
+      </div>
+
+      <h2 style="color:var(--green)">
+        ชำระเงินสำเร็จ
+      </h2>
+
+      <p>
+        ได้รับสิทธิ์ทดสอบสายตา
+        จำนวน 1 ครั้ง
+      </p>
+
+      <div class="payment-detail">
+
+        <div class="payment-row">
+
+          <span>
+            จำนวนเงิน
+          </span>
+
+          <b>
+            5.00 บาท
+          </b>
+
+        </div>
+
+        <div class="payment-row">
+
+          <span>
+            สถานะ
+          </span>
+
+          <b style="color:var(--green)">
+            ✓ สำเร็จ
+          </b>
+
+        </div>
+
+      </div>
+
+
+      <button
+        class="pay-button"
+        onclick="continueAfterPayment()"
+      >
+        เริ่มวัดสายตา ›
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     ตัวแอป
+===================================================== -->
+
 <div class="phone">
 
-  <!-- ================= แถบสถานะ ================= -->
-
   <div class="status">
-    <span id="clock">09:41</span>
-    <span>▮▮▮　◉　100%</span>
+
+    <span id="clock">
+      09:41
+    </span>
+
+    <span>
+      ▮▮▮　◉　100%
+    </span>
+
   </div>
 
 
   <main class="screen">
 
-    <!-- ================= หน้าหลัก ================= -->
 
-    <section id="home" class="page active">
+    <!-- =================================================
+         หน้าหลัก
+    ================================================== -->
+
+    <section
+      id="home"
+      class="page active"
+    >
 
       <div class="header">
 
-        <h1>วัดสายตา 👁</h1>
+        <h1>
+          วัดสายตา 👁
+        </h1>
 
         <p>
           ตรวจการมองเห็นเบื้องต้น
@@ -595,69 +917,105 @@ select{
           สำหรับทุกคน ทุกวัย
         </strong>
 
+        <br>
+
+        <span class="price-badge">
+          ค่าบริการ 5 บาท / ครั้ง
+        </span>
+
       </div>
 
-
-      <!-- เมนูแนะนำ -->
 
       <div class="quick">
 
         <div>
-          <b>👥</b>
+
+          <b>
+            👥
+          </b>
+
           <span>
             สำหรับ<br>
             ทุกกลุ่ม
           </span>
+
         </div>
 
+
         <div>
-          <b>👓</b>
+
+          <b>
+            👓
+          </b>
+
           <span>
             ใช้ง่าย<br>
             ไม่ยุ่งยาก
           </span>
+
         </div>
 
+
         <div>
-          <b>🛡</b>
+
+          <b>
+            🛡
+          </b>
+
           <span>
             ปลอดภัย<br>
             เป็นส่วนตัว
           </span>
+
         </div>
 
+
         <div>
-          <b>▮▮</b>
+
+          <b>
+            ▮▮
+          </b>
+
           <span>
             คัดกรอง<br>
             การมองเห็น
           </span>
+
         </div>
 
+
         <div
-          onclick="startVisionTest()"
+          onclick="requestVisionTest()"
           style="cursor:pointer"
         >
-          <b>◎</b>
+
+          <b>
+            ◎
+          </b>
+
           <span>
             วัดสายตา<br>
-            ทันที
+            5 บาท
           </span>
+
         </div>
 
       </div>
 
 
-      <!-- ความเอียง -->
+      <!-- สายตาเอียง -->
 
       <div class="card">
 
         <div class="row">
 
           <div class="icon">
+
             ก<br>
             ขค
+
           </div>
+
 
           <div style="flex:1">
 
@@ -672,10 +1030,21 @@ select{
                 font-size:12px;
               "
             >
-              <span>ปกติ</span>
-              <span>เล็กน้อย</span>
-              <span>มาก</span>
+
+              <span>
+                ปกติ
+              </span>
+
+              <span>
+                เล็กน้อย
+              </span>
+
+              <span>
+                มาก
+              </span>
+
             </div>
+
 
             <div class="range">
 
@@ -684,6 +1053,7 @@ select{
               <span class="dot"></span>
 
             </div>
+
 
             <div class="value">
               ค่าตัวอย่าง 0.75 D
@@ -703,11 +1073,15 @@ select{
         <div class="row">
 
           <div class="icon">
+
             A
+
             <span style="font-size:25px">
               A
             </span>
+
           </div>
+
 
           <div style="flex:1">
 
@@ -722,10 +1096,21 @@ select{
                 font-size:12px;
               "
             >
-              <span>สั้น</span>
-              <span>ปกติ</span>
-              <span>ยาว</span>
+
+              <span>
+                สั้น
+              </span>
+
+              <span>
+                ปกติ
+              </span>
+
+              <span>
+                ยาว
+              </span>
+
             </div>
+
 
             <div class="range">
 
@@ -738,6 +1123,7 @@ select{
 
             </div>
 
+
             <div class="value">
               ตัวอย่าง สายตาสั้น -1.25 D
             </div>
@@ -749,27 +1135,71 @@ select{
       </div>
 
 
-      <!-- ปุ่มวัดสายตา -->
+      <!-- ราคา -->
 
-      <div
-        class="btn primary"
-        onclick="startVisionTest()"
-      >
-        ◎　เริ่มวัดสายตา　›
+      <div class="card">
+
+        <h2>
+          💰 ค่าบริการ
+        </h2>
+
+        <div
+          style="
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+          "
+        >
+
+          <div>
+
+            <b>
+              วัดสายตา 1 ครั้ง
+            </b>
+
+            <div
+              style="
+                font-size:12px;
+                color:var(--muted);
+                margin-top:4px;
+              "
+            >
+              ทดสอบ A-Z และดูผลคัดกรอง
+            </div>
+
+          </div>
+
+
+          <div
+            style="
+              font-size:27px;
+              font-weight:900;
+              color:var(--green);
+            "
+          >
+            ฿5
+          </div>
+
+        </div>
+
       </div>
 
 
-      <!-- ประวัติ -->
+      <button
+        class="btn primary"
+        onclick="requestVisionTest()"
+      >
+        ◎　วัดสายตา 5 บาท　›
+      </button>
 
-      <div
+
+      <button
         class="btn"
         onclick="showPage('result')"
       >
         ◷　ประวัติการวัด　›
-      </div>
+      </button>
 
-
-      <!-- คำแนะนำ -->
 
       <div class="info">
 
@@ -780,18 +1210,23 @@ select{
         <br>
 
         ผลการทดสอบเป็นเพียงการคัดกรองเบื้องต้น
-        ไม่สามารถใช้แทนการวินิจฉัยของจักษุแพทย์
-        หากมองไม่ชัดหรือมีอาการผิดปกติ
-        ควรตรวจโดยผู้เชี่ยวชาญ
+        ไม่สามารถใช้แทนการวินิจฉัย
+        หรือการตรวจสายตาโดยผู้เชี่ยวชาญได้
 
       </div>
 
     </section>
 
 
-    <!-- ================= หน้าวัดสายตา ================= -->
 
-    <section id="visionTest" class="page">
+    <!-- =================================================
+         หน้าวัดสายตา
+    ================================================== -->
+
+    <section
+      id="visionTest"
+      class="page"
+    >
 
       <button
         class="back"
@@ -806,18 +1241,22 @@ select{
       </h1>
 
 
-      <!-- เลือกขนาดหน้าจอ -->
-
       <div class="card">
 
         <h2>
           📱 ขนาดหน้าจอ
         </h2>
 
-        <p style="font-size:13px;color:var(--muted)">
-          เลือกขนาดหน้าจอของอุปกรณ์ที่กำลังใช้
-          เพื่อคำนวณระยะทดสอบให้เหมาะสม
+        <p
+          style="
+            font-size:13px;
+            color:var(--muted);
+          "
+        >
+          เลือกขนาดหน้าจอของอุปกรณ์
+          ที่กำลังใช้งาน
         </p>
+
 
         <select
           id="screenSize"
@@ -826,15 +1265,41 @@ select{
           onchange="changeScreenSize(this.value)"
         >
 
-          <option value="6">6 นิ้ว</option>
-          <option value="6.5">6.5 นิ้ว</option>
-          <option value="7">7 นิ้ว</option>
-          <option value="8">8 นิ้ว</option>
-          <option value="9">9 นิ้ว</option>
-          <option value="10">10 นิ้ว</option>
-          <option value="11">11 นิ้ว</option>
-          <option value="12">12 นิ้ว</option>
-          <option value="13">13 นิ้ว</option>
+          <option value="6">
+            6 นิ้ว
+          </option>
+
+          <option value="6.5">
+            6.5 นิ้ว
+          </option>
+
+          <option value="7">
+            7 นิ้ว
+          </option>
+
+          <option value="8">
+            8 นิ้ว
+          </option>
+
+          <option value="9">
+            9 นิ้ว
+          </option>
+
+          <option value="10">
+            10 นิ้ว
+          </option>
+
+          <option value="11">
+            11 นิ้ว
+          </option>
+
+          <option value="12">
+            12 นิ้ว
+          </option>
+
+          <option value="13">
+            13 นิ้ว
+          </option>
 
         </select>
 
@@ -853,35 +1318,10 @@ select{
           </div>
 
           <div style="font-size:12px">
-            ใช้สายวัดเพื่อวัดระยะให้ใกล้เคียงที่สุด
+            พยายามรักษาระยะนี้ตลอดการทดสอบ
           </div>
 
         </div>
-
-      </div>
-
-
-      <!-- ก่อนเริ่ม -->
-
-      <div class="info">
-
-        <b style="color:var(--green)">
-          ก่อนเริ่มการทดสอบ
-        </b>
-
-        <br>
-
-        1. อยู่ในที่มีแสงสว่างพอดี
-        <br>
-
-        2. ถือหน้าจอตามระยะที่กำหนด
-        <br>
-
-        3. หากต้องการวัดสายตาเปล่า
-        ให้ถอดแว่นออก
-        <br>
-
-        4. ห้ามขยับหน้าจอเข้าออกระหว่างทดสอบ
 
       </div>
 
@@ -894,6 +1334,7 @@ select{
           เลือกตาที่ต้องการวัด
         </h2>
 
+
         <div class="font-buttons">
 
           <button
@@ -904,12 +1345,14 @@ select{
             สองข้าง
           </button>
 
+
           <button
             id="eyeLeft"
             onclick="selectEye('left')"
           >
             ตาซ้าย
           </button>
+
 
           <button
             id="eyeRight"
@@ -919,6 +1362,31 @@ select{
           </button>
 
         </div>
+
+      </div>
+
+
+      <div class="info">
+
+        <b style="color:var(--green)">
+          ก่อนเริ่ม
+        </b>
+
+        <br>
+
+        • อยู่ในที่มีแสงสว่างพอดี
+        <br>
+
+        • ถือหน้าจอตามระยะที่แนะนำ
+        <br>
+
+        • ถ้าต้องการวัดสายตาเปล่าให้ถอดแว่น
+        <br>
+
+        • อย่าขยับหน้าจอเข้าใกล้เมื่อเริ่มมองไม่ชัด
+        <br>
+
+        • หากมองตัวอักษรไม่เห็น ให้กด “มองไม่เห็น”
 
       </div>
 
@@ -955,8 +1423,6 @@ select{
         </div>
 
 
-        <!-- ตัวอักษร -->
-
         <div class="optotype-box">
 
           <div id="optotype">
@@ -967,51 +1433,52 @@ select{
 
 
         <p
-          id="testInstruction"
           style="
             text-align:center;
             color:var(--muted);
           "
         >
-          เลือกตัวอักษรที่เห็น
+          เลือกตัวอักษรที่คุณมองเห็น
         </p>
 
-
-        <!-- ตัวเลือก -->
 
         <div class="answer-grid">
 
           <button
+            id="answer0"
             class="answer-btn"
             onclick="answerTest(0)"
-            id="answer0"
           >
             A
           </button>
 
+
           <button
+            id="answer1"
             class="answer-btn"
             onclick="answerTest(1)"
-            id="answer1"
           >
             B
           </button>
 
+
           <button
+            id="answer2"
             class="answer-btn"
             onclick="answerTest(2)"
-            id="answer2"
           >
             C
           </button>
 
+
           <button
+            id="answer3"
             class="answer-btn"
             onclick="answerTest(3)"
-            id="answer3"
           >
             D
           </button>
+
 
           <button
             class="answer-btn invisible"
@@ -1022,8 +1489,6 @@ select{
 
         </div>
 
-
-        <!-- สถานะ -->
 
         <div
           id="testMessage"
@@ -1038,8 +1503,6 @@ select{
 
       </div>
 
-
-      <!-- ผลสด -->
 
       <div class="card">
 
@@ -1057,20 +1520,20 @@ select{
       </div>
 
 
-      <div
+      <button
         class="btn"
         onclick="resetTest()"
       >
-        ↻ เริ่มทดสอบใหม่
-      </div>
+        ↻ เริ่มการทดสอบนี้ใหม่
+      </button>
 
 
-      <div
+      <button
         class="btn primary"
         onclick="finishTest()"
       >
         ดูผลการวัด ›
-      </div>
+      </button>
 
 
       <div class="info">
@@ -1082,20 +1545,24 @@ select{
         <br>
 
         การทดสอบนี้เป็นการคัดกรองเบื้องต้น
-        ขนาดหน้าจอ ความละเอียดหน้าจอ
-        ระยะถืออุปกรณ์ และสภาพแสง
-        อาจทำให้ผลคลาดเคลื่อนได้
-
-        ไม่สามารถใช้แทนการตรวจโดยจักษุแพทย์
+        ขนาดหน้าจอ ความละเอียด
+        ระยะห่าง และสภาพแสง
+        สามารถทำให้ผลคลาดเคลื่อนได้
 
       </div>
 
     </section>
 
 
-    <!-- ================= ผลการวัด ================= -->
 
-    <section id="result" class="page">
+    <!-- =================================================
+         ผลการวัด
+    ================================================== -->
+
+    <section
+      id="result"
+      class="page"
+    >
 
       <button
         class="back"
@@ -1136,16 +1603,15 @@ select{
           ระดับการมองเห็น
         </h2>
 
-        <p>
-
-          <b
-            id="visionValue"
-            style="color:var(--green)"
-          >
-            -
-          </b>
-
-        </p>
+        <b
+          id="visionValue"
+          style="
+            color:var(--green);
+            font-size:25px;
+          "
+        >
+          -
+        </b>
 
       </div>
 
@@ -1153,19 +1619,15 @@ select{
       <div class="card">
 
         <h2>
-          ค่าคัดกรองสายตา
+          การประเมินสายตา
         </h2>
 
-        <p>
-
-          <b
-            id="refractionValue"
-            style="color:var(--green)"
-          >
-            -
-          </b>
-
-        </p>
+        <b
+          id="refractionValue"
+          style="color:var(--green)"
+        >
+          -
+        </b>
 
         <p
           style="
@@ -1173,7 +1635,7 @@ select{
             color:var(--muted);
           "
         >
-          ค่านี้เป็นการประมาณเพื่อการคัดกรอง
+          เป็นผลคัดกรอง
           ไม่ใช่ค่าสำหรับตัดแว่น
         </p>
 
@@ -1188,57 +1650,63 @@ select{
 
         <p>
           ตาที่ทดสอบ:
-          <b id="finalEye">
-            -
-          </b>
+          <b id="finalEye">-</b>
         </p>
 
         <p>
           ขนาดหน้าจอ:
-          <b id="finalScreen">
-            -
-          </b>
+          <b id="finalScreen">-</b>
         </p>
 
         <p>
           ระยะทดสอบ:
-          <b id="finalDistance">
-            -
-          </b>
+          <b id="finalDistance">-</b>
         </p>
 
         <p>
           ตอบถูก:
-          <b id="finalScore">
-            -
+          <b id="finalScore">-</b>
+        </p>
+
+        <p>
+          ค่าบริการ:
+          <b style="color:var(--green)">
+            5 บาท
           </b>
         </p>
 
       </div>
 
 
+      <button
+        class="btn primary"
+        onclick="buyAnotherTest()"
+      >
+        ◎ ทดสอบอีกครั้ง 5 บาท
+      </button>
+
+
       <div class="info">
 
-        ⚠ <b>หมายเหตุ</b>
-
-        <br>
-
-        ผลนี้ไม่ใช่การวินิจฉัยโรค
-        และไม่สามารถใช้แทนการตรวจสายตา
-        โดยจักษุแพทย์หรือนักทัศนมาตรได้
-
-        หากมองไม่ชัด ปวดตา เห็นภาพซ้อน
-        หรือมีความผิดปกติอื่น ๆ
-        ควรเข้ารับการตรวจโดยผู้เชี่ยวชาญ
+        ⚠
+        ผลนี้เป็นการคัดกรองเบื้องต้น
+        ไม่สามารถใช้แทนการตรวจโดยจักษุแพทย์
+        หรือนักทัศนมาตรได้
 
       </div>
 
     </section>
 
 
-    <!-- ================= ความรู้ ================= -->
 
-    <section id="knowledge" class="page">
+    <!-- =================================================
+         ความรู้
+    ================================================== -->
+
+    <section
+      id="knowledge"
+      class="page"
+    >
 
       <button
         class="back"
@@ -1262,8 +1730,7 @@ select{
         <p>
           พักสายตาเป็นระยะ
           นอนหลับให้เพียงพอ
-          และหลีกเลี่ยงการจ้องหน้าจอ
-          เป็นเวลานาน
+          และหลีกเลี่ยงการจ้องหน้าจอเป็นเวลานาน
         </p>
 
       </div>
@@ -1276,8 +1743,7 @@ select{
         </h2>
 
         <p>
-          ลองใช้หลัก 20-20-20
-          คือทุก 20 นาที
+          หลัก 20-20-20 คือทุก 20 นาที
           มองสิ่งที่อยู่ไกลประมาณ 20 ฟุต
           เป็นเวลา 20 วินาที
         </p>
@@ -1293,24 +1759,9 @@ select{
 
         <p>
           หากมองไม่ชัด ปวดตา
-          เห็นภาพซ้อน หรือมีอาการผิดปกติ
+          เห็นภาพซ้อน
+          หรือมีอาการผิดปกติ
           ควรเข้ารับการตรวจโดยผู้เชี่ยวชาญ
-        </p>
-
-      </div>
-
-
-      <div class="card">
-
-        <h2>
-          📱 การวัดด้วยหน้าจอ
-        </h2>
-
-        <p>
-          การทดสอบผ่านโทรศัพท์หรือแท็บเล็ต
-          ควรใช้ระยะห่างคงที่
-          และไม่ควรปรับขนาดหน้าเว็บ
-          ระหว่างการทดสอบ
         </p>
 
       </div>
@@ -1318,9 +1769,15 @@ select{
     </section>
 
 
-    <!-- ================= ข้อมูล ================= -->
 
-    <section id="info" class="page">
+    <!-- =================================================
+         ข้อมูล
+    ================================================== -->
+
+    <section
+      id="info"
+      class="page"
+    >
 
       <button
         class="back"
@@ -1342,20 +1799,36 @@ select{
         </h2>
 
         <p>
-
           “วัดสายตา”
           เป็นแอปต้นแบบสำหรับคัดกรอง
           การมองเห็นเบื้องต้น
-          และให้ความรู้เกี่ยวกับ
-          การดูแลดวงตา
-
         </p>
 
         <p>
-
           <b>เวอร์ชัน:</b>
-          1.0.0
+          2.0.0
+        </p>
 
+      </div>
+
+
+      <div class="card">
+
+        <h2>
+          ค่าบริการ
+        </h2>
+
+        <p>
+          การทดสอบสายตา
+          มีค่าบริการ
+          <b style="color:var(--green)">
+            5 บาทต่อครั้ง
+          </b>
+        </p>
+
+        <p style="font-size:12px;color:var(--muted)">
+          ระบบในต้นแบบนี้จำลองการชำระเงิน
+          ยังไม่ได้หักเงินจริง
         </p>
 
       </div>
@@ -1368,12 +1841,8 @@ select{
         </h2>
 
         <p>
-
-          ระบบต้นแบบนี้ไม่ได้ส่งข้อมูล
-          ออกไปยังเซิร์ฟเวอร์ภายนอก
-          ผลการทดสอบถูกเก็บไว้
-          ภายในเบราว์เซอร์ของผู้ใช้
-
+          ผลการทดสอบถูกจัดเก็บภายในเบราว์เซอร์
+          ของเครื่องนี้
         </p>
 
         <button
@@ -1389,40 +1858,12 @@ select{
       <div class="card">
 
         <h2>
-          การเข้าถึง
-        </h2>
-
-        <p>
-
-          รองรับการปรับขนาดตัวอักษร
-          เพื่อช่วยให้ผู้ใช้สามารถ
-          อ่านข้อมูลได้สะดวกขึ้น
-
-        </p>
-
-        <button
-          class="btn"
-          onclick="openAccess()"
-        >
-          ดูการเข้าถึง
-        </button>
-
-      </div>
-
-
-      <div class="card">
-
-        <h2>
           คำเตือน
         </h2>
 
         <p>
-
-          แอปนี้เป็นต้นแบบสำหรับ
-          การคัดกรองการมองเห็น
-          ไม่ควรใช้แทนการตรวจ
-          วินิจฉัยโดยผู้เชี่ยวชาญ
-
+          แอปนี้ไม่ควรใช้แทน
+          การตรวจวินิจฉัยโดยผู้เชี่ยวชาญ
         </p>
 
       </div>
@@ -1430,9 +1871,15 @@ select{
     </section>
 
 
-    <!-- ================= ตั้งค่า ================= -->
 
-    <section id="settings" class="page">
+    <!-- =================================================
+         ตั้งค่า
+    ================================================== -->
+
+    <section
+      id="settings"
+      class="page"
+    >
 
       <button
         class="back"
@@ -1450,8 +1897,6 @@ select{
       <div class="card">
 
 
-        <!-- การแจ้งเตือน -->
-
         <div class="setting">
 
           <div class="setting-main">
@@ -1467,8 +1912,8 @@ select{
               </div>
 
               <div
-                class="setting-desc"
                 id="notifyText"
+                class="setting-desc"
               >
                 เปิดการแจ้งเตือน
               </div>
@@ -1486,40 +1931,6 @@ select{
 
         </div>
 
-
-        <!-- ความเป็นส่วนตัว -->
-
-        <div
-          class="setting click-row"
-          onclick="openPrivacy()"
-        >
-
-          <div class="setting-main">
-
-            <div class="setting-icon">
-              🔒
-            </div>
-
-            <div>
-
-              <div class="setting-title">
-                ความเป็นส่วนตัว
-              </div>
-
-              <div class="setting-desc">
-                ตรวจสอบสถานะข้อมูลส่วนตัว
-              </div>
-
-            </div>
-
-          </div>
-
-          <span>›</span>
-
-        </div>
-
-
-        <!-- ขนาดตัวอักษร -->
 
         <div class="setting">
 
@@ -1570,27 +1981,26 @@ select{
         </div>
 
 
-        <!-- การเข้าถึง -->
-
         <div
-          class="setting click-row"
-          onclick="openAccess()"
+          class="setting"
+          style="cursor:pointer"
+          onclick="openPrivacy()"
         >
 
           <div class="setting-main">
 
             <div class="setting-icon">
-              ♿
+              🔒
             </div>
 
             <div>
 
               <div class="setting-title">
-                การเข้าถึง
+                ความเป็นส่วนตัว
               </div>
 
               <div class="setting-desc">
-                ปรับการแสดงผลให้เหมาะกับผู้ใช้
+                ดูการจัดเก็บข้อมูล
               </div>
 
             </div>
@@ -1602,10 +2012,9 @@ select{
         </div>
 
 
-        <!-- เกี่ยวกับแอป -->
-
         <div
-          class="setting click-row"
+          class="setting"
+          style="cursor:pointer"
           onclick="openAbout()"
         >
 
@@ -1635,26 +2044,15 @@ select{
 
       </div>
 
-
-      <div class="info">
-
-        <b style="color:var(--green)">
-          สถานะระบบ
-        </b>
-
-        <br>
-
-        การตั้งค่าถูกบันทึกไว้
-        ในเบราว์เซอร์ของเครื่องนี้
-
-      </div>
-
     </section>
 
   </main>
 
 
-  <!-- ================= เมนูด้านล่าง ================= -->
+
+  <!-- =================================================
+       เมนูด้านล่าง
+  ================================================== -->
 
   <nav class="nav">
 
@@ -1668,34 +2066,26 @@ select{
 
 
     <button data-page="result">
-
       <span>▮▮</span>
       ผลการวัด
-
     </button>
 
 
     <button data-page="knowledge">
-
       <span>▤</span>
       ความรู้
-
     </button>
 
 
     <button data-page="info">
-
       <span>ⓘ</span>
       ข้อมูล
-
     </button>
 
 
     <button data-page="settings">
-
       <span>⚙</span>
       ตั้งค่า
-
     </button>
 
   </nav>
@@ -1703,7 +2093,10 @@ select{
 </div>
 
 
-<!-- ================= Popup ================= -->
+
+<!-- =====================================================
+     POPUP
+===================================================== -->
 
 <div
   id="modalBg"
@@ -1730,10 +2123,11 @@ select{
 </div>
 
 
+
 <script>
 
 /* =====================================================
-   ระบบเปลี่ยนหน้า
+   เปลี่ยนหน้า
 ===================================================== */
 
 function showPage(id){
@@ -1744,12 +2138,15 @@ function showPage(id){
       page.classList.remove("active");
     });
 
+
   const target =
     document.getElementById(id);
+
 
   if(target){
     target.classList.add("active");
   }
+
 
   document
     .querySelectorAll(".nav button")
@@ -1762,13 +2159,14 @@ function showPage(id){
 
     });
 
+
   window.scrollTo(0,0);
 
 }
 
 
 /* =====================================================
-   เมนูด้านล่าง
+   Navigation
 ===================================================== */
 
 document
@@ -1791,36 +2189,282 @@ document
 
 function updateClock(){
 
-  const now = new Date();
+  const now =
+    new Date();
+
 
   const h =
-    String(now.getHours()).padStart(2,"0");
+    String(
+      now.getHours()
+    ).padStart(2,"0");
+
 
   const m =
-    String(now.getMinutes()).padStart(2,"0");
+    String(
+      now.getMinutes()
+    ).padStart(2,"0");
 
-  const clock =
-    document.getElementById("clock");
 
-  if(clock){
-    clock.textContent =
+  document
+    .getElementById("clock")
+    .textContent =
       h + ":" + m;
+
+}
+
+
+updateClock();
+
+setInterval(
+  updateClock,
+  60000
+);
+
+
+/* =====================================================
+   ระบบชำระเงิน
+===================================================== */
+
+/*
+  credit = จำนวนสิทธิ์ทดสอบที่ซื้อไว้
+
+  ต้นแบบนี้ใช้ localStorage
+  ไม่ใช่ระบบการเงินจริง
+*/
+
+let testCredits =
+  parseInt(
+    localStorage.getItem(
+      "eye_test_credits"
+    ) || "0"
+  );
+
+
+function requestVisionTest(){
+
+  /*
+    ถ้ามีสิทธิ์อยู่แล้ว
+    เข้าไปทดสอบได้เลย
+  */
+
+  if(testCredits > 0){
+
+    useTestCredit();
+
+    startVisionTest();
+
+    return;
+
+  }
+
+
+  openPayment();
+
+}
+
+
+/* เปิดหน้าชำระเงิน */
+
+function openPayment(){
+
+  document
+    .getElementById(
+      "paymentForm"
+    )
+    .style.display =
+      "block";
+
+
+  document
+    .getElementById(
+      "paymentSuccess"
+    )
+    .classList.remove(
+      "show"
+    );
+
+
+  document
+    .getElementById(
+      "paymentOverlay"
+    )
+    .classList.add(
+      "show"
+    );
+
+}
+
+
+/* ปิดหน้าชำระเงิน */
+
+function closePayment(){
+
+  document
+    .getElementById(
+      "paymentOverlay"
+    )
+    .classList.remove(
+      "show"
+    );
+
+}
+
+
+/* ยืนยันการชำระเงิน */
+
+function confirmPayment(){
+
+  /*
+    ***** ระบบจำลอง *****
+
+    ตรงนี้ในระบบจริง
+    จะต้องรอผลจาก Payment Gateway
+    หรือ Backend
+
+    ห้ามใช้การกดปุ่มเพียงอย่างเดียว
+    เป็นหลักฐานการชำระเงินจริง
+  */
+
+
+  document
+    .querySelector(
+      ".pay-button"
+    )
+    .disabled =
+      true;
+
+
+  document
+    .querySelector(
+      ".pay-button"
+    )
+    .textContent =
+      "กำลังตรวจสอบการชำระเงิน...";
+
+
+  setTimeout(()=>{
+
+    /*
+      เพิ่มสิทธิ์ 1 ครั้ง
+    */
+
+    testCredits++;
+
+
+    localStorage.setItem(
+      "eye_test_credits",
+      testCredits
+    );
+
+
+    /*
+      บันทึกประวัติ
+    */
+
+    const payment = {
+
+      amount:5,
+
+      status:"success",
+
+      time:
+        new Date()
+          .toLocaleString(
+            "th-TH"
+          )
+
+    };
+
+
+    localStorage.setItem(
+      "last_payment",
+      JSON.stringify(
+        payment
+      )
+    );
+
+
+    document
+      .getElementById(
+        "paymentForm"
+      )
+      .style.display =
+        "none";
+
+
+    document
+      .getElementById(
+        "paymentSuccess"
+      )
+      .classList.add(
+        "show"
+      );
+
+
+    document
+      .querySelector(
+        ".pay-button"
+      )
+      .disabled =
+        false;
+
+
+  },1000);
+
+}
+
+
+/* ชำระแล้ว ไปทดสอบ */
+
+function continueAfterPayment(){
+
+  closePayment();
+
+
+  useTestCredit();
+
+
+  startVisionTest();
+
+}
+
+
+/* ใช้สิทธิ์หนึ่งครั้ง */
+
+function useTestCredit(){
+
+  if(testCredits > 0){
+
+    testCredits--;
+
+
+    localStorage.setItem(
+      "eye_test_credits",
+      testCredits
+    );
+
   }
 
 }
 
-setInterval(updateClock,1000);
 
-updateClock();
+/* ซื้อรอบใหม่ */
+
+function buyAnotherTest(){
+
+  openPayment();
+
+}
 
 
 /* =====================================================
-   การแจ้งเตือน
+   แจ้งเตือน
 ===================================================== */
 
 let notifications =
-  localStorage.getItem("eye_notifications")
-  !== "off";
+  localStorage.getItem(
+    "eye_notifications"
+  ) !== "off";
 
 
 function updateNotificationUI(){
@@ -1830,14 +2474,17 @@ function updateNotificationUI(){
       "notifySwitch"
     );
 
+
   const text =
     document.getElementById(
       "notifyText"
     );
 
+
   if(!sw || !text){
     return;
   }
+
 
   if(notifications){
 
@@ -1863,6 +2510,7 @@ function toggleNotify(){
   notifications =
     !notifications;
 
+
   localStorage.setItem(
     "eye_notifications",
     notifications
@@ -1870,30 +2518,35 @@ function toggleNotify(){
       : "off"
   );
 
+
   updateNotificationUI();
 
 }
 
 
 /* =====================================================
-   ขนาดตัวอักษร
+   Font
 ===================================================== */
 
 function changeFont(size){
 
   let scale = 1;
 
+
   if(size === "small"){
     scale = .88;
   }
+
 
   if(size === "normal"){
     scale = 1;
   }
 
+
   if(size === "large"){
     scale = 1.15;
   }
+
 
   document.documentElement
     .style
@@ -1902,18 +2555,24 @@ function changeFont(size){
       scale
     );
 
+
   localStorage.setItem(
     "eye_font_size",
     size
   );
+
 
   const select =
     document.getElementById(
       "fontSize"
     );
 
+
   if(select){
-    select.value = size;
+
+    select.value =
+      size;
+
   }
 
 }
@@ -1926,6 +2585,7 @@ function loadFontSize(){
       "eye_font_size"
     )
     || "normal";
+
 
   changeFont(saved);
 
@@ -1941,6 +2601,7 @@ const modalBg =
     "modalBg"
   );
 
+
 const modalContent =
   document.getElementById(
     "modalContent"
@@ -1951,6 +2612,7 @@ function openModal(content){
 
   modalContent.innerHTML =
     content;
+
 
   modalBg.classList.add(
     "show"
@@ -1968,6 +2630,7 @@ function closeModal(event){
     return;
   }
 
+
   modalBg.classList.remove(
     "show"
   );
@@ -1976,7 +2639,7 @@ function closeModal(event){
 
 
 /* =====================================================
-   ความเป็นส่วนตัว
+   Privacy
 ===================================================== */
 
 function openPrivacy(){
@@ -1987,57 +2650,43 @@ function openPrivacy(){
       🔒 ความเป็นส่วนตัว
     </h2>
 
-    <div class="status-box">
+    <div class="result">
 
       <strong>
-        ✓ สถานะความเป็นส่วนตัว
+        ✓ ข้อมูลอยู่ในเครื่อง
       </strong>
 
       <p>
-        ข้อมูลการตั้งค่าและผลการทดสอบ
-        ของต้นแบบนี้ถูกจัดเก็บ
-        ภายในเบราว์เซอร์ของเครื่องนี้
+        ระบบต้นแบบนี้จัดเก็บ
+        ผลการทดสอบ การตั้งค่า
+        และสถานะการชำระเงินจำลอง
+        ภายใน localStorage
+        ของเบราว์เซอร์
       </p>
 
     </div>
 
-    <h3>
-      ข้อมูลที่ควรระวัง
-    </h3>
-
-    <ul>
-
-      <li>
-        ผลการวัดสายตา
-      </li>
-
-      <li>
-        ข้อมูลสุขภาพ
-        ที่ผู้ใช้อาจกรอกในอนาคต
-      </li>
-
-      <li>
-        ข้อมูลการใช้งานแอป
-      </li>
-
-    </ul>
-
     <p>
 
-      เวอร์ชันต้นแบบนี้
-      ไม่ได้เชื่อมต่อฐานข้อมูล
-      หรือส่งข้อมูลสุขภาพ
-      ไปยังเซิร์ฟเวอร์ภายนอก
+      ระบบนี้ยังไม่มีการส่ง
+      ข้อมูลบัตรเครดิต
+      บัญชีธนาคาร
+      หรือข้อมูลการเงินจริง
+      ไปยังเซิร์ฟเวอร์
 
     </p>
 
-    <div class="status-box">
+    <div
+      style="
+        background:#fff7e6;
+        padding:12px;
+        border-radius:12px;
+      "
+    >
 
-      ⚠ หากนำไปพัฒนาเป็นระบบจริง
-      ควรมีระบบยืนยันตัวตน
-      การเข้ารหัส
-      และนโยบายความเป็นส่วนตัว
-      ที่ชัดเจน
+      ⚠ หากนำไปใช้รับเงินจริง
+      ต้องเชื่อมต่อ Payment Gateway
+      และตรวจสอบการชำระเงินจากเซิร์ฟเวอร์
 
     </div>
 
@@ -2047,92 +2696,7 @@ function openPrivacy(){
 
 
 /* =====================================================
-   การเข้าถึง
-===================================================== */
-
-function openAccess(){
-
-  openModal(`
-
-    <h2>
-      ♿ การเข้าถึง
-    </h2>
-
-    <p>
-      แอปออกแบบให้ผู้ใช้หลายกลุ่ม
-      สามารถใช้งานได้สะดวก
-    </p>
-
-    <h3>
-      ขนาดตัวอักษร
-    </h3>
-
-    <div class="font-buttons">
-
-      <button
-        onclick="setFontFromModal('small')"
-      >
-        เล็ก
-      </button>
-
-      <button
-        onclick="setFontFromModal('normal')"
-      >
-        ปกติ
-      </button>
-
-      <button
-        onclick="setFontFromModal('large')"
-      >
-        ใหญ่
-      </button>
-
-    </div>
-
-    <h3>
-      สิ่งที่รองรับ
-    </h3>
-
-    <ul class="access-list">
-
-      <li>
-        ปรับขนาดตัวอักษร
-      </li>
-
-      <li>
-        ปุ่มและเมนูขนาดใหญ่
-      </li>
-
-      <li>
-        สีเขียว-ขาวที่อ่านง่าย
-      </li>
-
-      <li>
-        โครงสร้างเมนูเรียบง่าย
-      </li>
-
-      <li>
-        รองรับโทรศัพท์และแท็บเล็ต
-      </li>
-
-    </ul>
-
-  `);
-
-}
-
-
-function setFontFromModal(size){
-
-  changeFont(size);
-
-  openAccess();
-
-}
-
-
-/* =====================================================
-   เกี่ยวกับแอป
+   About
 ===================================================== */
 
 function openAbout(){
@@ -2150,61 +2714,43 @@ function openAbout(){
       </h2>
 
       <p>
+        เว็บแอปต้นแบบ
+        สำหรับคัดกรองการมองเห็น
+      </p>
 
-        แอปต้นแบบสำหรับตรวจคัดกรอง
-        การมองเห็นเบื้องต้น
-        และให้ความรู้เกี่ยวกับ
-        การดูแลสุขภาพดวงตา
-
+      <p>
+        <b>ค่าบริการ:</b>
+        5 บาท / ครั้ง
       </p>
 
       <p>
         <b>เวอร์ชัน:</b>
-        1.0.0
-      </p>
-
-      <p>
-        <b>รูปแบบ:</b>
-        Web App / HTML
-      </p>
-
-      <p>
-        <b>ธีม:</b>
-        Green & White
+        2.0.0
       </p>
 
     </div>
 
-    <div class="status-box">
+    <div class="result">
 
-      ✓ หน้าหลัก
+      ✓ A-Z แบบสุ่ม
       <br>
 
-      ✓ ผลการวัด
+      ✓ เริ่มจากตัวใหญ่
       <br>
 
-      ✓ ความรู้
+      ✓ ตัวเล็กลงตามระดับ
       <br>
 
-      ✓ ข้อมูล
+      ✓ มีปุ่มมองไม่เห็น
       <br>
 
-      ✓ ตั้งค่า
+      ✓ รองรับหน้าจอ 6–13 นิ้ว
       <br>
 
-      ✓ การแจ้งเตือน
+      ✓ ระบบชำระเงินต้นแบบ 5 บาท
       <br>
 
-      ✓ ความเป็นส่วนตัว
-      <br>
-
-      ✓ การเข้าถึง
-      <br>
-
-      ✓ ปรับขนาดตัวอักษร
-      <br>
-
-      ✓ วัดสายตา A-Z
+      ✓ บันทึกผลในเครื่อง
 
     </div>
 
@@ -2217,144 +2763,145 @@ function openAbout(){
    ระบบวัดสายตา
 ===================================================== */
 
-let selectedEye = "both";
-
-let screenSize = 6;
-
-let testQuestion = 0;
-
-let correctAnswers = 0;
-
-let wrongAnswers = 0;
-
-let currentLetter = "";
-
-let currentOptions = [];
-
-let testFinished = false;
+let selectedEye =
+  "both";
 
 
-/* -----------------------------------------------------
-   ระยะทดสอบตามขนาดหน้าจอ
+let screenSize =
+  6;
 
-   เป็นค่าประมาณสำหรับต้นแบบ
-   ผู้ใช้ควรวัดระยะจริงด้วยสายวัด
------------------------------------------------------ */
+
+let testQuestion =
+  0;
+
+
+let correctAnswers =
+  0;
+
+
+let wrongAnswers =
+  0;
+
+
+let currentLetter =
+  "";
+
+
+let currentOptions =
+  [];
+
+
+let testFinished =
+  false;
+
+
+let consecutiveWrong =
+  0;
+
+
+/* =====================================================
+   ระยะหน้าจอ
+===================================================== */
 
 const screenDistances = {
 
-  6: 40,
+  6:40,
 
-  6.5: 41,
+  6.5:41,
 
-  7: 42,
+  7:42,
 
-  8: 43,
+  8:43,
 
-  9: 45,
+  9:45,
 
-  10: 47,
+  10:47,
 
-  11: 49,
+  11:49,
 
-  12: 51,
+  12:51,
 
-  13: 53
+  13:53
 
 };
 
 
-/* -----------------------------------------------------
+/* =====================================================
    ระดับขนาดตัวอักษร
-
-   เริ่มใหญ่และค่อย ๆ เล็ก
------------------------------------------------------ */
+===================================================== */
 
 const testLevels = [
 
   {
-    name:"ระดับ 1 • ใหญ่มาก",
+    name:"20/200",
+    size:100
+  },
+
+  {
+    name:"20/100",
     size:82
   },
 
   {
-    name:"ระดับ 2 • ใหญ่",
+    name:"20/80",
     size:70
   },
 
   {
-    name:"ระดับ 3 • ค่อนข้างใหญ่",
-    size:59
+    name:"20/60",
+    size:58
   },
 
   {
-    name:"ระดับ 4 • ปานกลาง",
+    name:"20/50",
     size:49
   },
 
   {
-    name:"ระดับ 5 • ปานกลาง",
+    name:"20/40",
     size:41
   },
 
   {
-    name:"ระดับ 6 • เล็ก",
-    size:34
+    name:"20/35",
+    size:35
   },
 
   {
-    name:"ระดับ 7 • เล็กมาก",
-    size:28
+    name:"20/30",
+    size:30
   },
 
   {
-    name:"ระดับ 8 • ละเอียด",
-    size:23
+    name:"20/25",
+    size:25
   },
 
   {
-    name:"ระดับ 9 • ละเอียดมาก",
+    name:"20/22",
+    size:22
+  },
+
+  {
+    name:"20/20",
     size:19
   },
 
   {
-    name:"ระดับ 10 • ยาก",
-    size:16
-  },
-
-  {
-    name:"ระดับ 11 • ยากมาก",
-    size:14
-  },
-
-  {
-    name:"ระดับ 12 • ละเอียดที่สุด",
-    size:12
+    name:"20/15",
+    size:15
   }
 
 ];
 
 
 /* =====================================================
-   ตัวอักษร A-Z
+   A-Z
 ===================================================== */
 
 const alphabet =
   "ABCDEFGHJKLMNPQRSTUVWXYZ"
   .split("");
-
-
-/* =====================================================
-   เริ่มการทดสอบ
-===================================================== */
-
-function startVisionTest(){
-
-  resetTest();
-
-  showPage("visionTest");
-
-}
 
 
 /* =====================================================
@@ -2366,16 +2913,20 @@ function changeScreenSize(size){
   screenSize =
     parseFloat(size);
 
+
   const distance =
-    screenDistances[screenSize]
-    || 40;
+    screenDistances[
+      screenSize
+    ] || 40;
+
 
   document
     .getElementById(
       "distanceNumber"
     )
     .textContent =
-      distance + " ซม.";
+      distance
+      + " ซม.";
 
 }
 
@@ -2386,7 +2937,9 @@ function changeScreenSize(size){
 
 function selectEye(eye){
 
-  selectedEye = eye;
+  selectedEye =
+    eye;
+
 
   document
     .querySelectorAll(
@@ -2402,16 +2955,23 @@ function selectEye(eye){
 
 
   const id =
+
     eye === "both"
+
       ? "eyeBoth"
+
       : eye === "left"
+
         ? "eyeLeft"
+
         : "eyeRight";
 
 
   document
     .getElementById(id)
-    .classList.add("active");
+    .classList.add(
+      "active"
+    );
 
 
   resetTest();
@@ -2436,50 +2996,64 @@ function randomLetter(){
 
 
 /* =====================================================
-   สุ่มตัวเลือกคำตอบ
+   สร้างตัวเลือก
 ===================================================== */
 
 function createOptions(correct){
 
-  let options = [correct];
+  const options =
+    [correct];
 
-  while(options.length < 4){
+
+  while(
+    options.length < 4
+  ){
 
     const letter =
       randomLetter();
 
+
     if(
-      !options.includes(letter)
+      !options.includes(
+        letter
+      )
     ){
-      options.push(letter);
+
+      options.push(
+        letter
+      );
+
     }
 
   }
 
 
-  /* สลับตำแหน่ง */
-
   for(
-    let i=options.length-1;
-    i>0;
+    let i =
+      options.length - 1;
+
+    i > 0;
+
     i--
   ){
 
     const j =
       Math.floor(
-        Math.random()*(i+1)
+        Math.random()
+        * (i + 1)
       );
+
 
     [
       options[i],
       options[j]
-    ] =
-    [
+    ] = [
       options[j],
       options[i]
     ];
 
   }
+
 
   return options;
 
@@ -2487,22 +3061,28 @@ function createOptions(correct){
 
 
 /* =====================================================
-   แสดงคำถาม
+   แสดงข้อ
 ===================================================== */
 
 function showQuestion(){
 
   if(
-    testQuestion >=
+    testQuestion
+    >=
     testLevels.length
   ){
+
     finishTest();
+
     return;
+
   }
 
 
   const level =
-    testLevels[testQuestion];
+    testLevels[
+      testQuestion
+    ];
 
 
   currentLetter =
@@ -2526,7 +3106,8 @@ function showQuestion(){
 
 
   optotype.style.fontSize =
-    level.size + "px";
+    level.size
+    + "px";
 
 
   document
@@ -2534,7 +3115,8 @@ function showQuestion(){
       "levelText"
     )
     .textContent =
-      level.name;
+      "ระดับ "
+      + level.name;
 
 
   document
@@ -2542,16 +3124,18 @@ function showQuestion(){
       "questionText"
     )
     .textContent =
-      (testQuestion+1)
+      (testQuestion + 1)
       + " / "
       + testLevels.length;
 
 
   const progress =
+
     (
       testQuestion /
       testLevels.length
-    ) * 100;
+    )
+    * 100;
 
 
   document
@@ -2559,7 +3143,8 @@ function showQuestion(){
       "progressBar"
     )
     .style.width =
-      progress + "%";
+      progress
+      + "%";
 
 
   for(
@@ -2568,13 +3153,12 @@ function showQuestion(){
     i++
   ){
 
-    const button =
-      document.getElementById(
-        "answer"+i
-      );
-
-    button.textContent =
-      currentOptions[i];
+    document
+      .getElementById(
+        "answer" + i
+      )
+      .textContent =
+        currentOptions[i];
 
   }
 
@@ -2586,19 +3170,11 @@ function showQuestion(){
     .textContent =
       "ตอบตามที่มองเห็นจริง ไม่ต้องเดา";
 
-
-  document
-    .getElementById(
-      "liveResult"
-    )
-    .textContent =
-      "กำลังทดสอบ...";
-
 }
 
 
 /* =====================================================
-   ตอบคำถาม
+   ตอบ
 ===================================================== */
 
 function answerTest(index){
@@ -2608,23 +3184,19 @@ function answerTest(index){
   }
 
 
-  let isCorrect = false;
+  let isCorrect =
+    false;
 
 
-  if(index === -1){
-
-    /*
-      มองไม่เห็น
-      ถือว่าไม่ผ่านระดับนั้น
-    */
-
-    isCorrect = false;
-
-  }else{
+  if(index !== -1){
 
     isCorrect =
-      currentOptions[index]
-      === currentLetter;
+
+      currentOptions[
+        index
+      ]
+      ===
+      currentLetter;
 
   }
 
@@ -2633,47 +3205,81 @@ function answerTest(index){
 
     correctAnswers++;
 
+    consecutiveWrong =
+      0;
+
+
     document
       .getElementById(
         "testMessage"
       )
       .innerHTML =
-      '<span style="color:var(--green);font-weight:700">✓ ถูกต้อง</span>';
+
+        '<span style="color:var(--green);font-weight:700">'
+        +
+        '✓ ถูกต้อง'
+        +
+        '</span>';
 
   }else{
 
     wrongAnswers++;
 
-    document
-      .getElementById(
-        "testMessage"
-      )
-      .innerHTML =
-      '<span style="color:var(--danger);font-weight:700">✕ ไม่ถูกต้อง</span>';
+    consecutiveWrong++;
+
+
+    if(index === -1){
+
+      document
+        .getElementById(
+          "testMessage"
+        )
+        .innerHTML =
+
+          '<span style="color:var(--danger);font-weight:700">'
+          +
+          'มองไม่เห็น'
+          +
+          '</span>';
+
+    }else{
+
+      document
+        .getElementById(
+          "testMessage"
+        )
+        .innerHTML =
+
+          '<span style="color:var(--danger);font-weight:700">'
+          +
+          '✕ ไม่ถูกต้อง'
+          +
+          '</span>';
+
+    }
 
   }
 
-
-  /*
-    ไปข้อถัดไป
-  */
 
   testQuestion++;
 
 
   /*
-    หากผิดหลายครั้งในช่วงตัวเล็ก
-    ให้หยุดการทดสอบได้เร็วขึ้น
+    ถ้าผิด/มองไม่เห็นติดกัน 2 ครั้ง
+    หลังผ่านช่วงเริ่มต้น
+    ให้หยุด
   */
 
   if(
-    wrongAnswers >= 4 &&
-    testQuestion >= 5
+    consecutiveWrong >= 2
+    &&
+    testQuestion >= 3
   ){
 
-    setTimeout(()=>{
-      finishTest();
-    },450);
+    setTimeout(
+      finishTest,
+      400
+    );
 
     return;
 
@@ -2681,24 +3287,118 @@ function answerTest(index){
 
 
   if(
-    testQuestion >=
+    testQuestion
+    >=
     testLevels.length
   ){
 
-    setTimeout(()=>{
-      finishTest();
-    },450);
+    setTimeout(
+      finishTest,
+      400
+    );
 
     return;
 
   }
 
 
-  setTimeout(()=>{
+  setTimeout(
+    showQuestion,
+    400
+  );
 
-    showQuestion();
+}
 
-  },450);
+
+/* =====================================================
+   เริ่มทดสอบ
+===================================================== */
+
+function startVisionTest(){
+
+  resetTest();
+
+  showPage(
+    "visionTest"
+  );
+
+}
+
+
+/* =====================================================
+   Reset
+===================================================== */
+
+function resetTest(){
+
+  testQuestion =
+    0;
+
+
+  correctAnswers =
+    0;
+
+
+  wrongAnswers =
+    0;
+
+
+  consecutiveWrong =
+    0;
+
+
+  testFinished =
+    false;
+
+
+  document
+    .getElementById(
+      "liveResult"
+    )
+    .textContent =
+      "ยังไม่ได้ทำการทดสอบ";
+
+
+  document
+    .getElementById(
+      "testMessage"
+    )
+    .textContent =
+      "ตอบตามที่มองเห็นจริง ไม่ต้องเดา";
+
+
+  updateTestTitle();
+
+  showQuestion();
+
+}
+
+
+/* =====================================================
+   ชื่อการทดสอบ
+===================================================== */
+
+function updateTestTitle(){
+
+  const title =
+
+    selectedEye === "both"
+
+      ? "ทดสอบการมองเห็นสองข้าง"
+
+      : selectedEye === "left"
+
+        ? "ทดสอบตาซ้าย"
+
+        : "ทดสอบตาขวา";
+
+
+  document
+    .getElementById(
+      "testTitle"
+    )
+    .textContent =
+      title;
 
 }
 
@@ -2709,130 +3409,38 @@ function answerTest(index){
 
 function estimateVision(){
 
-  const total =
-    testQuestion || 1;
+  let levelIndex =
+    Math.max(
+      0,
+      testQuestion - 1
+    );
 
 
-  const score =
-    correctAnswers / total;
+  if(
+    wrongAnswers > 0
+  ){
 
-
-  /*
-    ระดับสูงสุดที่ทำได้
-  */
-
-  let passedLevel =
-    0;
-
-
-  /*
-    หา level จากจำนวนคำตอบที่ถูก
-  */
-
-  if(correctAnswers >= 11){
-    passedLevel = 11;
-  }
-  else if(correctAnswers >= 10){
-    passedLevel = 10;
-  }
-  else if(correctAnswers >= 9){
-    passedLevel = 9;
-  }
-  else if(correctAnswers >= 8){
-    passedLevel = 8;
-  }
-  else if(correctAnswers >= 7){
-    passedLevel = 7;
-  }
-  else if(correctAnswers >= 6){
-    passedLevel = 6;
-  }
-  else if(correctAnswers >= 5){
-    passedLevel = 5;
-  }
-  else if(correctAnswers >= 4){
-    passedLevel = 4;
-  }
-  else if(correctAnswers >= 3){
-    passedLevel = 3;
-  }
-  else if(correctAnswers >= 2){
-    passedLevel = 2;
-  }
-  else if(correctAnswers >= 1){
-    passedLevel = 1;
-  }
-
-
-  /*
-    ประมาณระดับการมองเห็น
-  */
-
-  let acuity =
-    "ประมาณ 20/20–20/25";
-
-  if(passedLevel <= 2){
-    acuity =
-      "ประมาณ 20/80 ขึ้นไป";
-  }
-  else if(passedLevel <= 4){
-    acuity =
-      "ประมาณ 20/50–20/70";
-  }
-  else if(passedLevel <= 6){
-    acuity =
-      "ประมาณ 20/35–20/50";
-  }
-  else if(passedLevel <= 8){
-    acuity =
-      "ประมาณ 20/25–20/30";
-  }
-  else{
-    acuity =
-      "ประมาณ 20/20–20/25";
-  }
-
-
-  /*
-    ประเมินค่าคัดกรองแบบหยาบ
-
-    หมายเหตุ:
-    ไม่ใช่ค่าจริงสำหรับการตัดแว่น
-  */
-
-  let refraction =
-    "ใกล้เคียงปกติ";
-
-
-  if(passedLevel <= 2){
-
-    refraction =
-      "อาจมีค่าสายตาผิดปกติค่อนข้างมาก";
-
-  }
-  else if(passedLevel <= 4){
-
-    refraction =
-      "อาจมีค่าสายตาผิดปกติระดับหนึ่ง";
-
-  }
-  else if(passedLevel <= 6){
-
-    refraction =
-      "อาจมีค่าสายตาผิดปกติเล็กน้อย";
-
-  }
-  else{
-
-    refraction =
-      "ไม่พบความผิดปกติเด่นชัดจากการคัดกรอง";
+    levelIndex =
+      Math.max(
+        0,
+        levelIndex - 1
+      );
 
   }
 
 
-  /*
-    ข้อความสรุป
-  */
+  levelIndex =
+    Math.min(
+      levelIndex,
+      testLevels.length - 1
+    );
+
+
+  const acuity =
+    testLevels[
+      levelIndex
+    ].name;
+
 
   let title =
     "การมองเห็นอยู่ในเกณฑ์ดี";
@@ -2842,45 +3450,47 @@ function estimateVision(){
     "สามารถอ่านตัวอักษรขนาดเล็กได้ดี";
 
 
+  let refraction =
+    "ไม่พบความผิดปกติเด่นชัดจากการคัดกรอง";
+
+
   if(
-    score < .65
+    levelIndex <= 3
   ){
 
     title =
-      "ควรตรวจสายตาเพิ่มเติม";
+      "แนะนำให้ตรวจสายตาเพิ่มเติม";
 
     detail =
-      "พบข้อผิดพลาดหลายครั้งในการคัดกรอง";
+      "เริ่มมองตัวอักษรขนาดเล็กได้ยาก";
+
+    refraction =
+      "อาจมีความผิดปกติของสายตา ควรตรวจโดยผู้เชี่ยวชาญ";
 
   }
 
-
-  if(
-    score < .45
+  else if(
+    levelIndex <= 6
   ){
 
     title =
-      "แนะนำให้ตรวจสายตาโดยผู้เชี่ยวชาญ";
+      "การมองเห็นลดลงเล็กน้อย";
 
     detail =
-      "การมองเห็นระดับเล็กมีความคลาดเคลื่อนหลายครั้ง";
+      "ควรติดตามหรือเข้ารับการตรวจเพิ่มเติม";
+
+    refraction =
+      "อาจมีความผิดปกติของสายตาเล็กน้อย";
 
   }
 
 
   return {
 
-    title:title,
-
-    detail:detail,
-
-    acuity:acuity,
-
-    refraction:refraction,
-
-    score:score,
-
-    passedLevel:passedLevel
+    acuity,
+    title,
+    detail,
+    refraction
 
   };
 
@@ -2898,7 +3508,8 @@ function finishTest(){
   }
 
 
-  testFinished = true;
+  testFinished =
+    true;
 
 
   const result =
@@ -2906,21 +3517,23 @@ function finishTest(){
 
 
   const eyeText =
+
     selectedEye === "both"
+
       ? "สองข้าง"
+
       : selectedEye === "left"
+
         ? "ตาซ้าย"
+
         : "ตาขวา";
 
 
   const distance =
-    screenDistances[screenSize]
-    || 40;
+    screenDistances[
+      screenSize
+    ] || 40;
 
-
-  /*
-    แสดงผลหน้า Result
-  */
 
   document
     .getElementById(
@@ -2967,7 +3580,8 @@ function finishTest(){
       "finalScreen"
     )
     .textContent =
-      screenSize + " นิ้ว";
+      screenSize
+      + " นิ้ว";
 
 
   document
@@ -2975,7 +3589,8 @@ function finishTest(){
       "finalDistance"
     )
     .textContent =
-      distance + " ซม.";
+      distance
+      + " ซม.";
 
 
   document
@@ -2988,10 +3603,6 @@ function finishTest(){
       + testQuestion;
 
 
-  /*
-    แสดงผลสด
-  */
-
   document
     .getElementById(
       "liveResult"
@@ -3001,11 +3612,11 @@ function finishTest(){
       "<strong>"
       + result.title
       + "</strong><br>"
-      + result.detail
-      + "<br>"
-      + "ระดับการมองเห็น: "
+
+      + "ระดับการมองเห็น "
       + result.acuity
       + "<br>"
+
       + "ตอบถูก "
       + correctAnswers
       + " จาก "
@@ -3013,58 +3624,64 @@ function finishTest(){
       + " ข้อ";
 
 
-  document
-    .getElementById(
-      "testMessage"
-    )
-    .innerHTML =
-      '<span style="color:var(--green);font-weight:700">✓ ทดสอบเสร็จแล้ว</span>';
+  const data = {
 
+    eye:
+      selectedEye,
 
-  /*
-    บันทึกผล
-  */
+    acuity:
+      result.acuity,
+
+    result:
+      result.title,
+
+    refraction:
+      result.refraction,
+
+    screenSize:
+      screenSize,
+
+    distance:
+      distance,
+
+    score:
+      correctAnswers,
+
+    total:
+      testQuestion,
+
+    price:
+      5,
+
+    time:
+      new Date()
+        .toLocaleString(
+          "th-TH"
+        )
+
+  };
+
 
   localStorage.setItem(
     "last_eye_test",
-    JSON.stringify({
-
-      eye:selectedEye,
-
-      screenSize:screenSize,
-
-      distance:distance,
-
-      score:correctAnswers,
-
-      wrong:wrongAnswers,
-
-      total:testQuestion,
-
-      result:result.title,
-
-      acuity:result.acuity,
-
-      refraction:result.refraction,
-
-      time:
-        new Date()
-          .toLocaleString("th-TH")
-
-    })
+    JSON.stringify(
+      data
+    )
   );
 
 
-  showPage("result");
+  showPage(
+    "result"
+  );
 
 }
 
 
 /* =====================================================
-   โหลดผลล่าสุด
+   โหลดผลเก่า
 ===================================================== */
 
-function updateResultFromTest(){
+function loadLastResult(){
 
   const saved =
     localStorage.getItem(
@@ -3080,14 +3697,21 @@ function updateResultFromTest(){
   try{
 
     const data =
-      JSON.parse(saved);
+      JSON.parse(
+        saved
+      );
 
 
     const eyeText =
+
       data.eye === "both"
+
         ? "สองข้าง"
+
         : data.eye === "left"
+
           ? "ตาซ้าย"
+
           : "ตาขวา";
 
 
@@ -3096,7 +3720,7 @@ function updateResultFromTest(){
         "finalTitle"
       )
       .textContent =
-      data.result;
+        data.result;
 
 
     document
@@ -3104,7 +3728,7 @@ function updateResultFromTest(){
         "finalDetail"
       )
       .textContent =
-      "ผลการคัดกรองล่าสุด";
+        "ผลการคัดกรองล่าสุด";
 
 
     document
@@ -3112,7 +3736,7 @@ function updateResultFromTest(){
         "visionValue"
       )
       .textContent =
-      data.acuity || "-";
+        data.acuity;
 
 
     document
@@ -3120,7 +3744,7 @@ function updateResultFromTest(){
         "refractionValue"
       )
       .textContent =
-      data.refraction || "-";
+        data.refraction;
 
 
     document
@@ -3128,7 +3752,7 @@ function updateResultFromTest(){
         "finalEye"
       )
       .textContent =
-      eyeText;
+        eyeText;
 
 
     document
@@ -3136,8 +3760,8 @@ function updateResultFromTest(){
         "finalScreen"
       )
       .textContent =
-      data.screenSize
-      + " นิ้ว";
+        data.screenSize
+        + " นิ้ว";
 
 
     document
@@ -3145,8 +3769,8 @@ function updateResultFromTest(){
         "finalDistance"
       )
       .textContent =
-      data.distance
-      + " ซม.";
+        data.distance
+        + " ซม.";
 
 
     document
@@ -3154,83 +3778,18 @@ function updateResultFromTest(){
         "finalScore"
       )
       .textContent =
-      data.score
-      + " / "
-      + data.total;
+        data.score
+        + " / "
+        + data.total;
 
   }
   catch(error){
 
     console.log(
-      "ไม่สามารถอ่านผลล่าสุดได้"
+      "ไม่สามารถโหลดผลได้"
     );
 
   }
-
-}
-
-
-/* =====================================================
-   เริ่มใหม่
-===================================================== */
-
-function resetTest(){
-
-  testQuestion = 0;
-
-  correctAnswers = 0;
-
-  wrongAnswers = 0;
-
-  testFinished = false;
-
-  document
-    .getElementById(
-      "liveResult"
-    )
-    .textContent =
-      "ยังไม่ได้ทำการทดสอบ";
-
-
-  document
-    .getElementById(
-      "testMessage"
-    )
-    .textContent =
-      "ตอบตามที่มองเห็นจริง ไม่ต้องเดา";
-
-
-  updateTestTitle();
-
-  showQuestion();
-
-}
-
-
-/* =====================================================
-   อัปเดตชื่อการทดสอบ
-===================================================== */
-
-function updateTestTitle(){
-
-  const title =
-    selectedEye === "both"
-
-      ? "ทดสอบการมองเห็นสองข้าง"
-
-      : selectedEye === "left"
-
-        ? "ทดสอบตาซ้าย"
-
-        : "ทดสอบตาขวา";
-
-
-  document
-    .getElementById(
-      "testTitle"
-    )
-    .textContent =
-      title;
 
 }
 
@@ -3244,14 +3803,16 @@ updateNotificationUI();
 loadFontSize();
 
 changeScreenSize(
-  document.getElementById(
-    "screenSize"
-  ).value
+  document
+    .getElementById(
+      "screenSize"
+    )
+    .value
 );
 
 resetTest();
 
-updateResultFromTest();
+loadLastResult();
 
 </script>
 
