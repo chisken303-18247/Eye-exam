@@ -1,0 +1,3259 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>วัดสายตา - Eye Care App</title>
+
+<style>
+
+:root{
+  --green:#0b9b43;
+  --green-dark:#087a35;
+  --green-light:#effaf3;
+  --line:#d7ebde;
+  --text:#173322;
+  --muted:#6f7d75;
+  --danger:#d64545;
+  --font-scale:1;
+}
+
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  background:#e9eee9;
+  font-family:Arial,"Noto Sans Thai",Tahoma,sans-serif;
+  color:var(--text);
+  font-size:calc(16px * var(--font-scale));
+  transition:.2s;
+}
+
+button,
+select{
+  font-family:inherit;
+}
+
+.phone{
+  width:390px;
+  max-width:100%;
+  min-height:820px;
+  margin:28px auto;
+  background:#fff;
+  border:7px solid var(--green-dark);
+  border-radius:42px;
+  overflow:hidden;
+  box-shadow:0 15px 40px #0002;
+  position:relative;
+}
+
+.status{
+  height:38px;
+  padding:10px 18px 0;
+  display:flex;
+  justify-content:space-between;
+  font-weight:700;
+  font-size:14px;
+}
+
+.screen{
+  padding:8px 18px 88px;
+  min-height:775px;
+}
+
+.page{
+  display:none;
+}
+
+.page.active{
+  display:block;
+}
+
+.header{
+  text-align:center;
+  padding:8px 0 16px;
+}
+
+.header h1{
+  margin:0;
+  color:var(--green);
+  font-size:38px;
+}
+
+.header p{
+  margin:5px 0;
+  color:#52605a;
+}
+
+.header strong{
+  color:var(--green);
+}
+
+.quick{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:13px 5px;
+  margin-bottom:14px;
+  box-shadow:0 4px 12px #0000000a;
+}
+
+.quick div{
+  text-align:center;
+  border-right:1px solid #e5eee8;
+  padding:2px 3px;
+}
+
+.quick div:last-child{
+  border:0;
+}
+
+.quick b{
+  display:block;
+  font-size:24px;
+  color:var(--green);
+  margin-bottom:5px;
+}
+
+.quick span{
+  font-size:10px;
+  line-height:1.25;
+}
+
+.card{
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:15px;
+  margin:12px 0;
+  background:#fff;
+}
+
+.card h2{
+  font-size:18px;
+  color:var(--green);
+  margin:0 0 10px;
+}
+
+.row{
+  display:flex;
+  gap:15px;
+  align-items:center;
+}
+
+.icon{
+  width:72px;
+  height:72px;
+  border-radius:50%;
+  background:var(--green-light);
+  display:grid;
+  place-items:center;
+  font-size:38px;
+  color:var(--green);
+  flex:none;
+}
+
+.range{
+  height:7px;
+  background:#d9eee0;
+  border-radius:9px;
+  position:relative;
+  margin:12px 0;
+}
+
+.range i{
+  display:block;
+  height:100%;
+  width:55%;
+  background:var(--green);
+  border-radius:9px;
+}
+
+.dot{
+  position:absolute;
+  top:50%;
+  left:55%;
+  transform:translate(-50%,-50%);
+  width:18px;
+  height:18px;
+  border-radius:50%;
+  background:var(--green);
+}
+
+.value{
+  text-align:center;
+  color:var(--green);
+  font-weight:700;
+}
+
+.btn{
+  border:1px solid var(--green);
+  border-radius:15px;
+  padding:15px;
+  margin:10px 0;
+  text-align:center;
+  font-size:17px;
+  font-weight:700;
+  cursor:pointer;
+  background:#fff;
+  color:var(--green);
+}
+
+.btn.primary{
+  background:var(--green);
+  color:#fff;
+}
+
+.btn:hover{
+  filter:brightness(.96);
+}
+
+.info{
+  background:var(--green-light);
+  border-radius:15px;
+  padding:13px;
+  margin-top:12px;
+  line-height:1.6;
+}
+
+.result{
+  padding:14px;
+  border-radius:15px;
+  background:var(--green-light);
+  margin:10px 0;
+  line-height:1.6;
+}
+
+.result strong{
+  color:var(--green);
+}
+
+.back{
+  border:0;
+  background:none;
+  color:var(--green);
+  font-size:15px;
+  font-weight:700;
+  cursor:pointer;
+  padding:4px 0 12px;
+}
+
+.nav{
+  position:absolute;
+  bottom:0;
+  left:0;
+  right:0;
+  background:#fff;
+  border-top:1px solid #dfe8e2;
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  padding:10px 5px 12px;
+}
+
+.nav button{
+  border:0;
+  background:none;
+  color:#8a9690;
+  font-size:11px;
+  cursor:pointer;
+}
+
+.nav button span{
+  display:block;
+  font-size:24px;
+  margin-bottom:3px;
+}
+
+.nav button.active{
+  color:var(--green);
+  font-weight:700;
+}
+
+/* ================= ตั้งค่า ================= */
+
+.setting{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  padding:16px 4px;
+  border-bottom:1px solid var(--line);
+}
+
+.setting:last-child{
+  border-bottom:0;
+}
+
+.setting-main{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.setting-icon{
+  width:40px;
+  height:40px;
+  border-radius:12px;
+  background:var(--green-light);
+  display:grid;
+  place-items:center;
+  color:var(--green);
+  font-size:20px;
+}
+
+.setting-title{
+  font-weight:700;
+}
+
+.setting-desc{
+  font-size:12px;
+  color:var(--muted);
+  margin-top:3px;
+}
+
+.switch{
+  width:48px;
+  height:27px;
+  border-radius:20px;
+  background:#b9c7bf;
+  position:relative;
+  cursor:pointer;
+  flex:none;
+  transition:.2s;
+}
+
+.switch:after{
+  content:"";
+  width:21px;
+  height:21px;
+  border-radius:50%;
+  background:#fff;
+  position:absolute;
+  top:3px;
+  left:3px;
+  box-shadow:0 1px 4px #0003;
+  transition:.2s;
+}
+
+.switch.on{
+  background:var(--green);
+}
+
+.switch.on:after{
+  left:24px;
+}
+
+.select{
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:9px;
+  color:var(--green-dark);
+  background:#fff;
+  cursor:pointer;
+}
+
+.click-row{
+  cursor:pointer;
+  border-radius:12px;
+}
+
+.click-row:hover{
+  background:#f6fbf7;
+}
+
+/* ================= Popup ================= */
+
+.modal-bg{
+  position:fixed;
+  inset:0;
+  background:#0007;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:50;
+  padding:20px;
+}
+
+.modal-bg.show{
+  display:flex;
+}
+
+.modal{
+  width:390px;
+  max-width:100%;
+  max-height:85vh;
+  overflow:auto;
+  background:#fff;
+  border-radius:22px;
+  padding:22px;
+  box-shadow:0 20px 60px #0004;
+}
+
+.modal h2{
+  color:var(--green);
+  margin-top:0;
+}
+
+.modal-close{
+  float:right;
+  border:0;
+  background:var(--green-light);
+  color:var(--green);
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  cursor:pointer;
+  font-size:18px;
+}
+
+.font-buttons{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  margin-top:12px;
+}
+
+.font-buttons button{
+  border:1px solid var(--line);
+  background:#fff;
+  color:var(--green-dark);
+  border-radius:12px;
+  padding:11px 5px;
+  cursor:pointer;
+}
+
+.font-buttons button.active{
+  background:var(--green);
+  color:#fff;
+}
+
+.access-list{
+  padding-left:20px;
+  line-height:1.8;
+}
+
+/* ================= ระบบวัดสายตา ================= */
+
+.screen-size-box{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-top:10px;
+}
+
+.screen-option{
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:12px;
+  background:#fff;
+  cursor:pointer;
+  text-align:center;
+}
+
+.screen-option.active{
+  border:2px solid var(--green);
+  background:var(--green-light);
+}
+
+.distance-box{
+  text-align:center;
+  padding:15px;
+  background:var(--green-light);
+  border-radius:15px;
+  margin-top:10px;
+}
+
+.distance-number{
+  font-size:32px;
+  font-weight:700;
+  color:var(--green);
+}
+
+.optotype-box{
+  border:1px solid #dfe5e1;
+  border-radius:18px;
+  height:250px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#fff;
+  margin:15px 0;
+  overflow:hidden;
+}
+
+#optotype{
+  font-family:Arial,sans-serif;
+  font-weight:700;
+  color:#000;
+  line-height:1;
+  user-select:none;
+}
+
+.answer-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:9px;
+  margin-top:10px;
+}
+
+.answer-btn{
+  border:1px solid var(--green);
+  border-radius:14px;
+  padding:13px 8px;
+  background:#fff;
+  color:var(--green);
+  font-size:18px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.answer-btn:hover{
+  background:var(--green-light);
+}
+
+.answer-btn.invisible{
+  grid-column:1 / -1;
+  color:#555;
+  border-color:#aaa;
+}
+
+.progress{
+  height:8px;
+  background:#dcebe1;
+  border-radius:10px;
+  overflow:hidden;
+  margin:10px 0;
+}
+
+.progress-bar{
+  height:100%;
+  width:0%;
+  background:var(--green);
+  transition:.3s;
+}
+
+.test-number{
+  display:flex;
+  justify-content:space-between;
+  font-size:13px;
+  color:var(--muted);
+}
+
+/* ================= มือถือ ================= */
+
+@media(max-width:430px){
+
+  body{
+    background:#fff;
+  }
+
+  .phone{
+    margin:0;
+    min-height:100vh;
+    border-width:4px;
+    border-radius:30px;
+  }
+
+  .screen{
+    min-height:calc(100vh - 45px);
+  }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="phone">
+
+  <!-- ================= แถบสถานะ ================= -->
+
+  <div class="status">
+    <span id="clock">09:41</span>
+    <span>▮▮▮　◉　100%</span>
+  </div>
+
+
+  <main class="screen">
+
+    <!-- ================= หน้าหลัก ================= -->
+
+    <section id="home" class="page active">
+
+      <div class="header">
+
+        <h1>วัดสายตา 👁</h1>
+
+        <p>
+          ตรวจการมองเห็นเบื้องต้น
+        </p>
+
+        <strong>
+          สำหรับทุกคน ทุกวัย
+        </strong>
+
+      </div>
+
+
+      <!-- เมนูแนะนำ -->
+
+      <div class="quick">
+
+        <div>
+          <b>👥</b>
+          <span>
+            สำหรับ<br>
+            ทุกกลุ่ม
+          </span>
+        </div>
+
+        <div>
+          <b>👓</b>
+          <span>
+            ใช้ง่าย<br>
+            ไม่ยุ่งยาก
+          </span>
+        </div>
+
+        <div>
+          <b>🛡</b>
+          <span>
+            ปลอดภัย<br>
+            เป็นส่วนตัว
+          </span>
+        </div>
+
+        <div>
+          <b>▮▮</b>
+          <span>
+            คัดกรอง<br>
+            การมองเห็น
+          </span>
+        </div>
+
+        <div
+          onclick="startVisionTest()"
+          style="cursor:pointer"
+        >
+          <b>◎</b>
+          <span>
+            วัดสายตา<br>
+            ทันที
+          </span>
+        </div>
+
+      </div>
+
+
+      <!-- ความเอียง -->
+
+      <div class="card">
+
+        <div class="row">
+
+          <div class="icon">
+            ก<br>
+            ขค
+          </div>
+
+          <div style="flex:1">
+
+            <h2>
+              สถานะความเอียงของสายตา
+            </h2>
+
+            <div
+              style="
+                display:flex;
+                justify-content:space-between;
+                font-size:12px;
+              "
+            >
+              <span>ปกติ</span>
+              <span>เล็กน้อย</span>
+              <span>มาก</span>
+            </div>
+
+            <div class="range">
+
+              <i></i>
+
+              <span class="dot"></span>
+
+            </div>
+
+            <div class="value">
+              ค่าตัวอย่าง 0.75 D
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- สายตาสั้น / ยาว -->
+
+      <div class="card">
+
+        <div class="row">
+
+          <div class="icon">
+            A
+            <span style="font-size:25px">
+              A
+            </span>
+          </div>
+
+          <div style="flex:1">
+
+            <h2>
+              ความยาวของสายตา
+            </h2>
+
+            <div
+              style="
+                display:flex;
+                justify-content:space-between;
+                font-size:12px;
+              "
+            >
+              <span>สั้น</span>
+              <span>ปกติ</span>
+              <span>ยาว</span>
+            </div>
+
+            <div class="range">
+
+              <i style="width:25%"></i>
+
+              <span
+                class="dot"
+                style="left:25%"
+              ></span>
+
+            </div>
+
+            <div class="value">
+              ตัวอย่าง สายตาสั้น -1.25 D
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- ปุ่มวัดสายตา -->
+
+      <div
+        class="btn primary"
+        onclick="startVisionTest()"
+      >
+        ◎　เริ่มวัดสายตา　›
+      </div>
+
+
+      <!-- ประวัติ -->
+
+      <div
+        class="btn"
+        onclick="showPage('result')"
+      >
+        ◷　ประวัติการวัด　›
+      </div>
+
+
+      <!-- คำแนะนำ -->
+
+      <div class="info">
+
+        <b style="color:var(--green)">
+          ⓘ　คำแนะนำ
+        </b>
+
+        <br>
+
+        ผลการทดสอบเป็นเพียงการคัดกรองเบื้องต้น
+        ไม่สามารถใช้แทนการวินิจฉัยของจักษุแพทย์
+        หากมองไม่ชัดหรือมีอาการผิดปกติ
+        ควรตรวจโดยผู้เชี่ยวชาญ
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= หน้าวัดสายตา ================= -->
+
+    <section id="visionTest" class="page">
+
+      <button
+        class="back"
+        onclick="showPage('home')"
+      >
+        ‹ กลับหน้าหลัก
+      </button>
+
+
+      <h1 style="color:var(--green)">
+        วัดสายตา
+      </h1>
+
+
+      <!-- เลือกขนาดหน้าจอ -->
+
+      <div class="card">
+
+        <h2>
+          📱 ขนาดหน้าจอ
+        </h2>
+
+        <p style="font-size:13px;color:var(--muted)">
+          เลือกขนาดหน้าจอของอุปกรณ์ที่กำลังใช้
+          เพื่อคำนวณระยะทดสอบให้เหมาะสม
+        </p>
+
+        <select
+          id="screenSize"
+          class="select"
+          style="width:100%"
+          onchange="changeScreenSize(this.value)"
+        >
+
+          <option value="6">6 นิ้ว</option>
+          <option value="6.5">6.5 นิ้ว</option>
+          <option value="7">7 นิ้ว</option>
+          <option value="8">8 นิ้ว</option>
+          <option value="9">9 นิ้ว</option>
+          <option value="10">10 นิ้ว</option>
+          <option value="11">11 นิ้ว</option>
+          <option value="12">12 นิ้ว</option>
+          <option value="13">13 นิ้ว</option>
+
+        </select>
+
+
+        <div class="distance-box">
+
+          <div>
+            แนะนำให้ถืออุปกรณ์ห่างจากตา
+          </div>
+
+          <div
+            class="distance-number"
+            id="distanceNumber"
+          >
+            40 ซม.
+          </div>
+
+          <div style="font-size:12px">
+            ใช้สายวัดเพื่อวัดระยะให้ใกล้เคียงที่สุด
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- ก่อนเริ่ม -->
+
+      <div class="info">
+
+        <b style="color:var(--green)">
+          ก่อนเริ่มการทดสอบ
+        </b>
+
+        <br>
+
+        1. อยู่ในที่มีแสงสว่างพอดี
+        <br>
+
+        2. ถือหน้าจอตามระยะที่กำหนด
+        <br>
+
+        3. หากต้องการวัดสายตาเปล่า
+        ให้ถอดแว่นออก
+        <br>
+
+        4. ห้ามขยับหน้าจอเข้าออกระหว่างทดสอบ
+
+      </div>
+
+
+      <!-- เลือกตา -->
+
+      <div class="card">
+
+        <h2>
+          เลือกตาที่ต้องการวัด
+        </h2>
+
+        <div class="font-buttons">
+
+          <button
+            id="eyeBoth"
+            class="active"
+            onclick="selectEye('both')"
+          >
+            สองข้าง
+          </button>
+
+          <button
+            id="eyeLeft"
+            onclick="selectEye('left')"
+          >
+            ตาซ้าย
+          </button>
+
+          <button
+            id="eyeRight"
+            onclick="selectEye('right')"
+          >
+            ตาขวา
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- การทดสอบ -->
+
+      <div class="card">
+
+        <h2 id="testTitle">
+          ทดสอบการมองเห็นสองข้าง
+        </h2>
+
+
+        <div class="test-number">
+
+          <span id="levelText">
+            ระดับเริ่มต้น
+          </span>
+
+          <span id="questionText">
+            1 / 12
+          </span>
+
+        </div>
+
+
+        <div class="progress">
+
+          <div
+            id="progressBar"
+            class="progress-bar"
+          ></div>
+
+        </div>
+
+
+        <!-- ตัวอักษร -->
+
+        <div class="optotype-box">
+
+          <div id="optotype">
+            E
+          </div>
+
+        </div>
+
+
+        <p
+          id="testInstruction"
+          style="
+            text-align:center;
+            color:var(--muted);
+          "
+        >
+          เลือกตัวอักษรที่เห็น
+        </p>
+
+
+        <!-- ตัวเลือก -->
+
+        <div class="answer-grid">
+
+          <button
+            class="answer-btn"
+            onclick="answerTest(0)"
+            id="answer0"
+          >
+            A
+          </button>
+
+          <button
+            class="answer-btn"
+            onclick="answerTest(1)"
+            id="answer1"
+          >
+            B
+          </button>
+
+          <button
+            class="answer-btn"
+            onclick="answerTest(2)"
+            id="answer2"
+          >
+            C
+          </button>
+
+          <button
+            class="answer-btn"
+            onclick="answerTest(3)"
+            id="answer3"
+          >
+            D
+          </button>
+
+          <button
+            class="answer-btn invisible"
+            onclick="answerTest(-1)"
+          >
+            👁 มองไม่เห็น
+          </button>
+
+        </div>
+
+
+        <!-- สถานะ -->
+
+        <div
+          id="testMessage"
+          style="
+            text-align:center;
+            color:var(--muted);
+            margin-top:12px;
+          "
+        >
+          ตอบตามที่มองเห็นจริง ไม่ต้องเดา
+        </div>
+
+      </div>
+
+
+      <!-- ผลสด -->
+
+      <div class="card">
+
+        <h2>
+          ผลการคัดกรอง
+        </h2>
+
+        <div
+          id="liveResult"
+          class="result"
+        >
+          ยังไม่ได้ทำการทดสอบ
+        </div>
+
+      </div>
+
+
+      <div
+        class="btn"
+        onclick="resetTest()"
+      >
+        ↻ เริ่มทดสอบใหม่
+      </div>
+
+
+      <div
+        class="btn primary"
+        onclick="finishTest()"
+      >
+        ดูผลการวัด ›
+      </div>
+
+
+      <div class="info">
+
+        <b style="color:var(--green)">
+          ⚠ สำคัญ
+        </b>
+
+        <br>
+
+        การทดสอบนี้เป็นการคัดกรองเบื้องต้น
+        ขนาดหน้าจอ ความละเอียดหน้าจอ
+        ระยะถืออุปกรณ์ และสภาพแสง
+        อาจทำให้ผลคลาดเคลื่อนได้
+
+        ไม่สามารถใช้แทนการตรวจโดยจักษุแพทย์
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= ผลการวัด ================= -->
+
+    <section id="result" class="page">
+
+      <button
+        class="back"
+        onclick="showPage('home')"
+      >
+        ‹ กลับหน้าหลัก
+      </button>
+
+
+      <h1 style="color:var(--green)">
+        ผลการวัด
+      </h1>
+
+
+      <div class="result">
+
+        <strong>
+          ผลการคัดกรอง
+        </strong>
+
+        <h2
+          id="finalTitle"
+          style="margin:7px 0"
+        >
+          ยังไม่มีผล
+        </h2>
+
+        <span id="finalDetail">
+          กรุณาทำการทดสอบก่อน
+        </span>
+
+      </div>
+
+
+      <div class="card">
+
+        <h2>
+          ระดับการมองเห็น
+        </h2>
+
+        <p>
+
+          <b
+            id="visionValue"
+            style="color:var(--green)"
+          >
+            -
+          </b>
+
+        </p>
+
+      </div>
+
+
+      <div class="card">
+
+        <h2>
+          ค่าคัดกรองสายตา
+        </h2>
+
+        <p>
+
+          <b
+            id="refractionValue"
+            style="color:var(--green)"
+          >
+            -
+          </b>
+
+        </p>
+
+        <p
+          style="
+            font-size:12px;
+            color:var(--muted);
+          "
+        >
+          ค่านี้เป็นการประมาณเพื่อการคัดกรอง
+          ไม่ใช่ค่าสำหรับตัดแว่น
+        </p>
+
+      </div>
+
+
+      <div class="card">
+
+        <h2>
+          รายละเอียดการทดสอบ
+        </h2>
+
+        <p>
+          ตาที่ทดสอบ:
+          <b id="finalEye">
+            -
+          </b>
+        </p>
+
+        <p>
+          ขนาดหน้าจอ:
+          <b id="finalScreen">
+            -
+          </b>
+        </p>
+
+        <p>
+          ระยะทดสอบ:
+          <b id="finalDistance">
+            -
+          </b>
+        </p>
+
+        <p>
+          ตอบถูก:
+          <b id="finalScore">
+            -
+          </b>
+        </p>
+
+      </div>
+
+
+      <div class="info">
+
+        ⚠ <b>หมายเหตุ</b>
+
+        <br>
+
+        ผลนี้ไม่ใช่การวินิจฉัยโรค
+        และไม่สามารถใช้แทนการตรวจสายตา
+        โดยจักษุแพทย์หรือนักทัศนมาตรได้
+
+        หากมองไม่ชัด ปวดตา เห็นภาพซ้อน
+        หรือมีความผิดปกติอื่น ๆ
+        ควรเข้ารับการตรวจโดยผู้เชี่ยวชาญ
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= ความรู้ ================= -->
+
+    <section id="knowledge" class="page">
+
+      <button
+        class="back"
+        onclick="showPage('home')"
+      >
+        ‹ กลับหน้าหลัก
+      </button>
+
+
+      <h1 style="color:var(--green)">
+        ความรู้
+      </h1>
+
+
+      <div class="card">
+
+        <h2>
+          👁 สุขภาพดวงตา
+        </h2>
+
+        <p>
+          พักสายตาเป็นระยะ
+          นอนหลับให้เพียงพอ
+          และหลีกเลี่ยงการจ้องหน้าจอ
+          เป็นเวลานาน
+        </p>
+
+      </div>
+
+
+      <div class="card">
+
+        <h2>
+          💻 การใช้หน้าจอ
+        </h2>
+
+        <p>
+          ลองใช้หลัก 20-20-20
+          คือทุก 20 นาที
+          มองสิ่งที่อยู่ไกลประมาณ 20 ฟุต
+          เป็นเวลา 20 วินาที
+        </p>
+
+      </div>
+
+
+      <div class="card">
+
+        <h2>
+          👓 การตรวจสายตา
+        </h2>
+
+        <p>
+          หากมองไม่ชัด ปวดตา
+          เห็นภาพซ้อน หรือมีอาการผิดปกติ
+          ควรเข้ารับการตรวจโดยผู้เชี่ยวชาญ
+        </p>
+
+      </div>
+
+
+      <div class="card">
+
+        <h2>
+          📱 การวัดด้วยหน้าจอ
+        </h2>
+
+        <p>
+          การทดสอบผ่านโทรศัพท์หรือแท็บเล็ต
+          ควรใช้ระยะห่างคงที่
+          และไม่ควรปรับขนาดหน้าเว็บ
+          ระหว่างการทดสอบ
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= ข้อมูล ================= -->
+
+    <section id="info" class="page">
+
+      <button
+        class="back"
+        onclick="showPage('home')"
+      >
+        ‹ กลับหน้าหลัก
+      </button>
+
+
+      <h1 style="color:var(--green)">
+        ข้อมูล
+      </h1>
+
+
+      <div class="card">
+
+        <h2>
+          เกี่ยวกับแอป
+        </h2>
+
+        <p>
+
+          “วัดสายตา”
+          เป็นแอปต้นแบบสำหรับคัดกรอง
+          การมองเห็นเบื้องต้น
+          และให้ความรู้เกี่ยวกับ
+          การดูแลดวงตา
+
+        </p>
+
+        <p>
+
+          <b>เวอร์ชัน:</b>
+          1.0.0
+
+        </p>
+
+      </div>
+
+
+      <div class="card">
+
+        <h2>
+          ความเป็นส่วนตัว
+        </h2>
+
+        <p>
+
+          ระบบต้นแบบนี้ไม่ได้ส่งข้อมูล
+          ออกไปยังเซิร์ฟเวอร์ภายนอก
+          ผลการทดสอบถูกเก็บไว้
+          ภายในเบราว์เซอร์ของผู้ใช้
+
+        </p>
+
+        <button
+          class="btn"
+          onclick="openPrivacy()"
+        >
+          ตรวจสอบความเป็นส่วนตัว
+        </button>
+
+      </div>
+
+
+      <div class="card">
+
+        <h2>
+          การเข้าถึง
+        </h2>
+
+        <p>
+
+          รองรับการปรับขนาดตัวอักษร
+          เพื่อช่วยให้ผู้ใช้สามารถ
+          อ่านข้อมูลได้สะดวกขึ้น
+
+        </p>
+
+        <button
+          class="btn"
+          onclick="openAccess()"
+        >
+          ดูการเข้าถึง
+        </button>
+
+      </div>
+
+
+      <div class="card">
+
+        <h2>
+          คำเตือน
+        </h2>
+
+        <p>
+
+          แอปนี้เป็นต้นแบบสำหรับ
+          การคัดกรองการมองเห็น
+          ไม่ควรใช้แทนการตรวจ
+          วินิจฉัยโดยผู้เชี่ยวชาญ
+
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= ตั้งค่า ================= -->
+
+    <section id="settings" class="page">
+
+      <button
+        class="back"
+        onclick="showPage('home')"
+      >
+        ‹ กลับหน้าหลัก
+      </button>
+
+
+      <h1 style="color:var(--green)">
+        ตั้งค่า
+      </h1>
+
+
+      <div class="card">
+
+
+        <!-- การแจ้งเตือน -->
+
+        <div class="setting">
+
+          <div class="setting-main">
+
+            <div class="setting-icon">
+              🔔
+            </div>
+
+            <div>
+
+              <div class="setting-title">
+                การแจ้งเตือน
+              </div>
+
+              <div
+                class="setting-desc"
+                id="notifyText"
+              >
+                เปิดการแจ้งเตือน
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div
+            id="notifySwitch"
+            class="switch on"
+            onclick="toggleNotify()"
+          ></div>
+
+        </div>
+
+
+        <!-- ความเป็นส่วนตัว -->
+
+        <div
+          class="setting click-row"
+          onclick="openPrivacy()"
+        >
+
+          <div class="setting-main">
+
+            <div class="setting-icon">
+              🔒
+            </div>
+
+            <div>
+
+              <div class="setting-title">
+                ความเป็นส่วนตัว
+              </div>
+
+              <div class="setting-desc">
+                ตรวจสอบสถานะข้อมูลส่วนตัว
+              </div>
+
+            </div>
+
+          </div>
+
+          <span>›</span>
+
+        </div>
+
+
+        <!-- ขนาดตัวอักษร -->
+
+        <div class="setting">
+
+          <div class="setting-main">
+
+            <div class="setting-icon">
+              🔤
+            </div>
+
+            <div>
+
+              <div class="setting-title">
+                ขนาดตัวอักษร
+              </div>
+
+              <div class="setting-desc">
+                เลือกขนาดที่เหมาะกับคุณ
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <select
+            id="fontSize"
+            class="select"
+            onchange="changeFont(this.value)"
+          >
+
+            <option value="small">
+              เล็ก
+            </option>
+
+            <option
+              value="normal"
+              selected
+            >
+              ปกติ
+            </option>
+
+            <option value="large">
+              ใหญ่
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <!-- การเข้าถึง -->
+
+        <div
+          class="setting click-row"
+          onclick="openAccess()"
+        >
+
+          <div class="setting-main">
+
+            <div class="setting-icon">
+              ♿
+            </div>
+
+            <div>
+
+              <div class="setting-title">
+                การเข้าถึง
+              </div>
+
+              <div class="setting-desc">
+                ปรับการแสดงผลให้เหมาะกับผู้ใช้
+              </div>
+
+            </div>
+
+          </div>
+
+          <span>›</span>
+
+        </div>
+
+
+        <!-- เกี่ยวกับแอป -->
+
+        <div
+          class="setting click-row"
+          onclick="openAbout()"
+        >
+
+          <div class="setting-main">
+
+            <div class="setting-icon">
+              ℹ️
+            </div>
+
+            <div>
+
+              <div class="setting-title">
+                เกี่ยวกับแอป
+              </div>
+
+              <div class="setting-desc">
+                เวอร์ชันและรายละเอียด
+              </div>
+
+            </div>
+
+          </div>
+
+          <span>›</span>
+
+        </div>
+
+      </div>
+
+
+      <div class="info">
+
+        <b style="color:var(--green)">
+          สถานะระบบ
+        </b>
+
+        <br>
+
+        การตั้งค่าถูกบันทึกไว้
+        ในเบราว์เซอร์ของเครื่องนี้
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- ================= เมนูด้านล่าง ================= -->
+
+  <nav class="nav">
+
+    <button
+      data-page="home"
+      class="active"
+    >
+      <span>⌂</span>
+      หน้าหลัก
+    </button>
+
+
+    <button data-page="result">
+
+      <span>▮▮</span>
+      ผลการวัด
+
+    </button>
+
+
+    <button data-page="knowledge">
+
+      <span>▤</span>
+      ความรู้
+
+    </button>
+
+
+    <button data-page="info">
+
+      <span>ⓘ</span>
+      ข้อมูล
+
+    </button>
+
+
+    <button data-page="settings">
+
+      <span>⚙</span>
+      ตั้งค่า
+
+    </button>
+
+  </nav>
+
+</div>
+
+
+<!-- ================= Popup ================= -->
+
+<div
+  id="modalBg"
+  class="modal-bg"
+  onclick="closeModal(event)"
+>
+
+  <div
+    class="modal"
+    onclick="event.stopPropagation()"
+  >
+
+    <button
+      class="modal-close"
+      onclick="closeModal()"
+    >
+      ×
+    </button>
+
+    <div id="modalContent"></div>
+
+  </div>
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   ระบบเปลี่ยนหน้า
+===================================================== */
+
+function showPage(id){
+
+  document
+    .querySelectorAll(".page")
+    .forEach(page=>{
+      page.classList.remove("active");
+    });
+
+  const target =
+    document.getElementById(id);
+
+  if(target){
+    target.classList.add("active");
+  }
+
+  document
+    .querySelectorAll(".nav button")
+    .forEach(button=>{
+
+      button.classList.toggle(
+        "active",
+        button.dataset.page === id
+      );
+
+    });
+
+  window.scrollTo(0,0);
+
+}
+
+
+/* =====================================================
+   เมนูด้านล่าง
+===================================================== */
+
+document
+  .querySelectorAll(".nav button")
+  .forEach(button=>{
+
+    button.addEventListener(
+      "click",
+      ()=>{
+        showPage(button.dataset.page);
+      }
+    );
+
+  });
+
+
+/* =====================================================
+   นาฬิกา
+===================================================== */
+
+function updateClock(){
+
+  const now = new Date();
+
+  const h =
+    String(now.getHours()).padStart(2,"0");
+
+  const m =
+    String(now.getMinutes()).padStart(2,"0");
+
+  const clock =
+    document.getElementById("clock");
+
+  if(clock){
+    clock.textContent =
+      h + ":" + m;
+  }
+
+}
+
+setInterval(updateClock,1000);
+
+updateClock();
+
+
+/* =====================================================
+   การแจ้งเตือน
+===================================================== */
+
+let notifications =
+  localStorage.getItem("eye_notifications")
+  !== "off";
+
+
+function updateNotificationUI(){
+
+  const sw =
+    document.getElementById(
+      "notifySwitch"
+    );
+
+  const text =
+    document.getElementById(
+      "notifyText"
+    );
+
+  if(!sw || !text){
+    return;
+  }
+
+  if(notifications){
+
+    sw.classList.add("on");
+
+    text.textContent =
+      "เปิดการแจ้งเตือน";
+
+  }else{
+
+    sw.classList.remove("on");
+
+    text.textContent =
+      "ปิดการแจ้งเตือน";
+
+  }
+
+}
+
+
+function toggleNotify(){
+
+  notifications =
+    !notifications;
+
+  localStorage.setItem(
+    "eye_notifications",
+    notifications
+      ? "on"
+      : "off"
+  );
+
+  updateNotificationUI();
+
+}
+
+
+/* =====================================================
+   ขนาดตัวอักษร
+===================================================== */
+
+function changeFont(size){
+
+  let scale = 1;
+
+  if(size === "small"){
+    scale = .88;
+  }
+
+  if(size === "normal"){
+    scale = 1;
+  }
+
+  if(size === "large"){
+    scale = 1.15;
+  }
+
+  document.documentElement
+    .style
+    .setProperty(
+      "--font-scale",
+      scale
+    );
+
+  localStorage.setItem(
+    "eye_font_size",
+    size
+  );
+
+  const select =
+    document.getElementById(
+      "fontSize"
+    );
+
+  if(select){
+    select.value = size;
+  }
+
+}
+
+
+function loadFontSize(){
+
+  const saved =
+    localStorage.getItem(
+      "eye_font_size"
+    )
+    || "normal";
+
+  changeFont(saved);
+
+}
+
+
+/* =====================================================
+   Popup
+===================================================== */
+
+const modalBg =
+  document.getElementById(
+    "modalBg"
+  );
+
+const modalContent =
+  document.getElementById(
+    "modalContent"
+  );
+
+
+function openModal(content){
+
+  modalContent.innerHTML =
+    content;
+
+  modalBg.classList.add(
+    "show"
+  );
+
+}
+
+
+function closeModal(event){
+
+  if(
+    event &&
+    event.target !== modalBg
+  ){
+    return;
+  }
+
+  modalBg.classList.remove(
+    "show"
+  );
+
+}
+
+
+/* =====================================================
+   ความเป็นส่วนตัว
+===================================================== */
+
+function openPrivacy(){
+
+  openModal(`
+
+    <h2>
+      🔒 ความเป็นส่วนตัว
+    </h2>
+
+    <div class="status-box">
+
+      <strong>
+        ✓ สถานะความเป็นส่วนตัว
+      </strong>
+
+      <p>
+        ข้อมูลการตั้งค่าและผลการทดสอบ
+        ของต้นแบบนี้ถูกจัดเก็บ
+        ภายในเบราว์เซอร์ของเครื่องนี้
+      </p>
+
+    </div>
+
+    <h3>
+      ข้อมูลที่ควรระวัง
+    </h3>
+
+    <ul>
+
+      <li>
+        ผลการวัดสายตา
+      </li>
+
+      <li>
+        ข้อมูลสุขภาพ
+        ที่ผู้ใช้อาจกรอกในอนาคต
+      </li>
+
+      <li>
+        ข้อมูลการใช้งานแอป
+      </li>
+
+    </ul>
+
+    <p>
+
+      เวอร์ชันต้นแบบนี้
+      ไม่ได้เชื่อมต่อฐานข้อมูล
+      หรือส่งข้อมูลสุขภาพ
+      ไปยังเซิร์ฟเวอร์ภายนอก
+
+    </p>
+
+    <div class="status-box">
+
+      ⚠ หากนำไปพัฒนาเป็นระบบจริง
+      ควรมีระบบยืนยันตัวตน
+      การเข้ารหัส
+      และนโยบายความเป็นส่วนตัว
+      ที่ชัดเจน
+
+    </div>
+
+  `);
+
+}
+
+
+/* =====================================================
+   การเข้าถึง
+===================================================== */
+
+function openAccess(){
+
+  openModal(`
+
+    <h2>
+      ♿ การเข้าถึง
+    </h2>
+
+    <p>
+      แอปออกแบบให้ผู้ใช้หลายกลุ่ม
+      สามารถใช้งานได้สะดวก
+    </p>
+
+    <h3>
+      ขนาดตัวอักษร
+    </h3>
+
+    <div class="font-buttons">
+
+      <button
+        onclick="setFontFromModal('small')"
+      >
+        เล็ก
+      </button>
+
+      <button
+        onclick="setFontFromModal('normal')"
+      >
+        ปกติ
+      </button>
+
+      <button
+        onclick="setFontFromModal('large')"
+      >
+        ใหญ่
+      </button>
+
+    </div>
+
+    <h3>
+      สิ่งที่รองรับ
+    </h3>
+
+    <ul class="access-list">
+
+      <li>
+        ปรับขนาดตัวอักษร
+      </li>
+
+      <li>
+        ปุ่มและเมนูขนาดใหญ่
+      </li>
+
+      <li>
+        สีเขียว-ขาวที่อ่านง่าย
+      </li>
+
+      <li>
+        โครงสร้างเมนูเรียบง่าย
+      </li>
+
+      <li>
+        รองรับโทรศัพท์และแท็บเล็ต
+      </li>
+
+    </ul>
+
+  `);
+
+}
+
+
+function setFontFromModal(size){
+
+  changeFont(size);
+
+  openAccess();
+
+}
+
+
+/* =====================================================
+   เกี่ยวกับแอป
+===================================================== */
+
+function openAbout(){
+
+  openModal(`
+
+    <h2>
+      ℹ️ เกี่ยวกับแอป
+    </h2>
+
+    <div class="card">
+
+      <h2>
+        วัดสายตา 👁
+      </h2>
+
+      <p>
+
+        แอปต้นแบบสำหรับตรวจคัดกรอง
+        การมองเห็นเบื้องต้น
+        และให้ความรู้เกี่ยวกับ
+        การดูแลสุขภาพดวงตา
+
+      </p>
+
+      <p>
+        <b>เวอร์ชัน:</b>
+        1.0.0
+      </p>
+
+      <p>
+        <b>รูปแบบ:</b>
+        Web App / HTML
+      </p>
+
+      <p>
+        <b>ธีม:</b>
+        Green & White
+      </p>
+
+    </div>
+
+    <div class="status-box">
+
+      ✓ หน้าหลัก
+      <br>
+
+      ✓ ผลการวัด
+      <br>
+
+      ✓ ความรู้
+      <br>
+
+      ✓ ข้อมูล
+      <br>
+
+      ✓ ตั้งค่า
+      <br>
+
+      ✓ การแจ้งเตือน
+      <br>
+
+      ✓ ความเป็นส่วนตัว
+      <br>
+
+      ✓ การเข้าถึง
+      <br>
+
+      ✓ ปรับขนาดตัวอักษร
+      <br>
+
+      ✓ วัดสายตา A-Z
+
+    </div>
+
+  `);
+
+}
+
+
+/* =====================================================
+   ระบบวัดสายตา
+===================================================== */
+
+let selectedEye = "both";
+
+let screenSize = 6;
+
+let testQuestion = 0;
+
+let correctAnswers = 0;
+
+let wrongAnswers = 0;
+
+let currentLetter = "";
+
+let currentOptions = [];
+
+let testFinished = false;
+
+
+/* -----------------------------------------------------
+   ระยะทดสอบตามขนาดหน้าจอ
+
+   เป็นค่าประมาณสำหรับต้นแบบ
+   ผู้ใช้ควรวัดระยะจริงด้วยสายวัด
+----------------------------------------------------- */
+
+const screenDistances = {
+
+  6: 40,
+
+  6.5: 41,
+
+  7: 42,
+
+  8: 43,
+
+  9: 45,
+
+  10: 47,
+
+  11: 49,
+
+  12: 51,
+
+  13: 53
+
+};
+
+
+/* -----------------------------------------------------
+   ระดับขนาดตัวอักษร
+
+   เริ่มใหญ่และค่อย ๆ เล็ก
+----------------------------------------------------- */
+
+const testLevels = [
+
+  {
+    name:"ระดับ 1 • ใหญ่มาก",
+    size:82
+  },
+
+  {
+    name:"ระดับ 2 • ใหญ่",
+    size:70
+  },
+
+  {
+    name:"ระดับ 3 • ค่อนข้างใหญ่",
+    size:59
+  },
+
+  {
+    name:"ระดับ 4 • ปานกลาง",
+    size:49
+  },
+
+  {
+    name:"ระดับ 5 • ปานกลาง",
+    size:41
+  },
+
+  {
+    name:"ระดับ 6 • เล็ก",
+    size:34
+  },
+
+  {
+    name:"ระดับ 7 • เล็กมาก",
+    size:28
+  },
+
+  {
+    name:"ระดับ 8 • ละเอียด",
+    size:23
+  },
+
+  {
+    name:"ระดับ 9 • ละเอียดมาก",
+    size:19
+  },
+
+  {
+    name:"ระดับ 10 • ยาก",
+    size:16
+  },
+
+  {
+    name:"ระดับ 11 • ยากมาก",
+    size:14
+  },
+
+  {
+    name:"ระดับ 12 • ละเอียดที่สุด",
+    size:12
+  }
+
+];
+
+
+/* =====================================================
+   ตัวอักษร A-Z
+===================================================== */
+
+const alphabet =
+  "ABCDEFGHJKLMNPQRSTUVWXYZ"
+  .split("");
+
+
+/* =====================================================
+   เริ่มการทดสอบ
+===================================================== */
+
+function startVisionTest(){
+
+  resetTest();
+
+  showPage("visionTest");
+
+}
+
+
+/* =====================================================
+   เปลี่ยนขนาดหน้าจอ
+===================================================== */
+
+function changeScreenSize(size){
+
+  screenSize =
+    parseFloat(size);
+
+  const distance =
+    screenDistances[screenSize]
+    || 40;
+
+  document
+    .getElementById(
+      "distanceNumber"
+    )
+    .textContent =
+      distance + " ซม.";
+
+}
+
+
+/* =====================================================
+   เลือกตา
+===================================================== */
+
+function selectEye(eye){
+
+  selectedEye = eye;
+
+  document
+    .querySelectorAll(
+      "#visionTest .font-buttons button"
+    )
+    .forEach(button=>{
+
+      button.classList.remove(
+        "active"
+      );
+
+    });
+
+
+  const id =
+    eye === "both"
+      ? "eyeBoth"
+      : eye === "left"
+        ? "eyeLeft"
+        : "eyeRight";
+
+
+  document
+    .getElementById(id)
+    .classList.add("active");
+
+
+  resetTest();
+
+}
+
+
+/* =====================================================
+   สุ่มตัวอักษร
+===================================================== */
+
+function randomLetter(){
+
+  return alphabet[
+    Math.floor(
+      Math.random()
+      * alphabet.length
+    )
+  ];
+
+}
+
+
+/* =====================================================
+   สุ่มตัวเลือกคำตอบ
+===================================================== */
+
+function createOptions(correct){
+
+  let options = [correct];
+
+  while(options.length < 4){
+
+    const letter =
+      randomLetter();
+
+    if(
+      !options.includes(letter)
+    ){
+      options.push(letter);
+    }
+
+  }
+
+
+  /* สลับตำแหน่ง */
+
+  for(
+    let i=options.length-1;
+    i>0;
+    i--
+  ){
+
+    const j =
+      Math.floor(
+        Math.random()*(i+1)
+      );
+
+    [
+      options[i],
+      options[j]
+    ] =
+    [
+      options[j],
+      options[i]
+    ];
+
+  }
+
+  return options;
+
+}
+
+
+/* =====================================================
+   แสดงคำถาม
+===================================================== */
+
+function showQuestion(){
+
+  if(
+    testQuestion >=
+    testLevels.length
+  ){
+    finishTest();
+    return;
+  }
+
+
+  const level =
+    testLevels[testQuestion];
+
+
+  currentLetter =
+    randomLetter();
+
+
+  currentOptions =
+    createOptions(
+      currentLetter
+    );
+
+
+  const optotype =
+    document.getElementById(
+      "optotype"
+    );
+
+
+  optotype.textContent =
+    currentLetter;
+
+
+  optotype.style.fontSize =
+    level.size + "px";
+
+
+  document
+    .getElementById(
+      "levelText"
+    )
+    .textContent =
+      level.name;
+
+
+  document
+    .getElementById(
+      "questionText"
+    )
+    .textContent =
+      (testQuestion+1)
+      + " / "
+      + testLevels.length;
+
+
+  const progress =
+    (
+      testQuestion /
+      testLevels.length
+    ) * 100;
+
+
+  document
+    .getElementById(
+      "progressBar"
+    )
+    .style.width =
+      progress + "%";
+
+
+  for(
+    let i=0;
+    i<4;
+    i++
+  ){
+
+    const button =
+      document.getElementById(
+        "answer"+i
+      );
+
+    button.textContent =
+      currentOptions[i];
+
+  }
+
+
+  document
+    .getElementById(
+      "testMessage"
+    )
+    .textContent =
+      "ตอบตามที่มองเห็นจริง ไม่ต้องเดา";
+
+
+  document
+    .getElementById(
+      "liveResult"
+    )
+    .textContent =
+      "กำลังทดสอบ...";
+
+}
+
+
+/* =====================================================
+   ตอบคำถาม
+===================================================== */
+
+function answerTest(index){
+
+  if(testFinished){
+    return;
+  }
+
+
+  let isCorrect = false;
+
+
+  if(index === -1){
+
+    /*
+      มองไม่เห็น
+      ถือว่าไม่ผ่านระดับนั้น
+    */
+
+    isCorrect = false;
+
+  }else{
+
+    isCorrect =
+      currentOptions[index]
+      === currentLetter;
+
+  }
+
+
+  if(isCorrect){
+
+    correctAnswers++;
+
+    document
+      .getElementById(
+        "testMessage"
+      )
+      .innerHTML =
+      '<span style="color:var(--green);font-weight:700">✓ ถูกต้อง</span>';
+
+  }else{
+
+    wrongAnswers++;
+
+    document
+      .getElementById(
+        "testMessage"
+      )
+      .innerHTML =
+      '<span style="color:var(--danger);font-weight:700">✕ ไม่ถูกต้อง</span>';
+
+  }
+
+
+  /*
+    ไปข้อถัดไป
+  */
+
+  testQuestion++;
+
+
+  /*
+    หากผิดหลายครั้งในช่วงตัวเล็ก
+    ให้หยุดการทดสอบได้เร็วขึ้น
+  */
+
+  if(
+    wrongAnswers >= 4 &&
+    testQuestion >= 5
+  ){
+
+    setTimeout(()=>{
+      finishTest();
+    },450);
+
+    return;
+
+  }
+
+
+  if(
+    testQuestion >=
+    testLevels.length
+  ){
+
+    setTimeout(()=>{
+      finishTest();
+    },450);
+
+    return;
+
+  }
+
+
+  setTimeout(()=>{
+
+    showQuestion();
+
+  },450);
+
+}
+
+
+/* =====================================================
+   ประเมินผล
+===================================================== */
+
+function estimateVision(){
+
+  const total =
+    testQuestion || 1;
+
+
+  const score =
+    correctAnswers / total;
+
+
+  /*
+    ระดับสูงสุดที่ทำได้
+  */
+
+  let passedLevel =
+    0;
+
+
+  /*
+    หา level จากจำนวนคำตอบที่ถูก
+  */
+
+  if(correctAnswers >= 11){
+    passedLevel = 11;
+  }
+  else if(correctAnswers >= 10){
+    passedLevel = 10;
+  }
+  else if(correctAnswers >= 9){
+    passedLevel = 9;
+  }
+  else if(correctAnswers >= 8){
+    passedLevel = 8;
+  }
+  else if(correctAnswers >= 7){
+    passedLevel = 7;
+  }
+  else if(correctAnswers >= 6){
+    passedLevel = 6;
+  }
+  else if(correctAnswers >= 5){
+    passedLevel = 5;
+  }
+  else if(correctAnswers >= 4){
+    passedLevel = 4;
+  }
+  else if(correctAnswers >= 3){
+    passedLevel = 3;
+  }
+  else if(correctAnswers >= 2){
+    passedLevel = 2;
+  }
+  else if(correctAnswers >= 1){
+    passedLevel = 1;
+  }
+
+
+  /*
+    ประมาณระดับการมองเห็น
+  */
+
+  let acuity =
+    "ประมาณ 20/20–20/25";
+
+  if(passedLevel <= 2){
+    acuity =
+      "ประมาณ 20/80 ขึ้นไป";
+  }
+  else if(passedLevel <= 4){
+    acuity =
+      "ประมาณ 20/50–20/70";
+  }
+  else if(passedLevel <= 6){
+    acuity =
+      "ประมาณ 20/35–20/50";
+  }
+  else if(passedLevel <= 8){
+    acuity =
+      "ประมาณ 20/25–20/30";
+  }
+  else{
+    acuity =
+      "ประมาณ 20/20–20/25";
+  }
+
+
+  /*
+    ประเมินค่าคัดกรองแบบหยาบ
+
+    หมายเหตุ:
+    ไม่ใช่ค่าจริงสำหรับการตัดแว่น
+  */
+
+  let refraction =
+    "ใกล้เคียงปกติ";
+
+
+  if(passedLevel <= 2){
+
+    refraction =
+      "อาจมีค่าสายตาผิดปกติค่อนข้างมาก";
+
+  }
+  else if(passedLevel <= 4){
+
+    refraction =
+      "อาจมีค่าสายตาผิดปกติระดับหนึ่ง";
+
+  }
+  else if(passedLevel <= 6){
+
+    refraction =
+      "อาจมีค่าสายตาผิดปกติเล็กน้อย";
+
+  }
+  else{
+
+    refraction =
+      "ไม่พบความผิดปกติเด่นชัดจากการคัดกรอง";
+
+  }
+
+
+  /*
+    ข้อความสรุป
+  */
+
+  let title =
+    "การมองเห็นอยู่ในเกณฑ์ดี";
+
+
+  let detail =
+    "สามารถอ่านตัวอักษรขนาดเล็กได้ดี";
+
+
+  if(
+    score < .65
+  ){
+
+    title =
+      "ควรตรวจสายตาเพิ่มเติม";
+
+    detail =
+      "พบข้อผิดพลาดหลายครั้งในการคัดกรอง";
+
+  }
+
+
+  if(
+    score < .45
+  ){
+
+    title =
+      "แนะนำให้ตรวจสายตาโดยผู้เชี่ยวชาญ";
+
+    detail =
+      "การมองเห็นระดับเล็กมีความคลาดเคลื่อนหลายครั้ง";
+
+  }
+
+
+  return {
+
+    title:title,
+
+    detail:detail,
+
+    acuity:acuity,
+
+    refraction:refraction,
+
+    score:score,
+
+    passedLevel:passedLevel
+
+  };
+
+}
+
+
+/* =====================================================
+   จบการทดสอบ
+===================================================== */
+
+function finishTest(){
+
+  if(testFinished){
+    return;
+  }
+
+
+  testFinished = true;
+
+
+  const result =
+    estimateVision();
+
+
+  const eyeText =
+    selectedEye === "both"
+      ? "สองข้าง"
+      : selectedEye === "left"
+        ? "ตาซ้าย"
+        : "ตาขวา";
+
+
+  const distance =
+    screenDistances[screenSize]
+    || 40;
+
+
+  /*
+    แสดงผลหน้า Result
+  */
+
+  document
+    .getElementById(
+      "finalTitle"
+    )
+    .textContent =
+      result.title;
+
+
+  document
+    .getElementById(
+      "finalDetail"
+    )
+    .textContent =
+      result.detail;
+
+
+  document
+    .getElementById(
+      "visionValue"
+    )
+    .textContent =
+      result.acuity;
+
+
+  document
+    .getElementById(
+      "refractionValue"
+    )
+    .textContent =
+      result.refraction;
+
+
+  document
+    .getElementById(
+      "finalEye"
+    )
+    .textContent =
+      eyeText;
+
+
+  document
+    .getElementById(
+      "finalScreen"
+    )
+    .textContent =
+      screenSize + " นิ้ว";
+
+
+  document
+    .getElementById(
+      "finalDistance"
+    )
+    .textContent =
+      distance + " ซม.";
+
+
+  document
+    .getElementById(
+      "finalScore"
+    )
+    .textContent =
+      correctAnswers
+      + " / "
+      + testQuestion;
+
+
+  /*
+    แสดงผลสด
+  */
+
+  document
+    .getElementById(
+      "liveResult"
+    )
+    .innerHTML =
+
+      "<strong>"
+      + result.title
+      + "</strong><br>"
+      + result.detail
+      + "<br>"
+      + "ระดับการมองเห็น: "
+      + result.acuity
+      + "<br>"
+      + "ตอบถูก "
+      + correctAnswers
+      + " จาก "
+      + testQuestion
+      + " ข้อ";
+
+
+  document
+    .getElementById(
+      "testMessage"
+    )
+    .innerHTML =
+      '<span style="color:var(--green);font-weight:700">✓ ทดสอบเสร็จแล้ว</span>';
+
+
+  /*
+    บันทึกผล
+  */
+
+  localStorage.setItem(
+    "last_eye_test",
+    JSON.stringify({
+
+      eye:selectedEye,
+
+      screenSize:screenSize,
+
+      distance:distance,
+
+      score:correctAnswers,
+
+      wrong:wrongAnswers,
+
+      total:testQuestion,
+
+      result:result.title,
+
+      acuity:result.acuity,
+
+      refraction:result.refraction,
+
+      time:
+        new Date()
+          .toLocaleString("th-TH")
+
+    })
+  );
+
+
+  showPage("result");
+
+}
+
+
+/* =====================================================
+   โหลดผลล่าสุด
+===================================================== */
+
+function updateResultFromTest(){
+
+  const saved =
+    localStorage.getItem(
+      "last_eye_test"
+    );
+
+
+  if(!saved){
+    return;
+  }
+
+
+  try{
+
+    const data =
+      JSON.parse(saved);
+
+
+    const eyeText =
+      data.eye === "both"
+        ? "สองข้าง"
+        : data.eye === "left"
+          ? "ตาซ้าย"
+          : "ตาขวา";
+
+
+    document
+      .getElementById(
+        "finalTitle"
+      )
+      .textContent =
+      data.result;
+
+
+    document
+      .getElementById(
+        "finalDetail"
+      )
+      .textContent =
+      "ผลการคัดกรองล่าสุด";
+
+
+    document
+      .getElementById(
+        "visionValue"
+      )
+      .textContent =
+      data.acuity || "-";
+
+
+    document
+      .getElementById(
+        "refractionValue"
+      )
+      .textContent =
+      data.refraction || "-";
+
+
+    document
+      .getElementById(
+        "finalEye"
+      )
+      .textContent =
+      eyeText;
+
+
+    document
+      .getElementById(
+        "finalScreen"
+      )
+      .textContent =
+      data.screenSize
+      + " นิ้ว";
+
+
+    document
+      .getElementById(
+        "finalDistance"
+      )
+      .textContent =
+      data.distance
+      + " ซม.";
+
+
+    document
+      .getElementById(
+        "finalScore"
+      )
+      .textContent =
+      data.score
+      + " / "
+      + data.total;
+
+  }
+  catch(error){
+
+    console.log(
+      "ไม่สามารถอ่านผลล่าสุดได้"
+    );
+
+  }
+
+}
+
+
+/* =====================================================
+   เริ่มใหม่
+===================================================== */
+
+function resetTest(){
+
+  testQuestion = 0;
+
+  correctAnswers = 0;
+
+  wrongAnswers = 0;
+
+  testFinished = false;
+
+  document
+    .getElementById(
+      "liveResult"
+    )
+    .textContent =
+      "ยังไม่ได้ทำการทดสอบ";
+
+
+  document
+    .getElementById(
+      "testMessage"
+    )
+    .textContent =
+      "ตอบตามที่มองเห็นจริง ไม่ต้องเดา";
+
+
+  updateTestTitle();
+
+  showQuestion();
+
+}
+
+
+/* =====================================================
+   อัปเดตชื่อการทดสอบ
+===================================================== */
+
+function updateTestTitle(){
+
+  const title =
+    selectedEye === "both"
+
+      ? "ทดสอบการมองเห็นสองข้าง"
+
+      : selectedEye === "left"
+
+        ? "ทดสอบตาซ้าย"
+
+        : "ทดสอบตาขวา";
+
+
+  document
+    .getElementById(
+      "testTitle"
+    )
+    .textContent =
+      title;
+
+}
+
+
+/* =====================================================
+   เริ่มระบบ
+===================================================== */
+
+updateNotificationUI();
+
+loadFontSize();
+
+changeScreenSize(
+  document.getElementById(
+    "screenSize"
+  ).value
+);
+
+resetTest();
+
+updateResultFromTest();
+
+</script>
+
+</body>
+</html>
