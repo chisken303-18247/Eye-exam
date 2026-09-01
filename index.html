@@ -655,6 +655,24 @@ select{
   color:var(--muted);
 }
 
+/* ================= รูปภาพออนไลน์ ================= */
+
+.vision-image{
+  width:100%;
+  height:190px;
+  object-fit:cover;
+  border-radius:16px;
+  display:block;
+  margin:10px 0 14px;
+}
+
+.image-caption{
+  font-size:11px;
+  color:var(--muted);
+  text-align:center;
+  line-height:1.5;
+}
+
 /* ================= มือถือ ================= */
 
 @media(max-width:430px){
@@ -1721,6 +1739,28 @@ select{
       </h1>
 
 
+      <!-- รูปออนไลน์เกี่ยวกับการวัดสายตา -->
+
+      <div class="card">
+
+        <h2>
+          👁 การตรวจสายตา
+        </h2>
+
+        <img
+          class="vision-image"
+          src="https://images.unsplash.com/photo-1574258495973-f010dfbb5371?auto=format&fit=crop&w=900&q=80"
+          alt="ภาพแว่นตาและการมองเห็น"
+          loading="lazy"
+        >
+
+        <div class="image-caption">
+          ภาพประกอบเกี่ยวกับการดูแลสายตาและการมองเห็น
+        </div>
+
+      </div>
+
+
       <div class="card">
 
         <h2>
@@ -2326,20 +2366,18 @@ function confirmPayment(){
   */
 
 
-  document
-    .querySelector(
-      ".pay-button"
-    )
-    .disabled =
-      true;
+  const payButton =
+    document.querySelector(
+      "#paymentForm .pay-button"
+    );
 
 
-  document
-    .querySelector(
-      ".pay-button"
-    )
-    .textContent =
-      "กำลังตรวจสอบการชำระเงิน...";
+  payButton.disabled =
+    true;
+
+
+  payButton.textContent =
+    "กำลังตรวจสอบการชำระเงิน...";
 
 
   setTimeout(()=>{
@@ -2401,12 +2439,12 @@ function confirmPayment(){
       );
 
 
-    document
-      .querySelector(
-        ".pay-button"
-      )
-      .disabled =
-        false;
+    payButton.disabled =
+      false;
+
+
+    payButton.textContent =
+      "💳 ยืนยันการชำระเงิน 5 บาท";
 
 
   },1000);
