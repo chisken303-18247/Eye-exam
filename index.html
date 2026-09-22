@@ -1,8 +1,13 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
 
 <title>วัดสายตา - Eye Care App</title>
 
@@ -34,8 +39,13 @@ body{
 }
 
 button,
-select{
+select,
+input{
   font-family:inherit;
+}
+
+button{
+  -webkit-tap-highlight-color:transparent;
 }
 
 .phone{
@@ -61,7 +71,7 @@ select{
 }
 
 .screen{
-  padding:8px 18px 88px;
+  padding:8px 18px 105px;
   min-height:775px;
 }
 
@@ -248,7 +258,52 @@ select{
   padding:4px 0 12px;
 }
 
-/* ================= เมนูด้านล่าง ================= */
+/* =====================================================
+   USER BAR
+===================================================== */
+
+.user-bar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:8px;
+  padding:4px 15px 8px;
+}
+
+.user-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  background:var(--green-light);
+  color:var(--green-dark);
+  border-radius:20px;
+  padding:6px 10px;
+  font-size:11px;
+  font-weight:700;
+  min-width:0;
+}
+
+.user-badge span{
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+.logout-btn{
+  border:0;
+  background:#fff0f0;
+  color:var(--danger);
+  border-radius:10px;
+  padding:7px 10px;
+  cursor:pointer;
+  font-size:11px;
+  font-weight:700;
+  flex:none;
+}
+
+/* =====================================================
+   BOTTOM NAV
+===================================================== */
 
 .nav{
   position:absolute;
@@ -260,6 +315,7 @@ select{
   display:grid;
   grid-template-columns:repeat(5,1fr);
   padding:10px 5px 12px;
+  z-index:10;
 }
 
 .nav button{
@@ -281,7 +337,9 @@ select{
   font-weight:700;
 }
 
-/* ================= ตั้งค่า ================= */
+/* =====================================================
+   SETTINGS
+===================================================== */
 
 .setting{
   display:flex;
@@ -300,6 +358,7 @@ select{
   display:flex;
   align-items:center;
   gap:12px;
+  min-width:0;
 }
 
 .setting-icon{
@@ -311,6 +370,7 @@ select{
   place-items:center;
   color:var(--green);
   font-size:20px;
+  flex:none;
 }
 
 .setting-title{
@@ -364,7 +424,9 @@ select{
   cursor:pointer;
 }
 
-/* ================= Popup ================= */
+/* =====================================================
+   MODAL
+===================================================== */
 
 .modal-bg{
   position:fixed;
@@ -373,7 +435,7 @@ select{
   display:none;
   align-items:center;
   justify-content:center;
-  z-index:50;
+  z-index:150;
   padding:20px;
 }
 
@@ -430,7 +492,132 @@ select{
   color:#fff;
 }
 
-/* ================= ระบบชำระเงิน ================= */
+/* =====================================================
+   LOGIN
+===================================================== */
+
+.login-overlay{
+  position:fixed;
+  inset:0;
+  background:#e9eee9;
+  z-index:300;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+
+.login-overlay.hidden{
+  display:none;
+}
+
+.login-card{
+  width:390px;
+  max-width:100%;
+  background:#fff;
+  border-radius:28px;
+  padding:25px 22px;
+  box-shadow:0 20px 60px #0003;
+  border:1px solid var(--line);
+}
+
+.login-logo{
+  width:80px;
+  height:80px;
+  margin:0 auto 12px;
+  border-radius:50%;
+  background:var(--green-light);
+  display:grid;
+  place-items:center;
+  font-size:42px;
+}
+
+.login-card h1{
+  text-align:center;
+  color:var(--green);
+  margin:8px 0;
+}
+
+.login-card > p{
+  text-align:center;
+  color:var(--muted);
+}
+
+.login-form{
+  margin-top:20px;
+}
+
+.login-label{
+  display:block;
+  font-weight:700;
+  margin:13px 0 6px;
+}
+
+.login-input{
+  width:100%;
+  padding:14px;
+  border:1px solid var(--line);
+  border-radius:12px;
+  outline:none;
+  font-size:16px;
+}
+
+.login-input:focus{
+  border-color:var(--green);
+  box-shadow:0 0 0 3px #0b9b4315;
+}
+
+.role-selector{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:7px;
+  margin:8px 0 15px;
+}
+
+.role-button{
+  padding:11px 5px;
+  border:1px solid var(--line);
+  border-radius:12px;
+  background:#fff;
+  color:var(--green-dark);
+  cursor:pointer;
+  font-weight:700;
+  font-size:12px;
+}
+
+.role-button.active{
+  background:var(--green);
+  color:#fff;
+  border-color:var(--green);
+}
+
+.login-error{
+  display:none;
+  background:#fff0f0;
+  color:var(--danger);
+  border-radius:12px;
+  padding:11px;
+  margin:10px 0;
+  font-size:13px;
+}
+
+.login-error.show{
+  display:block;
+}
+
+.role-note{
+  background:#f7fbf8;
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:10px;
+  font-size:12px;
+  color:var(--muted);
+  margin-top:10px;
+}
+
+/* =====================================================
+   PAYMENT
+===================================================== */
 
 .payment-overlay{
   position:fixed;
@@ -569,7 +756,9 @@ select{
   margin-top:7px;
 }
 
-/* ================= ระบบวัดสายตา ================= */
+/* =====================================================
+   VISION TEST
+===================================================== */
 
 .distance-box{
   text-align:center;
@@ -655,7 +844,9 @@ select{
   color:var(--muted);
 }
 
-/* ================= รูปภาพออนไลน์ ================= */
+/* =====================================================
+   IMAGE
+===================================================== */
 
 .vision-image{
   width:100%;
@@ -673,7 +864,86 @@ select{
   line-height:1.5;
 }
 
-/* ================= มือถือ ================= */
+/* =====================================================
+   ADMIN
+===================================================== */
+
+.admin-stat{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  margin:12px 0;
+}
+
+.admin-stat div{
+  background:var(--green-light);
+  border-radius:12px;
+  padding:12px 5px;
+  text-align:center;
+}
+
+.admin-stat b{
+  display:block;
+  font-size:22px;
+  color:var(--green);
+}
+
+.admin-card{
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:14px;
+  margin:10px 0;
+  background:#fff;
+}
+
+.admin-card h2{
+  color:var(--green);
+  font-size:18px;
+  margin-top:0;
+}
+
+.admin-user-row{
+  padding:10px 0;
+  border-bottom:1px solid var(--line);
+}
+
+.admin-user-row:last-child{
+  border-bottom:0;
+}
+
+.admin-test-row{
+  padding:10px 0;
+  border-bottom:1px solid var(--line);
+  font-size:13px;
+}
+
+.admin-test-row:last-child{
+  border-bottom:0;
+}
+
+.free-badge{
+  display:inline-block;
+  background:#e7f8ed;
+  color:var(--green-dark);
+  padding:4px 8px;
+  border-radius:10px;
+  font-size:10px;
+  font-weight:700;
+}
+
+.paid-badge{
+  display:inline-block;
+  background:#fff7e6;
+  color:#8a6500;
+  padding:4px 8px;
+  border-radius:10px;
+  font-size:10px;
+  font-weight:700;
+}
+
+/* =====================================================
+   MOBILE
+===================================================== */
 
 @media(max-width:430px){
 
@@ -697,11 +967,153 @@ select{
 </style>
 </head>
 
+
 <body>
 
 
 <!-- =====================================================
-     ระบบชำระเงิน 5 บาท
+     LOGIN
+===================================================== -->
+
+<div
+  id="loginOverlay"
+  class="login-overlay"
+>
+
+  <div class="login-card">
+
+    <div class="login-logo">
+      👁
+    </div>
+
+    <h1>
+      วัดสายตา
+    </h1>
+
+    <p>
+      กรุณาเข้าสู่ระบบก่อนใช้งาน
+    </p>
+
+
+    <div class="role-selector">
+
+      <button
+        id="roleCustomer"
+        class="role-button active"
+        onclick="selectLoginRole('customer')"
+      >
+        👤 ลูกค้า
+      </button>
+
+      <button
+        id="roleMedical"
+        class="role-button"
+        onclick="selectLoginRole('medical')"
+      >
+        🩺 บุคลากร
+      </button>
+
+      <button
+        id="roleAdmin"
+        class="role-button"
+        onclick="selectLoginRole('admin')"
+      >
+        ⚙️ แอดมิน
+      </button>
+
+    </div>
+
+
+    <div
+      id="roleNote"
+      class="role-note"
+    >
+      ลูกค้าสามารถใช้งานแอปได้โดยชำระค่าบริการ
+      5 บาทต่อการทดสอบ
+    </div>
+
+
+    <div class="login-form">
+
+      <label class="login-label">
+        ชื่อผู้ใช้
+      </label>
+
+      <input
+        id="loginUsername"
+        class="login-input"
+        type="text"
+        placeholder="กรอกชื่อผู้ใช้"
+        autocomplete="username"
+      >
+
+
+      <label class="login-label">
+        รหัสผ่าน
+      </label>
+
+      <input
+        id="loginPassword"
+        class="login-input"
+        type="password"
+        placeholder="กรอกรหัสผ่าน"
+        autocomplete="current-password"
+      >
+
+
+      <div
+        id="loginError"
+        class="login-error"
+      ></div>
+
+
+      <button
+        class="btn primary"
+        onclick="login()"
+      >
+        🔐 เข้าสู่ระบบ
+      </button>
+
+    </div>
+
+
+    <div
+      class="info"
+      style="font-size:12px"
+    >
+
+      <b style="color:var(--green)">
+        ระบบต้นแบบ
+      </b>
+
+      <br>
+
+      บัญชีทดลอง:
+
+      <br>
+
+      👤 ลูกค้า:
+      <b>customer / 1234</b>
+
+      <br>
+
+      🩺 บุคลากร:
+      <b>doctor / 1234</b>
+
+      <br>
+
+      ⚙️ แอดมิน:
+      <b>admin / admin123</b>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- =====================================================
+     PAYMENT
 ===================================================== -->
 
 <div
@@ -711,8 +1123,6 @@ select{
 
   <div class="payment-card">
 
-
-    <!-- หน้าชำระเงิน -->
 
     <div id="paymentForm">
 
@@ -732,15 +1142,26 @@ select{
 
         <div class="payment-price">
           ฿5
-          <small>
-            / ครั้ง
-          </small>
+          <small>/ ครั้ง</small>
         </div>
 
       </div>
 
 
       <div class="payment-detail">
+
+        <div class="payment-row">
+
+          <span>
+            ผู้ใช้งาน
+          </span>
+
+          <b id="paymentUser">
+            -
+          </b>
+
+        </div>
+
 
         <div class="payment-row">
 
@@ -787,10 +1208,12 @@ select{
             ยอดรวม
           </span>
 
-          <b style="
-            color:var(--green);
-            font-size:20px;
-          ">
+          <b
+            style="
+              color:var(--green);
+              font-size:20px;
+            "
+          >
             ฿5.00
           </b>
 
@@ -826,8 +1249,6 @@ select{
     </div>
 
 
-    <!-- ชำระสำเร็จ -->
-
     <div
       id="paymentSuccess"
       class="payment-success"
@@ -846,6 +1267,7 @@ select{
         จำนวน 1 ครั้ง
       </p>
 
+
       <div class="payment-detail">
 
         <div class="payment-row">
@@ -859,6 +1281,7 @@ select{
           </b>
 
         </div>
+
 
         <div class="payment-row">
 
@@ -889,12 +1312,12 @@ select{
 </div>
 
 
-
 <!-- =====================================================
-     ตัวแอป
+     APP
 ===================================================== -->
 
 <div class="phone">
+
 
   <div class="status">
 
@@ -909,11 +1332,32 @@ select{
   </div>
 
 
+  <!-- USER BAR -->
+
+  <div class="user-bar">
+
+    <div
+      id="currentUserBadge"
+      class="user-badge"
+    >
+      👤 <span>กำลังโหลด...</span>
+    </div>
+
+    <button
+      class="logout-btn"
+      onclick="logout()"
+    >
+      ออกจากระบบ
+    </button>
+
+  </div>
+
+
   <main class="screen">
 
 
     <!-- =================================================
-         หน้าหลัก
+         HOME
     ================================================== -->
 
     <section
@@ -937,7 +1381,10 @@ select{
 
         <br>
 
-        <span class="price-badge">
+        <span
+          id="homePriceBadge"
+          class="price-badge"
+        >
           ค่าบริการ 5 บาท / ครั้ง
         </span>
 
@@ -948,9 +1395,7 @@ select{
 
         <div>
 
-          <b>
-            👥
-          </b>
+          <b>👥</b>
 
           <span>
             สำหรับ<br>
@@ -962,9 +1407,7 @@ select{
 
         <div>
 
-          <b>
-            👓
-          </b>
+          <b>👓</b>
 
           <span>
             ใช้ง่าย<br>
@@ -976,9 +1419,7 @@ select{
 
         <div>
 
-          <b>
-            🛡
-          </b>
+          <b>🛡</b>
 
           <span>
             ปลอดภัย<br>
@@ -990,9 +1431,7 @@ select{
 
         <div>
 
-          <b>
-            ▮▮
-          </b>
+          <b>▮▮</b>
 
           <span>
             คัดกรอง<br>
@@ -1007,21 +1446,19 @@ select{
           style="cursor:pointer"
         >
 
-          <b>
-            ◎
-          </b>
+          <b>◎</b>
 
           <span>
             วัดสายตา<br>
-            5 บาท
+            <span id="quickPrice">
+              5 บาท
+            </span>
           </span>
 
         </div>
 
       </div>
 
-
-      <!-- สายตาเอียง -->
 
       <div class="card">
 
@@ -1049,17 +1486,11 @@ select{
               "
             >
 
-              <span>
-                ปกติ
-              </span>
+              <span>ปกติ</span>
 
-              <span>
-                เล็กน้อย
-              </span>
+              <span>เล็กน้อย</span>
 
-              <span>
-                มาก
-              </span>
+              <span>มาก</span>
 
             </div>
 
@@ -1083,8 +1514,6 @@ select{
 
       </div>
 
-
-      <!-- สายตาสั้น / ยาว -->
 
       <div class="card">
 
@@ -1115,17 +1544,11 @@ select{
               "
             >
 
-              <span>
-                สั้น
-              </span>
+              <span>สั้น</span>
 
-              <span>
-                ปกติ
-              </span>
+              <span>ปกติ</span>
 
-              <span>
-                ยาว
-              </span>
+              <span>ยาว</span>
 
             </div>
 
@@ -1153,8 +1576,6 @@ select{
       </div>
 
 
-      <!-- ราคา -->
-
       <div class="card">
 
         <h2>
@@ -1171,7 +1592,7 @@ select{
 
           <div>
 
-            <b>
+            <b id="serviceTitle">
               วัดสายตา 1 ครั้ง
             </b>
 
@@ -1181,6 +1602,7 @@ select{
                 color:var(--muted);
                 margin-top:4px;
               "
+              id="serviceDescription"
             >
               ทดสอบ A-Z และดูผลคัดกรอง
             </div>
@@ -1189,6 +1611,7 @@ select{
 
 
           <div
+            id="servicePrice"
             style="
               font-size:27px;
               font-weight:900;
@@ -1206,6 +1629,7 @@ select{
       <button
         class="btn primary"
         onclick="requestVisionTest()"
+        id="mainTestButton"
       >
         ◎　วัดสายตา 5 บาท　›
       </button>
@@ -1236,9 +1660,8 @@ select{
     </section>
 
 
-
     <!-- =================================================
-         หน้าวัดสายตา
+         VISION TEST
     ================================================== -->
 
     <section
@@ -1283,41 +1706,15 @@ select{
           onchange="changeScreenSize(this.value)"
         >
 
-          <option value="6">
-            6 นิ้ว
-          </option>
-
-          <option value="6.5">
-            6.5 นิ้ว
-          </option>
-
-          <option value="7">
-            7 นิ้ว
-          </option>
-
-          <option value="8">
-            8 นิ้ว
-          </option>
-
-          <option value="9">
-            9 นิ้ว
-          </option>
-
-          <option value="10">
-            10 นิ้ว
-          </option>
-
-          <option value="11">
-            11 นิ้ว
-          </option>
-
-          <option value="12">
-            12 นิ้ว
-          </option>
-
-          <option value="13">
-            13 นิ้ว
-          </option>
+          <option value="6">6 นิ้ว</option>
+          <option value="6.5">6.5 นิ้ว</option>
+          <option value="7">7 นิ้ว</option>
+          <option value="8">8 นิ้ว</option>
+          <option value="9">9 นิ้ว</option>
+          <option value="10">10 นิ้ว</option>
+          <option value="11">11 นิ้ว</option>
+          <option value="12">12 นิ้ว</option>
+          <option value="13">13 นิ้ว</option>
 
         </select>
 
@@ -1343,8 +1740,6 @@ select{
 
       </div>
 
-
-      <!-- เลือกตา -->
 
       <div class="card">
 
@@ -1409,8 +1804,6 @@ select{
       </div>
 
 
-      <!-- การทดสอบ -->
-
       <div class="card">
 
         <h2 id="testTitle">
@@ -1470,7 +1863,6 @@ select{
             A
           </button>
 
-
           <button
             id="answer1"
             class="answer-btn"
@@ -1478,7 +1870,6 @@ select{
           >
             B
           </button>
-
 
           <button
             id="answer2"
@@ -1488,7 +1879,6 @@ select{
             C
           </button>
 
-
           <button
             id="answer3"
             class="answer-btn"
@@ -1496,7 +1886,6 @@ select{
           >
             D
           </button>
-
 
           <button
             class="answer-btn invisible"
@@ -1572,9 +1961,8 @@ select{
     </section>
 
 
-
     <!-- =================================================
-         ผลการวัด
+         RESULT
     ================================================== -->
 
     <section
@@ -1667,6 +2055,16 @@ select{
         </h2>
 
         <p>
+          ผู้ใช้:
+          <b id="finalUser">-</b>
+        </p>
+
+        <p>
+          บทบาท:
+          <b id="finalRole">-</b>
+        </p>
+
+        <p>
           ตาที่ทดสอบ:
           <b id="finalEye">-</b>
         </p>
@@ -1688,8 +2086,11 @@ select{
 
         <p>
           ค่าบริการ:
-          <b style="color:var(--green)">
-            5 บาท
+          <b
+            id="finalPrice"
+            style="color:var(--green)"
+          >
+            -
           </b>
         </p>
 
@@ -1699,6 +2100,7 @@ select{
       <button
         class="btn primary"
         onclick="buyAnotherTest()"
+        id="anotherTestButton"
       >
         ◎ ทดสอบอีกครั้ง 5 บาท
       </button>
@@ -1716,9 +2118,8 @@ select{
     </section>
 
 
-
     <!-- =================================================
-         ความรู้
+         KNOWLEDGE
     ================================================== -->
 
     <section
@@ -1738,8 +2139,6 @@ select{
         ความรู้
       </h1>
 
-
-      <!-- รูปออนไลน์เกี่ยวกับการวัดสายตา -->
 
       <div class="card">
 
@@ -1809,9 +2208,8 @@ select{
     </section>
 
 
-
     <!-- =================================================
-         ข้อมูล
+         INFO
     ================================================== -->
 
     <section
@@ -1846,7 +2244,7 @@ select{
 
         <p>
           <b>เวอร์ชัน:</b>
-          2.0.0
+          3.0.0
         </p>
 
       </div>
@@ -1855,18 +2253,51 @@ select{
       <div class="card">
 
         <h2>
-          ค่าบริการ
+          👥 ระบบผู้ใช้
         </h2>
 
         <p>
-          การทดสอบสายตา
+          ระบบรองรับผู้ใช้งาน 3 บทบาท
+        </p>
+
+        <p>
+          👤 ลูกค้า —
+          ชำระ 5 บาทต่อครั้ง
+        </p>
+
+        <p>
+          🩺 บุคลากรทางการแพทย์ —
+          ใช้งานฟรี
+        </p>
+
+        <p>
+          ⚙️ แอดมิน —
+          จัดการและดูข้อมูลระบบ
+        </p>
+
+      </div>
+
+
+      <div class="card">
+
+        <h2>
+          💰 ค่าบริการ
+        </h2>
+
+        <p>
+          การทดสอบสำหรับลูกค้า
           มีค่าบริการ
           <b style="color:var(--green)">
             5 บาทต่อครั้ง
           </b>
         </p>
 
-        <p style="font-size:12px;color:var(--muted)">
+        <p
+          style="
+            font-size:12px;
+            color:var(--muted);
+          "
+        >
           ระบบในต้นแบบนี้จำลองการชำระเงิน
           ยังไม่ได้หักเงินจริง
         </p>
@@ -1877,11 +2308,12 @@ select{
       <div class="card">
 
         <h2>
-          ความเป็นส่วนตัว
+          🔒 ความเป็นส่วนตัว
         </h2>
 
         <p>
-          ผลการทดสอบถูกจัดเก็บภายในเบราว์เซอร์
+          ผลการทดสอบและการตั้งค่า
+          ถูกจัดเก็บภายในเบราว์เซอร์
           ของเครื่องนี้
         </p>
 
@@ -1911,9 +2343,8 @@ select{
     </section>
 
 
-
     <!-- =================================================
-         ตั้งค่า
+         SETTINGS
     ================================================== -->
 
     <section
@@ -2086,12 +2517,138 @@ select{
 
     </section>
 
+
+    <!-- =================================================
+         ADMIN
+    ================================================== -->
+
+    <section
+      id="admin"
+      class="page"
+    >
+
+      <button
+        class="back"
+        onclick="showPage('home')"
+      >
+        ‹ กลับหน้าหลัก
+      </button>
+
+
+      <h1 style="color:var(--green)">
+        แผงควบคุมแอดมิน
+      </h1>
+
+
+      <div class="info">
+
+        <b style="color:var(--green)">
+          ⚙️ Administrator
+        </b>
+
+        <br>
+
+        จัดการข้อมูลระบบและดูสถิติการใช้งาน
+
+      </div>
+
+
+      <div class="admin-stat">
+
+        <div>
+
+          <b id="adminUserCount">
+            0
+          </b>
+
+          <span>
+            ผู้ใช้
+          </span>
+
+        </div>
+
+
+        <div>
+
+          <b id="adminTestCount">
+            0
+          </b>
+
+          <span>
+            การทดสอบ
+          </span>
+
+        </div>
+
+
+        <div>
+
+          <b id="adminPaymentCount">
+            0
+          </b>
+
+          <span>
+            รายการชำระ
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <div class="admin-card">
+
+        <h2>
+          👥 ผู้ใช้ในระบบ
+        </h2>
+
+        <div id="adminUsers">
+          ยังไม่มีข้อมูล
+        </div>
+
+      </div>
+
+
+      <div class="admin-card">
+
+        <h2>
+          🧪 การทดสอบล่าสุด
+        </h2>
+
+        <div id="adminTests">
+          ยังไม่มีข้อมูล
+        </div>
+
+      </div>
+
+
+      <div class="admin-card">
+
+        <h2>
+          💳 การชำระเงินล่าสุด
+        </h2>
+
+        <div id="adminPayments">
+          ยังไม่มีข้อมูล
+        </div>
+
+      </div>
+
+
+      <button
+        class="btn"
+        onclick="adminRefresh()"
+      >
+        ↻ รีเฟรชข้อมูล
+      </button>
+
+    </section>
+
   </main>
 
 
-
   <!-- =================================================
-       เมนูด้านล่าง
+       NAV
   ================================================== -->
 
   <nav class="nav">
@@ -2106,26 +2663,38 @@ select{
 
 
     <button data-page="result">
+
       <span>▮▮</span>
+
       ผลการวัด
+
     </button>
 
 
     <button data-page="knowledge">
+
       <span>▤</span>
+
       ความรู้
+
     </button>
 
 
     <button data-page="info">
+
       <span>ⓘ</span>
+
       ข้อมูล
+
     </button>
 
 
     <button data-page="settings">
+
       <span>⚙</span>
+
       ตั้งค่า
+
     </button>
 
   </nav>
@@ -2133,9 +2702,8 @@ select{
 </div>
 
 
-
 <!-- =====================================================
-     POPUP
+     MODAL
 ===================================================== -->
 
 <div
@@ -2163,19 +2731,490 @@ select{
 </div>
 
 
-
 <script>
 
 /* =====================================================
-   เปลี่ยนหน้า
+   USER SYSTEM
+===================================================== */
+
+const demoUsers = [
+
+  {
+    username:"customer",
+    password:"1234",
+    name:"ลูกค้าทั่วไป",
+    role:"customer"
+  },
+
+  {
+    username:"doctor",
+    password:"1234",
+    name:"บุคลากรทางการแพทย์",
+    role:"medical"
+  },
+
+  {
+    username:"admin",
+    password:"admin123",
+    name:"ผู้ดูแลระบบ",
+    role:"admin"
+  }
+
+];
+
+
+let selectedLoginRole =
+  "customer";
+
+
+let currentUser =
+  JSON.parse(
+    localStorage.getItem(
+      "eye_current_user"
+    ) || "null"
+  );
+
+
+/* =====================================================
+   ROLE
+===================================================== */
+
+function getRoleName(role){
+
+  if(role === "customer"){
+    return "ลูกค้า";
+  }
+
+  if(role === "medical"){
+    return "บุคลากรทางการแพทย์";
+  }
+
+  if(role === "admin"){
+    return "แอดมิน";
+  }
+
+  return role;
+
+}
+
+
+function selectLoginRole(role){
+
+  selectedLoginRole =
+    role;
+
+
+  document
+    .querySelectorAll(".role-button")
+    .forEach(button=>{
+      button.classList.remove("active");
+    });
+
+
+  if(role === "customer"){
+
+    document
+      .getElementById("roleCustomer")
+      .classList.add("active");
+
+
+    document
+      .getElementById("roleNote")
+      .textContent =
+      "ลูกค้าสามารถใช้งานแอปได้โดยชำระค่าบริการ 5 บาทต่อการทดสอบ";
+
+  }
+
+
+  if(role === "medical"){
+
+    document
+      .getElementById("roleMedical")
+      .classList.add("active");
+
+
+    document
+      .getElementById("roleNote")
+      .textContent =
+      "บุคลากรทางการแพทย์สามารถใช้งานการทดสอบได้โดยไม่เสียค่าใช้จ่าย";
+
+  }
+
+
+  if(role === "admin"){
+
+    document
+      .getElementById("roleAdmin")
+      .classList.add("active");
+
+
+    document
+      .getElementById("roleNote")
+      .textContent =
+      "บัญชีแอดมินใช้สำหรับจัดการและดูข้อมูลระบบ";
+
+  }
+
+}
+
+
+/* =====================================================
+   LOGIN
+===================================================== */
+
+function login(){
+
+  const username =
+    document
+      .getElementById("loginUsername")
+      .value
+      .trim();
+
+
+  const password =
+    document
+      .getElementById("loginPassword")
+      .value;
+
+
+  const error =
+    document
+      .getElementById("loginError");
+
+
+  const user =
+    demoUsers.find(u =>
+      u.username === username &&
+      u.password === password &&
+      u.role === selectedLoginRole
+    );
+
+
+  if(!user){
+
+    error.textContent =
+      "ชื่อผู้ใช้ รหัสผ่าน หรือบทบาทไม่ถูกต้อง";
+
+    error.classList.add("show");
+
+    return;
+
+  }
+
+
+  currentUser = {
+
+    username:user.username,
+
+    name:user.name,
+
+    role:user.role,
+
+    loginTime:
+      new Date()
+        .toLocaleString("th-TH")
+
+  };
+
+
+  localStorage.setItem(
+    "eye_current_user",
+    JSON.stringify(currentUser)
+  );
+
+
+  loadUserCredits();
+
+
+  error.classList.remove("show");
+
+
+  updateUserInterface();
+
+
+  document
+    .getElementById("loginOverlay")
+    .classList.add("hidden");
+
+
+  if(user.role === "admin"){
+
+    showPage("admin");
+
+    adminRefresh();
+
+  }else{
+
+    showPage("home");
+
+  }
+
+}
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+function logout(){
+
+  currentUser =
+    null;
+
+
+  localStorage.removeItem(
+    "eye_current_user"
+  );
+
+
+  document
+    .getElementById("loginOverlay")
+    .classList.remove("hidden");
+
+
+  document
+    .getElementById("loginUsername")
+    .value = "";
+
+
+  document
+    .getElementById("loginPassword")
+    .value = "";
+
+
+  document
+    .getElementById("loginError")
+    .classList.remove("show");
+
+
+  selectLoginRole("customer");
+
+}
+
+
+/* =====================================================
+   LOGIN CHECK
+===================================================== */
+
+function checkLogin(){
+
+  const saved =
+    localStorage.getItem(
+      "eye_current_user"
+    );
+
+
+  if(saved){
+
+    try{
+
+      currentUser =
+        JSON.parse(saved);
+
+
+      loadUserCredits();
+
+      updateUserInterface();
+
+
+      document
+        .getElementById("loginOverlay")
+        .classList.add("hidden");
+
+
+      if(
+        currentUser.role === "admin"
+      ){
+
+        adminRefresh();
+
+      }
+
+    }
+    catch(error){
+
+      logout();
+
+    }
+
+  }else{
+
+    document
+      .getElementById("loginOverlay")
+      .classList.remove("hidden");
+
+  }
+
+}
+
+
+/* =====================================================
+   USER UI
+===================================================== */
+
+function updateUserInterface(){
+
+  if(!currentUser){
+    return;
+  }
+
+
+  const badge =
+    document
+      .getElementById(
+        "currentUserBadge"
+      );
+
+
+  badge.innerHTML =
+    getRoleIcon(currentUser.role)
+    +
+    " <span>"
+    +
+    currentUser.name
+    +
+    " · "
+    +
+    getRoleName(currentUser.role)
+    +
+    "</span>";
+
+
+  const priceBadge =
+    document
+      .getElementById(
+        "homePriceBadge"
+      );
+
+
+  const quickPrice =
+    document
+      .getElementById(
+        "quickPrice"
+      );
+
+
+  const servicePrice =
+    document
+      .getElementById(
+        "servicePrice"
+      );
+
+
+  const mainTestButton =
+    document
+      .getElementById(
+        "mainTestButton"
+      );
+
+
+  const anotherTestButton =
+    document
+      .getElementById(
+        "anotherTestButton"
+      );
+
+
+  if(
+    currentUser.role === "medical" ||
+    currentUser.role === "admin"
+  ){
+
+    priceBadge.textContent =
+      "ใช้งานฟรีสำหรับบัญชีนี้";
+
+
+    quickPrice.textContent =
+      "ฟรี";
+
+
+    servicePrice.textContent =
+      "ฟรี";
+
+
+    mainTestButton.innerHTML =
+      "◎　วัดสายตาฟรี　›";
+
+
+    anotherTestButton.innerHTML =
+      "◎ ทดสอบอีกครั้งฟรี";
+
+  }else{
+
+    priceBadge.textContent =
+      "ค่าบริการ 5 บาท / ครั้ง";
+
+
+    quickPrice.textContent =
+      "5 บาท";
+
+
+    servicePrice.textContent =
+      "฿5";
+
+
+    mainTestButton.innerHTML =
+      "◎　วัดสายตา 5 บาท　›";
+
+
+    anotherTestButton.innerHTML =
+      "◎ ทดสอบอีกครั้ง 5 บาท";
+
+  }
+
+}
+
+
+function getRoleIcon(role){
+
+  if(role === "customer"){
+    return "👤";
+  }
+
+  if(role === "medical"){
+    return "🩺";
+  }
+
+  if(role === "admin"){
+    return "⚙️";
+  }
+
+  return "👤";
+
+}
+
+
+/* =====================================================
+   PAGE SYSTEM
 ===================================================== */
 
 function showPage(id){
 
+  if(
+    !currentUser
+  ){
+
+    return;
+
+  }
+
+
+  if(
+    id === "admin" &&
+    currentUser.role !== "admin"
+  ){
+
+    id = "home";
+
+  }
+
+
   document
     .querySelectorAll(".page")
     .forEach(page=>{
+
       page.classList.remove("active");
+
     });
 
 
@@ -2184,7 +3223,9 @@ function showPage(id){
 
 
   if(target){
+
     target.classList.add("active");
+
   }
 
 
@@ -2200,13 +3241,23 @@ function showPage(id){
     });
 
 
-  window.scrollTo(0,0);
+  window.scrollTo(
+    0,
+    0
+  );
+
+
+  if(id === "admin"){
+
+    adminRefresh();
+
+  }
 
 }
 
 
 /* =====================================================
-   Navigation
+   NAVIGATION
 ===================================================== */
 
 document
@@ -2216,7 +3267,11 @@ document
     button.addEventListener(
       "click",
       ()=>{
-        showPage(button.dataset.page);
+
+        showPage(
+          button.dataset.page
+        );
+
       }
     );
 
@@ -2224,7 +3279,7 @@ document
 
 
 /* =====================================================
-   นาฬิกา
+   CLOCK
 ===================================================== */
 
 function updateClock(){
@@ -2248,12 +3303,13 @@ function updateClock(){
   document
     .getElementById("clock")
     .textContent =
-      h + ":" + m;
+    h + ":" + m;
 
 }
 
 
 updateClock();
+
 
 setInterval(
   updateClock,
@@ -2262,34 +3318,67 @@ setInterval(
 
 
 /* =====================================================
-   ระบบชำระเงิน
+   PAYMENT / CREDIT
 ===================================================== */
 
-/*
-  credit = จำนวนสิทธิ์ทดสอบที่ซื้อไว้
+let testCredits = 0;
 
-  ต้นแบบนี้ใช้ localStorage
-  ไม่ใช่ระบบการเงินจริง
-*/
 
-let testCredits =
-  parseInt(
-    localStorage.getItem(
-      "eye_test_credits"
-    ) || "0"
+function getCreditKey(){
+
+  if(!currentUser){
+
+    return "eye_test_credits";
+
+  }
+
+
+  return (
+    "eye_test_credits_" +
+    currentUser.username
   );
+
+}
+
+
+function loadUserCredits(){
+
+  testCredits =
+    parseInt(
+      localStorage.getItem(
+        getCreditKey()
+      ) || "0"
+    );
+
+}
+
+
+function saveUserCredits(){
+
+  localStorage.setItem(
+    getCreditKey(),
+    testCredits
+  );
+
+}
 
 
 function requestVisionTest(){
 
+  if(!currentUser){
+
+    return;
+
+  }
+
+
   /*
-    ถ้ามีสิทธิ์อยู่แล้ว
-    เข้าไปทดสอบได้เลย
+    บุคลากรทางการแพทย์ใช้ฟรี
   */
 
-  if(testCredits > 0){
-
-    useTestCredit();
+  if(
+    currentUser.role === "medical"
+  ){
 
     startVisionTest();
 
@@ -2298,73 +3387,105 @@ function requestVisionTest(){
   }
 
 
-  openPayment();
+  /*
+    Admin ฟรี
+  */
+
+  if(
+    currentUser.role === "admin"
+  ){
+
+    startVisionTest();
+
+    return;
+
+  }
+
+
+  /*
+    ลูกค้าใช้เครดิต
+  */
+
+  if(
+    currentUser.role === "customer"
+  ){
+
+    loadUserCredits();
+
+
+    if(testCredits > 0){
+
+      useTestCredit();
+
+      startVisionTest();
+
+    }else{
+
+      openPayment();
+
+    }
+
+  }
 
 }
 
 
-/* เปิดหน้าชำระเงิน */
+/* =====================================================
+   OPEN PAYMENT
+===================================================== */
 
 function openPayment(){
 
+  if(
+    !currentUser ||
+    currentUser.role !== "customer"
+  ){
+
+    startVisionTest();
+
+    return;
+
+  }
+
+
   document
-    .getElementById(
-      "paymentForm"
-    )
+    .getElementById("paymentUser")
+    .textContent =
+    currentUser.name;
+
+
+  document
+    .getElementById("paymentForm")
     .style.display =
-      "block";
+    "block";
 
 
   document
-    .getElementById(
-      "paymentSuccess"
-    )
-    .classList.remove(
-      "show"
-    );
+    .getElementById("paymentSuccess")
+    .classList.remove("show");
 
 
   document
-    .getElementById(
-      "paymentOverlay"
-    )
-    .classList.add(
-      "show"
-    );
+    .getElementById("paymentOverlay")
+    .classList.add("show");
 
 }
 
-
-/* ปิดหน้าชำระเงิน */
 
 function closePayment(){
 
   document
-    .getElementById(
-      "paymentOverlay"
-    )
-    .classList.remove(
-      "show"
-    );
+    .getElementById("paymentOverlay")
+    .classList.remove("show");
 
 }
 
 
-/* ยืนยันการชำระเงิน */
+/* =====================================================
+   CONFIRM PAYMENT
+===================================================== */
 
 function confirmPayment(){
-
-  /*
-    ***** ระบบจำลอง *****
-
-    ตรงนี้ในระบบจริง
-    จะต้องรอผลจาก Payment Gateway
-    หรือ Backend
-
-    ห้ามใช้การกดปุ่มเพียงอย่างเดียว
-    เป็นหลักฐานการชำระเงินจริง
-  */
-
 
   const payButton =
     document.querySelector(
@@ -2382,24 +3503,35 @@ function confirmPayment(){
 
   setTimeout(()=>{
 
-    /*
-      เพิ่มสิทธิ์ 1 ครั้ง
-    */
 
     testCredits++;
 
 
-    localStorage.setItem(
-      "eye_test_credits",
-      testCredits
-    );
+    saveUserCredits();
 
 
     /*
-      บันทึกประวัติ
+      บันทึกการชำระเงิน
     */
 
-    const payment = {
+    const payments =
+      JSON.parse(
+        localStorage.getItem(
+          "eye_payment_records"
+        ) || "[]"
+      );
+
+
+    payments.push({
+
+      username:
+        currentUser.username,
+
+      name:
+        currentUser.name,
+
+      role:
+        currentUser.role,
 
       amount:5,
 
@@ -2407,36 +3539,50 @@ function confirmPayment(){
 
       time:
         new Date()
-          .toLocaleString(
-            "th-TH"
-          )
+          .toLocaleString("th-TH")
 
-    };
+    });
 
 
     localStorage.setItem(
-      "last_payment",
-      JSON.stringify(
-        payment
-      )
+      "eye_payment_records",
+      JSON.stringify(payments)
+    );
+
+
+    /*
+      บันทึก Payment ล่าสุด
+    */
+
+    localStorage.setItem(
+
+      "last_payment_" +
+      currentUser.username,
+
+      JSON.stringify({
+
+        amount:5,
+
+        status:"success",
+
+        time:
+          new Date()
+            .toLocaleString("th-TH")
+
+      })
+
     );
 
 
     document
-      .getElementById(
-        "paymentForm"
-      )
+      .getElementById("paymentForm")
       .style.display =
-        "none";
+      "none";
 
 
     document
-      .getElementById(
-        "paymentSuccess"
-      )
-      .classList.add(
-        "show"
-      );
+      .getElementById("paymentSuccess")
+      .classList.add("show");
 
 
     payButton.disabled =
@@ -2452,7 +3598,9 @@ function confirmPayment(){
 }
 
 
-/* ชำระแล้ว ไปทดสอบ */
+/* =====================================================
+   CONTINUE AFTER PAYMENT
+===================================================== */
 
 function continueAfterPayment(){
 
@@ -2467,36 +3615,39 @@ function continueAfterPayment(){
 }
 
 
-/* ใช้สิทธิ์หนึ่งครั้ง */
+/* =====================================================
+   USE CREDIT
+===================================================== */
 
 function useTestCredit(){
+
+  loadUserCredits();
+
 
   if(testCredits > 0){
 
     testCredits--;
 
-
-    localStorage.setItem(
-      "eye_test_credits",
-      testCredits
-    );
+    saveUserCredits();
 
   }
 
 }
 
 
-/* ซื้อรอบใหม่ */
+/* =====================================================
+   BUY AGAIN
+===================================================== */
 
 function buyAnotherTest(){
 
-  openPayment();
+  requestVisionTest();
 
 }
 
 
 /* =====================================================
-   แจ้งเตือน
+   NOTIFICATION
 ===================================================== */
 
 let notifications =
@@ -2563,7 +3714,7 @@ function toggleNotify(){
 
 
 /* =====================================================
-   Font
+   FONT
 ===================================================== */
 
 function changeFont(size){
@@ -2621,8 +3772,7 @@ function loadFontSize(){
   const saved =
     localStorage.getItem(
       "eye_font_size"
-    )
-    || "normal";
+    ) || "normal";
 
 
   changeFont(saved);
@@ -2631,7 +3781,7 @@ function loadFontSize(){
 
 
 /* =====================================================
-   Popup
+   MODAL
 ===================================================== */
 
 const modalBg =
@@ -2665,7 +3815,9 @@ function closeModal(event){
     event &&
     event.target !== modalBg
   ){
+
     return;
+
   }
 
 
@@ -2677,7 +3829,7 @@ function closeModal(event){
 
 
 /* =====================================================
-   Privacy
+   PRIVACY
 ===================================================== */
 
 function openPrivacy(){
@@ -2697,7 +3849,7 @@ function openPrivacy(){
       <p>
         ระบบต้นแบบนี้จัดเก็บ
         ผลการทดสอบ การตั้งค่า
-        และสถานะการชำระเงินจำลอง
+        บัญชี Demo และสถานะการชำระเงินจำลอง
         ภายใน localStorage
         ของเบราว์เซอร์
       </p>
@@ -2705,13 +3857,11 @@ function openPrivacy(){
     </div>
 
     <p>
-
       ระบบนี้ยังไม่มีการส่ง
       ข้อมูลบัตรเครดิต
       บัญชีธนาคาร
       หรือข้อมูลการเงินจริง
       ไปยังเซิร์ฟเวอร์
-
     </p>
 
     <div
@@ -2734,7 +3884,7 @@ function openPrivacy(){
 
 
 /* =====================================================
-   About
+   ABOUT
 ===================================================== */
 
 function openAbout(){
@@ -2757,26 +3907,42 @@ function openAbout(){
       </p>
 
       <p>
-        <b>ค่าบริการ:</b>
+        <b>ลูกค้า:</b>
         5 บาท / ครั้ง
       </p>
 
       <p>
+        <b>บุคลากรทางการแพทย์:</b>
+        ฟรี
+      </p>
+
+      <p>
+        <b>แอดมิน:</b>
+        ระบบจัดการ
+      </p>
+
+      <p>
         <b>เวอร์ชัน:</b>
-        2.0.0
+        3.0.0
       </p>
 
     </div>
 
     <div class="result">
 
+      ✓ Login แยกบทบาท
+      <br>
+
+      ✓ ลูกค้าชำระเงินจำลอง
+      <br>
+
+      ✓ บุคลากรทางการแพทย์ใช้ฟรี
+      <br>
+
+      ✓ Admin Dashboard
+      <br>
+
       ✓ A-Z แบบสุ่ม
-      <br>
-
-      ✓ เริ่มจากตัวใหญ่
-      <br>
-
-      ✓ ตัวเล็กลงตามระดับ
       <br>
 
       ✓ มีปุ่มมองไม่เห็น
@@ -2785,10 +3951,7 @@ function openAbout(){
       ✓ รองรับหน้าจอ 6–13 นิ้ว
       <br>
 
-      ✓ ระบบชำระเงินต้นแบบ 5 บาท
-      <br>
-
-      ✓ บันทึกผลในเครื่อง
+      ✓ บันทึกผลแยกผู้ใช้
 
     </div>
 
@@ -2798,7 +3961,7 @@ function openAbout(){
 
 
 /* =====================================================
-   ระบบวัดสายตา
+   VISION TEST VARIABLES
 ===================================================== */
 
 let selectedEye =
@@ -2838,7 +4001,7 @@ let consecutiveWrong =
 
 
 /* =====================================================
-   ระยะหน้าจอ
+   DISTANCE
 ===================================================== */
 
 const screenDistances = {
@@ -2865,7 +4028,7 @@ const screenDistances = {
 
 
 /* =====================================================
-   ระดับขนาดตัวอักษร
+   LEVELS
 ===================================================== */
 
 const testLevels = [
@@ -2934,7 +4097,7 @@ const testLevels = [
 
 
 /* =====================================================
-   A-Z
+   ALPHABET
 ===================================================== */
 
 const alphabet =
@@ -2942,8 +4105,9 @@ const alphabet =
   .split("");
 
 
+
 /* =====================================================
-   เปลี่ยนขนาดหน้าจอ
+   SCREEN SIZE
 ===================================================== */
 
 function changeScreenSize(size){
@@ -2963,14 +4127,13 @@ function changeScreenSize(size){
       "distanceNumber"
     )
     .textContent =
-      distance
-      + " ซม.";
+      distance + " ซม.";
 
 }
 
 
 /* =====================================================
-   เลือกตา
+   SELECT EYE
 ===================================================== */
 
 function selectEye(eye){
@@ -3018,15 +4181,15 @@ function selectEye(eye){
 
 
 /* =====================================================
-   สุ่มตัวอักษร
+   RANDOM LETTER
 ===================================================== */
 
 function randomLetter(){
 
   return alphabet[
     Math.floor(
-      Math.random()
-      * alphabet.length
+      Math.random() *
+      alphabet.length
     )
   ];
 
@@ -3034,7 +4197,7 @@ function randomLetter(){
 
 
 /* =====================================================
-   สร้างตัวเลือก
+   OPTIONS
 ===================================================== */
 
 function createOptions(correct){
@@ -3077,8 +4240,8 @@ function createOptions(correct){
 
     const j =
       Math.floor(
-        Math.random()
-        * (i + 1)
+        Math.random() *
+        (i + 1)
       );
 
 
@@ -3099,14 +4262,13 @@ function createOptions(correct){
 
 
 /* =====================================================
-   แสดงข้อ
+   SHOW QUESTION
 ===================================================== */
 
 function showQuestion(){
 
   if(
-    testQuestion
-    >=
+    testQuestion >=
     testLevels.length
   ){
 
@@ -3144,8 +4306,7 @@ function showQuestion(){
 
 
   optotype.style.fontSize =
-    level.size
-    + "px";
+    level.size + "px";
 
 
   document
@@ -3153,8 +4314,8 @@ function showQuestion(){
       "levelText"
     )
     .textContent =
-      "ระดับ "
-      + level.name;
+      "ระดับ " +
+      level.name;
 
 
   document
@@ -3168,12 +4329,10 @@ function showQuestion(){
 
 
   const progress =
-
     (
       testQuestion /
       testLevels.length
-    )
-    * 100;
+    ) * 100;
 
 
   document
@@ -3181,8 +4340,7 @@ function showQuestion(){
       "progressBar"
     )
     .style.width =
-      progress
-      + "%";
+      progress + "%";
 
 
   for(
@@ -3212,7 +4370,7 @@ function showQuestion(){
 
 
 /* =====================================================
-   ตอบ
+   ANSWER
 ===================================================== */
 
 function answerTest(index){
@@ -3229,10 +4387,7 @@ function answerTest(index){
   if(index !== -1){
 
     isCorrect =
-
-      currentOptions[
-        index
-      ]
+      currentOptions[index]
       ===
       currentLetter;
 
@@ -3243,8 +4398,7 @@ function answerTest(index){
 
     correctAnswers++;
 
-    consecutiveWrong =
-      0;
+    consecutiveWrong = 0;
 
 
     document
@@ -3252,12 +4406,7 @@ function answerTest(index){
         "testMessage"
       )
       .innerHTML =
-
-        '<span style="color:var(--green);font-weight:700">'
-        +
-        '✓ ถูกต้อง'
-        +
-        '</span>';
+        '<span style="color:var(--green);font-weight:700">✓ ถูกต้อง</span>';
 
   }else{
 
@@ -3273,12 +4422,7 @@ function answerTest(index){
           "testMessage"
         )
         .innerHTML =
-
-          '<span style="color:var(--danger);font-weight:700">'
-          +
-          'มองไม่เห็น'
-          +
-          '</span>';
+          '<span style="color:var(--danger);font-weight:700">มองไม่เห็น</span>';
 
     }else{
 
@@ -3287,12 +4431,7 @@ function answerTest(index){
           "testMessage"
         )
         .innerHTML =
-
-          '<span style="color:var(--danger);font-weight:700">'
-          +
-          '✕ ไม่ถูกต้อง'
-          +
-          '</span>';
+          '<span style="color:var(--danger);font-weight:700">✕ ไม่ถูกต้อง</span>';
 
     }
 
@@ -3302,15 +4441,8 @@ function answerTest(index){
   testQuestion++;
 
 
-  /*
-    ถ้าผิด/มองไม่เห็นติดกัน 2 ครั้ง
-    หลังผ่านช่วงเริ่มต้น
-    ให้หยุด
-  */
-
   if(
-    consecutiveWrong >= 2
-    &&
+    consecutiveWrong >= 2 &&
     testQuestion >= 3
   ){
 
@@ -3325,8 +4457,7 @@ function answerTest(index){
 
 
   if(
-    testQuestion
-    >=
+    testQuestion >=
     testLevels.length
   ){
 
@@ -3349,7 +4480,7 @@ function answerTest(index){
 
 
 /* =====================================================
-   เริ่มทดสอบ
+   START
 ===================================================== */
 
 function startVisionTest(){
@@ -3364,29 +4495,20 @@ function startVisionTest(){
 
 
 /* =====================================================
-   Reset
+   RESET
 ===================================================== */
 
 function resetTest(){
 
-  testQuestion =
-    0;
+  testQuestion = 0;
 
+  correctAnswers = 0;
 
-  correctAnswers =
-    0;
+  wrongAnswers = 0;
 
+  consecutiveWrong = 0;
 
-  wrongAnswers =
-    0;
-
-
-  consecutiveWrong =
-    0;
-
-
-  testFinished =
-    false;
+  testFinished = false;
 
 
   document
@@ -3413,7 +4535,7 @@ function resetTest(){
 
 
 /* =====================================================
-   ชื่อการทดสอบ
+   TITLE
 ===================================================== */
 
 function updateTestTitle(){
@@ -3442,7 +4564,7 @@ function updateTestTitle(){
 
 
 /* =====================================================
-   ประเมินผล
+   ESTIMATE
 ===================================================== */
 
 function estimateVision(){
@@ -3499,8 +4621,10 @@ function estimateVision(){
     title =
       "แนะนำให้ตรวจสายตาเพิ่มเติม";
 
+
     detail =
       "เริ่มมองตัวอักษรขนาดเล็กได้ยาก";
+
 
     refraction =
       "อาจมีความผิดปกติของสายตา ควรตรวจโดยผู้เชี่ยวชาญ";
@@ -3514,8 +4638,10 @@ function estimateVision(){
     title =
       "การมองเห็นลดลงเล็กน้อย";
 
+
     detail =
       "ควรติดตามหรือเข้ารับการตรวจเพิ่มเติม";
+
 
     refraction =
       "อาจมีความผิดปกติของสายตาเล็กน้อย";
@@ -3526,8 +4652,11 @@ function estimateVision(){
   return {
 
     acuity,
+
     title,
+
     detail,
+
     refraction
 
   };
@@ -3536,7 +4665,7 @@ function estimateVision(){
 
 
 /* =====================================================
-   จบการทดสอบ
+   FINISH
 ===================================================== */
 
 function finishTest(){
@@ -3573,6 +4702,15 @@ function finishTest(){
     ] || 40;
 
 
+  const price =
+    (
+      currentUser.role === "medical" ||
+      currentUser.role === "admin"
+    )
+      ? 0
+      : 5;
+
+
   document
     .getElementById(
       "finalTitle"
@@ -3607,6 +4745,24 @@ function finishTest(){
 
   document
     .getElementById(
+      "finalUser"
+    )
+    .textContent =
+      currentUser.name;
+
+
+  document
+    .getElementById(
+      "finalRole"
+    )
+    .textContent =
+      getRoleName(
+        currentUser.role
+      );
+
+
+  document
+    .getElementById(
       "finalEye"
     )
     .textContent =
@@ -3618,8 +4774,7 @@ function finishTest(){
       "finalScreen"
     )
     .textContent =
-      screenSize
-      + " นิ้ว";
+      screenSize + " นิ้ว";
 
 
   document
@@ -3627,8 +4782,7 @@ function finishTest(){
       "finalDistance"
     )
     .textContent =
-      distance
-      + " ซม.";
+      distance + " ซม.";
 
 
   document
@@ -3639,6 +4793,16 @@ function finishTest(){
       correctAnswers
       + " / "
       + testQuestion;
+
+
+  document
+    .getElementById(
+      "finalPrice"
+    )
+    .textContent =
+      price === 0
+        ? "ฟรี"
+        : "5 บาท";
 
 
   document
@@ -3673,6 +4837,9 @@ function finishTest(){
     result:
       result.title,
 
+    detail:
+      result.detail,
+
     refraction:
       result.refraction,
 
@@ -3689,7 +4856,16 @@ function finishTest(){
       testQuestion,
 
     price:
-      5,
+      price,
+
+    username:
+      currentUser.username,
+
+    userName:
+      currentUser.name,
+
+    role:
+      currentUser.role,
 
     time:
       new Date()
@@ -3701,11 +4877,16 @@ function finishTest(){
 
 
   localStorage.setItem(
-    "last_eye_test",
-    JSON.stringify(
-      data
-    )
+
+    "last_eye_test_" +
+    currentUser.username,
+
+    JSON.stringify(data)
+
   );
+
+
+  saveUserTestRecord(data);
 
 
   showPage(
@@ -3716,14 +4897,47 @@ function finishTest(){
 
 
 /* =====================================================
-   โหลดผลเก่า
+   SAVE TEST RECORD
+===================================================== */
+
+function saveUserTestRecord(data){
+
+  const records =
+    JSON.parse(
+      localStorage.getItem(
+        "eye_test_records"
+      ) || "[]"
+    );
+
+
+  records.push(data);
+
+
+  localStorage.setItem(
+    "eye_test_records",
+    JSON.stringify(records)
+  );
+
+}
+
+
+/* =====================================================
+   LOAD LAST RESULT
 ===================================================== */
 
 function loadLastResult(){
 
+  if(!currentUser){
+    return;
+  }
+
+
   const saved =
     localStorage.getItem(
-      "last_eye_test"
+
+      "last_eye_test_" +
+      currentUser.username
+
     );
 
 
@@ -3735,9 +4949,7 @@ function loadLastResult(){
   try{
 
     const data =
-      JSON.parse(
-        saved
-      );
+      JSON.parse(saved);
 
 
     const eyeText =
@@ -3758,7 +4970,7 @@ function loadLastResult(){
         "finalTitle"
       )
       .textContent =
-        data.result;
+      data.result;
 
 
     document
@@ -3766,7 +4978,7 @@ function loadLastResult(){
         "finalDetail"
       )
       .textContent =
-        "ผลการคัดกรองล่าสุด";
+      "ผลการคัดกรองล่าสุด";
 
 
     document
@@ -3774,7 +4986,7 @@ function loadLastResult(){
         "visionValue"
       )
       .textContent =
-        data.acuity;
+      data.acuity;
 
 
     document
@@ -3782,7 +4994,27 @@ function loadLastResult(){
         "refractionValue"
       )
       .textContent =
-        data.refraction;
+      data.refraction;
+
+
+    document
+      .getElementById(
+        "finalUser"
+      )
+      .textContent =
+      data.userName ||
+      currentUser.name;
+
+
+    document
+      .getElementById(
+        "finalRole"
+      )
+      .textContent =
+      getRoleName(
+        data.role ||
+        currentUser.role
+      );
 
 
     document
@@ -3790,7 +5022,7 @@ function loadLastResult(){
         "finalEye"
       )
       .textContent =
-        eyeText;
+      eyeText;
 
 
     document
@@ -3798,8 +5030,8 @@ function loadLastResult(){
         "finalScreen"
       )
       .textContent =
-        data.screenSize
-        + " นิ้ว";
+      data.screenSize +
+      " นิ้ว";
 
 
     document
@@ -3807,8 +5039,8 @@ function loadLastResult(){
         "finalDistance"
       )
       .textContent =
-        data.distance
-        + " ซม.";
+      data.distance +
+      " ซม.";
 
 
     document
@@ -3816,9 +5048,19 @@ function loadLastResult(){
         "finalScore"
       )
       .textContent =
-        data.score
-        + " / "
-        + data.total;
+      data.score
+      + " / "
+      + data.total;
+
+
+    document
+      .getElementById(
+        "finalPrice"
+      )
+      .textContent =
+      data.price === 0
+        ? "ฟรี"
+        : "5 บาท";
 
   }
   catch(error){
@@ -3833,7 +5075,271 @@ function loadLastResult(){
 
 
 /* =====================================================
-   เริ่มระบบ
+   ADMIN DASHBOARD
+===================================================== */
+
+function adminRefresh(){
+
+  if(
+    !currentUser ||
+    currentUser.role !== "admin"
+  ){
+
+    return;
+
+  }
+
+
+  const tests =
+    JSON.parse(
+      localStorage.getItem(
+        "eye_test_records"
+      ) || "[]"
+    );
+
+
+  const payments =
+    JSON.parse(
+      localStorage.getItem(
+        "eye_payment_records"
+      ) || "[]"
+    );
+
+
+  document
+    .getElementById(
+      "adminUserCount"
+    )
+    .textContent =
+    demoUsers.length;
+
+
+  document
+    .getElementById(
+      "adminTestCount"
+    )
+    .textContent =
+    tests.length;
+
+
+  document
+    .getElementById(
+      "adminPaymentCount"
+    )
+    .textContent =
+    payments.length;
+
+
+  /*
+    USERS
+  */
+
+  document
+    .getElementById(
+      "adminUsers"
+    )
+    .innerHTML =
+
+      demoUsers.map(
+        user => `
+
+          <div class="admin-user-row">
+
+            <b>
+              ${user.name}
+            </b>
+
+            <br>
+
+            <span
+              style="
+                font-size:12px;
+                color:var(--muted);
+              "
+            >
+              ${user.username}
+              ·
+              ${getRoleName(user.role)}
+            </span>
+
+            <br>
+
+            ${
+              user.role === "medical"
+              ?
+              '<span class="free-badge">ใช้งานฟรี</span>'
+              :
+              user.role === "customer"
+              ?
+              '<span class="paid-badge">5 บาท/ครั้ง</span>'
+              :
+              '<span class="free-badge">Admin</span>'
+            }
+
+          </div>
+
+        `
+      ).join("");
+
+
+  /*
+    TESTS
+  */
+
+  if(tests.length === 0){
+
+    document
+      .getElementById(
+        "adminTests"
+      )
+      .textContent =
+      "ยังไม่มีข้อมูลการทดสอบ";
+
+  }else{
+
+    const latest =
+      tests
+        .slice()
+        .reverse()
+        .slice(0,10);
+
+
+    document
+      .getElementById(
+        "adminTests"
+      )
+      .innerHTML =
+
+        latest.map(
+          test => `
+
+            <div class="admin-test-row">
+
+              <b>
+                ${test.userName || test.username}
+              </b>
+
+              <br>
+
+              บทบาท:
+              ${getRoleName(test.role)}
+
+              <br>
+
+              ผล:
+              ${test.acuity}
+
+              <br>
+
+              คะแนน:
+              ${test.score}/${test.total}
+
+              <br>
+
+              ค่าบริการ:
+              ${
+                test.price === 0
+                ? "ฟรี"
+                : "5 บาท"
+              }
+
+              <br>
+
+              <span
+                style="
+                  color:var(--muted);
+                  font-size:11px;
+                "
+              >
+                ${test.time}
+              </span>
+
+            </div>
+
+          `
+        ).join("");
+
+  }
+
+
+  /*
+    PAYMENTS
+  */
+
+  if(payments.length === 0){
+
+    document
+      .getElementById(
+        "adminPayments"
+      )
+      .textContent =
+      "ยังไม่มีรายการชำระเงิน";
+
+  }else{
+
+    const latestPayments =
+      payments
+        .slice()
+        .reverse()
+        .slice(0,10);
+
+
+    document
+      .getElementById(
+        "adminPayments"
+      )
+      .innerHTML =
+
+        latestPayments.map(
+          payment => `
+
+            <div class="admin-test-row">
+
+              <b>
+                ${payment.name}
+              </b>
+
+              <br>
+
+              จำนวน:
+              ${payment.amount}
+              บาท
+
+              <br>
+
+              สถานะ:
+              <span
+                style="
+                  color:var(--green);
+                  font-weight:700;
+                "
+              >
+                ✓ ${payment.status}
+              </span>
+
+              <br>
+
+              <span
+                style="
+                  color:var(--muted);
+                  font-size:11px;
+                "
+              >
+                ${payment.time}
+              </span>
+
+            </div>
+
+          `
+        ).join("");
+
+  }
+
+}
+
+
+/* =====================================================
+   INITIALIZE
 ===================================================== */
 
 updateNotificationUI();
@@ -3848,9 +5354,48 @@ changeScreenSize(
     .value
 );
 
-resetTest();
 
-loadLastResult();
+/*
+  ตรวจสอบ Login
+  ก่อนเริ่มระบบอื่น
+*/
+
+checkLogin();
+
+
+/*
+  โหลดผลของผู้ใช้ปัจจุบัน
+*/
+
+if(currentUser){
+
+  loadLastResult();
+
+  updateUserInterface();
+
+}
+
+
+/* =====================================================
+   KEYBOARD LOGIN
+===================================================== */
+
+document
+  .getElementById("loginPassword")
+  .addEventListener(
+    "keydown",
+    function(event){
+
+      if(
+        event.key === "Enter"
+      ){
+
+        login();
+
+      }
+
+    }
+  );
 
 </script>
 
