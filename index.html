@@ -2233,6 +2233,14 @@ button{
           รายละเอียดการทดสอบ
         </h2>
 
+        <div
+          class="info"
+          style="margin-bottom:12px;"
+        >
+          🧮 ระบบคำนวณคะแนนและเปอร์เซ็นต์
+          ให้อัตโนมัติจากคำตอบของการทดสอบ
+        </div>
+
         <p>
           ผู้ใช้:
           <b id="finalUser">-</b>
@@ -2259,8 +2267,18 @@ button{
         </p>
 
         <p>
-          ตอบถูก:
+          คะแนนการทดสอบ:
           <b id="finalScore">-</b>
+        </p>
+
+        <p>
+          คิดเป็นเปอร์เซ็นต์:
+          <b
+            id="finalPercent"
+            style="color:var(--green)"
+          >
+            -
+          </b>
         </p>
 
         <p>
@@ -5159,6 +5177,20 @@ function finishTest(){
       distance + " ซม.";
 
 
+  /* คำนวณคะแนนและเปอร์เซ็นต์อัตโนมัติ */
+
+  const totalQuestions =
+    testQuestion > 0
+      ? testQuestion
+      : 0;
+
+  const scorePercent =
+    totalQuestions > 0
+      ? Math.round(
+          (correctAnswers / totalQuestions) * 100
+        )
+      : 0;
+
   document
     .getElementById(
       "finalScore"
@@ -5166,7 +5198,15 @@ function finishTest(){
     .textContent =
       correctAnswers
       + " / "
-      + testQuestion;
+      + totalQuestions
+      + " คะแนน";
+
+  document
+    .getElementById(
+      "finalPercent"
+    )
+    .textContent =
+      scorePercent + "%";
 
 
   document
@@ -5193,11 +5233,15 @@ function finishTest(){
       + result.acuity
       + "<br>"
 
-      + "ตอบถูก "
+      + "คะแนน "
       + correctAnswers
-      + " จาก "
-      + testQuestion
-      + " ข้อ";
+      + " / "
+      + totalQuestions
+      + " คะแนน"
+      + "<br>"
+      + "คิดเป็น "
+      + scorePercent
+      + "%";
 
 
   const data = {
@@ -5227,7 +5271,10 @@ function finishTest(){
       correctAnswers,
 
     total:
-      testQuestion,
+      totalQuestions,
+
+    scorePercent:
+      scorePercent,
 
     price:
       price,
@@ -5424,7 +5471,25 @@ function loadLastResult(){
       .textContent =
       data.score
       + " / "
-      + data.total;
+      + data.total
+      + " คะแนน";
+
+
+    document
+      .getElementById(
+        "finalPercent"
+      )
+      .textContent =
+      (
+        typeof data.scorePercent === "number"
+          ? data.scorePercent
+          : (data.total > 0
+              ? Math.round(
+                  (data.score / data.total) * 100
+                )
+              : 0)
+      )
+      + "%";
 
 
     document
