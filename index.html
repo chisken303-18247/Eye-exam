@@ -941,6 +941,69 @@ button{
   font-weight:700;
 }
 
+
+.admin-flow{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  margin-top:8px;
+}
+
+.admin-flow-step{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:10px;
+  background:var(--green-light);
+  border-radius:12px;
+  font-size:13px;
+}
+
+.admin-flow-step b{
+  width:28px;
+  height:28px;
+  border-radius:50%;
+  background:var(--green);
+  color:#fff;
+  display:grid;
+  place-items:center;
+  flex:none;
+}
+
+.admin-flow-arrow{
+  text-align:center;
+  color:var(--green);
+  font-weight:700;
+  line-height:1;
+}
+
+/* =====================================================
+   USER WORKFLOW
+===================================================== */
+
+.workflow-step{
+  display:flex;
+  flex-direction:column;
+  gap:3px;
+  padding:10px 0;
+  border-bottom:1px solid var(--line);
+  font-size:13px;
+}
+
+.workflow-step:last-child{
+  border-bottom:0;
+  padding-bottom:0;
+}
+
+.workflow-step b{
+  color:var(--green-dark);
+}
+
+.workflow-step span{
+  color:var(--muted);
+  line-height:1.5;
+}
+
 /* =====================================================
    MOBILE
 ===================================================== */
@@ -1343,12 +1406,38 @@ button{
       👤 <span>กำลังโหลด...</span>
     </div>
 
-    <button
-      class="logout-btn"
-      onclick="logout()"
+    <div
+      style="
+        display:flex;
+        gap:6px;
+        align-items:center;
+        flex-wrap:wrap;
+        justify-content:flex-end;
+      "
     >
-      ออกจากระบบ
-    </button>
+
+      <button
+        id="adminShortcut"
+        class="logout-btn"
+        style="
+          display:none;
+          background:var(--green-light);
+          color:var(--green-dark);
+          border:1px solid var(--line);
+        "
+        onclick="showPage('admin'); adminRefresh();"
+      >
+        ⚙️ แอดมิน
+      </button>
+
+      <button
+        class="logout-btn"
+        onclick="logout()"
+      >
+        ออกจากระบบ
+      </button>
+
+    </div>
 
   </div>
 
@@ -1619,6 +1708,96 @@ button{
             "
           >
             ฿5
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- =================================================
+           ขั้นตอนการใช้งานตามบทบาท
+      ================================================== -->
+
+      <div class="card" id="userWorkflowCard">
+
+        <h2 style="color:var(--green)">
+          📋 ขั้นตอนการใช้งาน
+        </h2>
+
+        <div id="customerWorkflow" style="display:none">
+
+          <div class="workflow-step">
+            <b>1. ชำระค่าบริการ</b>
+            <span>ชำระค่าบริการ 5 บาท เพื่อรับสิทธิ์วัดสายตา 1 ครั้ง</span>
+          </div>
+
+          <div class="workflow-step">
+            <b>2. เตรียมตัววัดสายตา</b>
+            <span>เลือกขนาดหน้าจอ และถือโทรศัพท์ตามระยะที่ระบบแนะนำ</span>
+          </div>
+
+          <div class="workflow-step">
+            <b>3. ทำแบบทดสอบ</b>
+            <span>เลือกตัวอักษรที่มองเห็นตามจริง หรือกด “มองไม่เห็น”</span>
+          </div>
+
+          <div class="workflow-step">
+            <b>4. รอระบบประมวลผล</b>
+            <span>ระบบจะประเมินคำตอบและบันทึกผลการคัดกรอง</span>
+          </div>
+
+          <div class="workflow-step">
+            <b>5. ดูผลการวัด</b>
+            <span>ตรวจดูผลการคัดกรองและประวัติการวัดย้อนหลังได้</span>
+          </div>
+
+        </div>
+
+        <div id="medicalWorkflow" style="display:none">
+
+          <div class="workflow-step">
+            <b>1. เริ่มวัดสายตา</b>
+            <span>บัญชีบุคลากรสามารถเริ่มการทดสอบได้โดยไม่เสียค่าบริการ</span>
+          </div>
+
+          <div class="workflow-step">
+            <b>2. ตั้งค่าการทดสอบ</b>
+            <span>เลือกขนาดหน้าจอ ระยะห่าง และตาที่ต้องการวัด</span>
+          </div>
+
+          <div class="workflow-step">
+            <b>3. ทำแบบทดสอบ</b>
+            <span>เลือกคำตอบตามตัวอักษรที่มองเห็นจริงในแต่ละข้อ</span>
+          </div>
+
+          <div class="workflow-step">
+            <b>4. ตรวจผลการคัดกรอง</b>
+            <span>ระบบประมวลผลคะแนนและแสดงผลการคัดกรองเบื้องต้น</span>
+          </div>
+
+          <div class="workflow-step">
+            <b>5. ดูประวัติผลการวัด</b>
+            <span>สามารถตรวจสอบผลการวัดและประวัติของบัญชีได้</span>
+          </div>
+
+        </div>
+
+        <div id="adminWorkflow" style="display:none">
+
+          <div class="workflow-step">
+            <b>1. เริ่มวัดสายตา</b>
+            <span>บัญชีแอดมินสามารถทดสอบระบบได้ฟรี</span>
+          </div>
+
+          <div class="workflow-step">
+            <b>2. ทำแบบทดสอบ</b>
+            <span>ตั้งค่าหน้าจอและทำแบบทดสอบตามขั้นตอน</span>
+          </div>
+
+          <div class="workflow-step">
+            <b>3. ตรวจสอบข้อมูล</b>
+            <span>ตรวจสอบผลการวัด ผู้ใช้งาน และรายการชำระเงินจากแผงควบคุมแอดมิน</span>
           </div>
 
         </div>
@@ -2596,6 +2775,109 @@ button{
       </div>
 
 
+
+
+      <div class="admin-card">
+
+        <h2>
+          🔄 ธุรกรรมหลัก
+        </h2>
+
+        <div class="info" style="margin:0 0 10px">
+          <b style="color:var(--green)">
+            ทำกระบวนการหลักของระบบได้ตั้งแต่ต้นจนจบ
+          </b>
+
+          <br>
+
+          ชำระเงิน → วัดสายตา → ประมวลผล → บันทึกผล → ดูผล
+        </div>
+
+        <div class="admin-flow">
+
+          <div class="admin-flow-step">
+            <b>1</b>
+            <span>💳 <strong>ชำระเงิน</strong> — ยืนยันค่าบริการ 5 บาท</span>
+          </div>
+
+          <div class="admin-flow-arrow">↓</div>
+
+          <div class="admin-flow-step">
+            <b>2</b>
+            <span>👁 <strong>วัดสายตา</strong> — ทำแบบทดสอบการมองเห็น</span>
+          </div>
+
+          <div class="admin-flow-arrow">↓</div>
+
+          <div class="admin-flow-step">
+            <b>3</b>
+            <span>⚙️ <strong>ประมวลผล</strong> — ตรวจคำตอบและคำนวณผล</span>
+          </div>
+
+          <div class="admin-flow-arrow">↓</div>
+
+          <div class="admin-flow-step">
+            <b>4</b>
+            <span>💾 <strong>บันทึกผล</strong> — เก็บผลการทดสอบในระบบ</span>
+          </div>
+
+          <div class="admin-flow-arrow">↓</div>
+
+          <div class="admin-flow-step">
+            <b>5</b>
+            <span>📊 <strong>ดูผล</strong> — แสดงผลการวัดให้ผู้ใช้ตรวจสอบ</span>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="admin-card">
+
+        <h2>
+          📂 จัดการข้อมูล
+        </h2>
+
+        <div class="info" style="margin:0 0 10px">
+          <b style="color:var(--green)">
+            ระบบสามารถจัดการข้อมูลหลักได้
+          </b>
+
+          <br>
+
+          เพิ่ม ดู แก้ไข และลบข้อมูลหลักได้
+
+          <br>
+
+          <span style="font-size:12px;color:var(--muted)">
+            เช่น ข้อมูลผู้ใช้ ผลการวัดสายตา และข้อมูลการชำระเงิน
+          </span>
+        </div>
+
+        <button
+          class="btn"
+          onclick="editAdminUser()"
+        >
+          ✏️ แก้ไขข้อมูลผู้ใช้
+        </button>
+
+        <button
+          class="btn"
+          onclick="clearAdminTests()"
+        >
+          🗑️ ลบข้อมูลผลการวัดทั้งหมด
+        </button>
+
+        <button
+          class="btn"
+          onclick="clearAdminPayments()"
+        >
+          🗑️ ลบข้อมูลการชำระเงินทั้งหมด
+        </button>
+
+      </div>
+
+
       <div class="admin-card">
 
         <h2>
@@ -2906,7 +3188,8 @@ function login(){
 
     username:user.username,
 
-    name:user.name,
+    name:
+      getUserNameOverrides()[user.username] || user.name,
 
     role:user.role,
 
@@ -2962,6 +3245,9 @@ function logout(){
     null;
 
 
+  updateAdminShortcut();
+
+
   localStorage.removeItem(
     "eye_current_user"
   );
@@ -3012,6 +3298,26 @@ function checkLogin(){
         JSON.parse(saved);
 
 
+      const savedNameOverrides =
+        getUserNameOverrides();
+
+
+      if(
+        currentUser.username &&
+        savedNameOverrides[currentUser.username]
+      ){
+
+        currentUser.name =
+          savedNameOverrides[currentUser.username];
+
+        localStorage.setItem(
+          "eye_current_user",
+          JSON.stringify(currentUser)
+        );
+
+      }
+
+
       loadUserCredits();
 
       updateUserInterface();
@@ -3039,6 +3345,9 @@ function checkLogin(){
 
   }else{
 
+    updateAdminShortcut();
+
+
     document
       .getElementById("loginOverlay")
       .classList.remove("hidden");
@@ -3056,6 +3365,37 @@ function updateUserInterface(){
 
   if(!currentUser){
     return;
+  }
+
+
+  const customerWorkflow =
+    document.getElementById("customerWorkflow");
+
+  const medicalWorkflow =
+    document.getElementById("medicalWorkflow");
+
+  const adminWorkflow =
+    document.getElementById("adminWorkflow");
+
+  if(customerWorkflow){
+    customerWorkflow.style.display =
+      currentUser.role === "customer"
+      ? "block"
+      : "none";
+  }
+
+  if(medicalWorkflow){
+    medicalWorkflow.style.display =
+      currentUser.role === "medical"
+      ? "block"
+      : "none";
+  }
+
+  if(adminWorkflow){
+    adminWorkflow.style.display =
+      currentUser.role === "admin"
+      ? "block"
+      : "none";
   }
 
 
@@ -3159,6 +3499,40 @@ function updateUserInterface(){
 
     anotherTestButton.innerHTML =
       "◎ ทดสอบอีกครั้ง 5 บาท";
+
+  }
+
+
+  updateAdminShortcut();
+
+}
+
+
+function updateAdminShortcut(){
+
+  const button =
+    document.getElementById(
+      "adminShortcut"
+    );
+
+
+  if(!button){
+    return;
+  }
+
+
+  if(
+    currentUser &&
+    currentUser.role === "admin"
+  ){
+
+    button.style.display =
+      "inline-block";
+
+  }else{
+
+    button.style.display =
+      "none";
 
   }
 
@@ -5078,6 +5452,166 @@ function loadLastResult(){
    ADMIN DASHBOARD
 ===================================================== */
 
+function getUserNameOverrides(){
+
+  return JSON.parse(
+    localStorage.getItem("eye_user_name_overrides") || "{}"
+  );
+
+}
+
+
+function editAdminUser(){
+
+  if(
+    !currentUser ||
+    currentUser.role !== "admin"
+  ){
+    return;
+  }
+
+  const username =
+    prompt(
+      "กรอกชื่อผู้ใช้ที่ต้องการแก้ไข\\n\\ncustomer / doctor / admin",
+      "customer"
+    );
+
+  if(!username){
+    return;
+  }
+
+  const user =
+    demoUsers.find(
+      u => u.username === username.trim()
+    );
+
+  if(!user){
+
+    alert("ไม่พบชื่อผู้ใช้นี้ในระบบ");
+
+    return;
+  }
+
+  const overrides = getUserNameOverrides();
+
+  const currentName =
+    overrides[user.username] || user.name;
+
+  const newName =
+    prompt(
+      "กรอกชื่อใหม่ของผู้ใช้",
+      currentName
+    );
+
+  if(newName === null){
+    return;
+  }
+
+  const cleanName =
+    newName.trim();
+
+  if(!cleanName){
+
+    alert("กรุณากรอกชื่อผู้ใช้");
+
+    return;
+  }
+
+  overrides[user.username] =
+    cleanName;
+
+  localStorage.setItem(
+    "eye_user_name_overrides",
+    JSON.stringify(overrides)
+  );
+
+  alert("แก้ไขข้อมูลผู้ใช้เรียบร้อยแล้ว");
+
+  adminRefresh();
+
+}
+
+
+function clearAdminTests(){
+
+  if(
+    !currentUser ||
+    currentUser.role !== "admin"
+  ){
+    return;
+  }
+
+  const tests =
+    JSON.parse(
+      localStorage.getItem("eye_test_records") || "[]"
+    );
+
+  if(tests.length === 0){
+
+    alert("ยังไม่มีข้อมูลผลการวัดให้ลบ");
+
+    return;
+  }
+
+  if(
+    confirm(
+      "ต้องการลบข้อมูลผลการวัดทั้งหมด " +
+      tests.length +
+      " รายการหรือไม่?"
+    )
+  ){
+
+    localStorage.removeItem("eye_test_records");
+
+    alert("ลบข้อมูลผลการวัดเรียบร้อยแล้ว");
+
+    adminRefresh();
+
+  }
+
+}
+
+
+function clearAdminPayments(){
+
+  if(
+    !currentUser ||
+    currentUser.role !== "admin"
+  ){
+    return;
+  }
+
+  const payments =
+    JSON.parse(
+      localStorage.getItem("eye_payment_records") || "[]"
+    );
+
+  if(payments.length === 0){
+
+    alert("ยังไม่มีข้อมูลการชำระเงินให้ลบ");
+
+    return;
+  }
+
+  if(
+    confirm(
+      "ต้องการลบข้อมูลการชำระเงินทั้งหมด " +
+      payments.length +
+      " รายการหรือไม่?"
+    )
+  ){
+
+    localStorage.removeItem("eye_payment_records");
+
+    alert("ลบข้อมูลการชำระเงินเรียบร้อยแล้ว");
+
+    adminRefresh();
+
+  }
+
+}
+
+
 function adminRefresh(){
 
   if(
@@ -5134,6 +5668,10 @@ function adminRefresh(){
     USERS
   */
 
+  const nameOverrides =
+    getUserNameOverrides();
+
+
   document
     .getElementById(
       "adminUsers"
@@ -5146,7 +5684,7 @@ function adminRefresh(){
           <div class="admin-user-row">
 
             <b>
-              ${user.name}
+              ${nameOverrides[user.username] || user.name}
             </b>
 
             <br>
