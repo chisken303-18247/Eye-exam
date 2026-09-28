@@ -9,7 +9,7 @@
   content="width=device-width, initial-scale=1.0"
 >
 
-<title>วัดสายตา - Eye Care App</title>
+<title>ร้านแว่นสายตา - Vision Glasses App</title>
 
 <style>
 
@@ -258,9 +258,7 @@ button{
   padding:4px 0 12px;
 }
 
-/* =====================================================
-   USER BAR
-===================================================== */
+/* USER BAR */
 
 .user-bar{
   display:flex;
@@ -301,9 +299,7 @@ button{
   flex:none;
 }
 
-/* =====================================================
-   BOTTOM NAV
-===================================================== */
+/* BOTTOM NAV */
 
 .nav{
   position:absolute;
@@ -337,9 +333,7 @@ button{
   font-weight:700;
 }
 
-/* =====================================================
-   SETTINGS
-===================================================== */
+/* SETTINGS */
 
 .setting{
   display:flex;
@@ -424,9 +418,7 @@ button{
   cursor:pointer;
 }
 
-/* =====================================================
-   MODAL
-===================================================== */
+/* MODAL */
 
 .modal-bg{
   position:fixed;
@@ -492,9 +484,7 @@ button{
   color:#fff;
 }
 
-/* =====================================================
-   LOGIN
-===================================================== */
+/* LOGIN */
 
 .login-overlay{
   position:fixed;
@@ -615,9 +605,7 @@ button{
   margin-top:10px;
 }
 
-/* =====================================================
-   PAYMENT
-===================================================== */
+/* PAYMENT */
 
 .payment-overlay{
   position:fixed;
@@ -756,9 +744,7 @@ button{
   margin-top:7px;
 }
 
-/* =====================================================
-   VISION TEST
-===================================================== */
+/* VISION TEST */
 
 .distance-box{
   text-align:center;
@@ -844,9 +830,34 @@ button{
   color:var(--muted);
 }
 
-/* =====================================================
-   IMAGE
-===================================================== */
+/* AUTO RESULT */
+
+.auto-result-box{
+  border:1px solid var(--line);
+  border-radius:15px;
+  padding:13px;
+  background:#fff;
+  margin-top:10px;
+}
+
+.auto-result-item{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  padding:8px 0;
+  border-bottom:1px solid #e7eee9;
+  font-size:13px;
+}
+
+.auto-result-item:last-child{
+  border-bottom:0;
+}
+
+.auto-result-item b{
+  color:var(--green);
+}
+
+/* IMAGE */
 
 .vision-image{
   width:100%;
@@ -864,9 +875,7 @@ button{
   line-height:1.5;
 }
 
-/* =====================================================
-   ADMIN
-===================================================== */
+/* ADMIN */
 
 .admin-stat{
   display:grid;
@@ -941,7 +950,6 @@ button{
   font-weight:700;
 }
 
-
 .admin-flow{
   display:flex;
   flex-direction:column;
@@ -977,9 +985,7 @@ button{
   line-height:1;
 }
 
-/* =====================================================
-   USER WORKFLOW
-===================================================== */
+/* USER WORKFLOW */
 
 .workflow-step{
   display:flex;
@@ -1004,9 +1010,168 @@ button{
   line-height:1.5;
 }
 
+
 /* =====================================================
-   MOBILE
+   GLASSES SHOP / ORDERS / DRIVER
 ===================================================== */
+.form-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+.form-field{
+  margin:8px 0;
+}
+.form-field.full{
+  grid-column:1 / -1;
+}
+.form-field label{
+  display:block;
+  font-size:12px;
+  font-weight:700;
+  margin-bottom:5px;
+}
+.form-field input,
+.form-field select,
+.form-field textarea{
+  width:100%;
+  padding:11px;
+  border:1px solid var(--line);
+  border-radius:11px;
+  outline:none;
+  background:#fff;
+  font-family:inherit;
+  font-size:14px;
+}
+.form-field textarea{
+  min-height:72px;
+  resize:vertical;
+}
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus{
+  border-color:var(--green);
+  box-shadow:0 0 0 3px #0b9b4315;
+}
+.product-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:9px;
+}
+.product-option{
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:11px;
+  cursor:pointer;
+  background:#fff;
+}
+.product-option.selected{
+  border:2px solid var(--green);
+  background:var(--green-light);
+}
+.product-option b{
+  display:block;
+  color:var(--green-dark);
+}
+.product-option span{
+  display:block;
+  font-size:11px;
+  color:var(--muted);
+  margin-top:4px;
+}
+.price-total{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:13px;
+  border-radius:14px;
+  background:var(--green-light);
+  margin-top:10px;
+}
+.price-total strong{
+  color:var(--green);
+  font-size:25px;
+}
+.status-badge{
+  display:inline-block;
+  padding:5px 9px;
+  border-radius:20px;
+  font-size:10px;
+  font-weight:700;
+  background:#eef5f0;
+  color:var(--green-dark);
+}
+.status-pending{background:#fff7e6;color:#8a6500}
+.status-processing{background:#eaf4ff;color:#2169a6}
+.status-delivery{background:#f0eaff;color:#6c45a5}
+.status-success{background:#e7f8ed;color:var(--green-dark)}
+.order-card{
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:13px;
+  margin:10px 0;
+  background:#fff;
+}
+.order-head{
+  display:flex;
+  justify-content:space-between;
+  gap:8px;
+  align-items:flex-start;
+}
+.order-meta{
+  font-size:11px;
+  color:var(--muted);
+  line-height:1.6;
+}
+.order-actions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:7px;
+  margin-top:10px;
+}
+.order-actions .btn{
+  margin:0;
+  padding:10px;
+  font-size:13px;
+}
+.admin-stat.five{
+  grid-template-columns:repeat(5,1fr);
+}
+.mini-stat{
+  background:#f7fbf8;
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:10px;
+  text-align:center;
+}
+.mini-stat b{
+  display:block;
+  color:var(--green);
+  font-size:20px;
+}
+.delivery-route{
+  padding:10px;
+  border-left:4px solid var(--green);
+  background:var(--green-light);
+  border-radius:10px;
+  margin:8px 0;
+  font-size:13px;
+}
+.empty-state{
+  text-align:center;
+  color:var(--muted);
+  padding:20px 10px;
+}
+@media(max-width:360px){
+  .form-grid,.product-grid{
+    grid-template-columns:1fr;
+  }
+  .admin-stat.five{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+
+/* MOBILE */
 
 @media(max-width:430px){
 
@@ -1026,6 +1191,24 @@ button{
   }
 
 }
+
+
+.frame-image{width:100%;height:130px;object-fit:cover;border-radius:14px;margin-bottom:9px;background:var(--green-light);display:block;}
+.frame-option{overflow:hidden;}
+.notification-item{border:1px solid var(--line);border-radius:12px;padding:10px;margin:8px 0;background:#fff;}
+.notification-item.unread{background:var(--green-light);border-left:4px solid var(--green);}
+.notification-item span{font-size:12px;color:var(--muted);}
+.notification-item small{display:block;font-size:10px;color:var(--muted);margin-top:5px;}
+.notification-badge{display:inline-block;min-width:20px;padding:2px 6px;border-radius:12px;background:var(--danger);color:#fff;font-size:11px;text-align:center;}
+.dashboard-bars{display:flex;align-items:flex-end;gap:6px;height:150px;padding:10px 4px 0;border-bottom:1px solid var(--line);}
+.dashboard-bar{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;}
+.dashboard-bar i{display:block;width:70%;max-width:28px;background:var(--green);border-radius:7px 7px 0 0;min-height:4px;}
+.dashboard-bar span{font-size:9px;color:var(--muted);margin-top:5px;}
+.dashboard-bar b{font-size:9px;margin-bottom:3px;}
+.report-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.report-box{border:1px solid var(--line);border-radius:12px;padding:10px;text-align:center;background:var(--green-light);}
+.report-box b{display:block;font-size:20px;color:var(--green);}
+.report-box span{font-size:10px;color:var(--muted);}
 
 </style>
 </head>
@@ -1057,7 +1240,6 @@ button{
       กรุณาเข้าสู่ระบบก่อนใช้งาน
     </p>
 
-
     <div class="role-selector">
 
       <button
@@ -1069,11 +1251,11 @@ button{
       </button>
 
       <button
-        id="roleMedical"
+        id="roleDriver"
         class="role-button"
-        onclick="selectLoginRole('medical')"
+        onclick="selectLoginRole('driver')"
       >
-        🩺 บุคลากร
+        🚚 คนขับ
       </button>
 
       <button
@@ -1086,15 +1268,13 @@ button{
 
     </div>
 
-
     <div
       id="roleNote"
       class="role-note"
     >
       ลูกค้าสามารถใช้งานแอปได้โดยชำระค่าบริการ
-      5 บาทต่อการทดสอบ
+      1 บาทต่อการทดสอบ
     </div>
-
 
     <div class="login-form">
 
@@ -1110,7 +1290,6 @@ button{
         autocomplete="username"
       >
 
-
       <label class="login-label">
         รหัสผ่าน
       </label>
@@ -1123,12 +1302,10 @@ button{
         autocomplete="current-password"
       >
 
-
       <div
         id="loginError"
         class="login-error"
       ></div>
-
 
       <button
         class="btn primary"
@@ -1138,7 +1315,6 @@ button{
       </button>
 
     </div>
-
 
     <div
       class="info"
@@ -1160,8 +1336,8 @@ button{
 
       <br>
 
-      🩺 บุคลากร:
-      <b>doctor / 1234</b>
+      🚚 คนขับ:
+      <b>driver / 1234</b>
 
       <br>
 
@@ -1186,7 +1362,6 @@ button{
 
   <div class="payment-card">
 
-
     <div id="paymentForm">
 
       <div class="payment-head">
@@ -1204,94 +1379,51 @@ button{
         </p>
 
         <div class="payment-price">
-          ฿5
+          ฿1
           <small>/ ครั้ง</small>
         </div>
 
       </div>
 
-
       <div class="payment-detail">
 
         <div class="payment-row">
-
-          <span>
-            ผู้ใช้งาน
-          </span>
-
-          <b id="paymentUser">
-            -
-          </b>
-
+          <span>ผู้ใช้งาน</span>
+          <b id="paymentUser">-</b>
         </div>
 
-
         <div class="payment-row">
-
-          <span>
-            บริการ
-          </span>
-
-          <b>
-            ทดสอบการมองเห็น
-          </b>
-
+          <span>บริการ</span>
+          <b>ทดสอบการมองเห็น</b>
         </div>
 
-
         <div class="payment-row">
-
-          <span>
-            จำนวนครั้ง
-          </span>
-
-          <b>
-            1 ครั้ง
-          </b>
-
+          <span>จำนวนครั้ง</span>
+          <b>1 ครั้ง</b>
         </div>
 
-
         <div class="payment-row">
-
-          <span>
-            ราคา
-          </span>
-
+          <span>ราคา</span>
           <b style="color:var(--green)">
-            5.00 บาท
+            1.00 บาท
           </b>
-
         </div>
 
-
         <div class="payment-row">
-
-          <span>
-            ยอดรวม
-          </span>
-
-          <b
-            style="
-              color:var(--green);
-              font-size:20px;
-            "
-          >
-            ฿5.00
+          <span>ยอดรวม</span>
+          <b style="color:var(--green);font-size:20px">
+            ฿1.00
           </b>
-
         </div>
 
       </div>
-
 
       <button
         class="pay-button"
         onclick="confirmPayment()"
       >
-        💳 ยืนยันการชำระเงิน 5 บาท
+        💳 ยืนยันการชำระเงิน 1 บาท
       </button>
-
 
       <button
         class="cancel-pay"
@@ -1300,17 +1432,13 @@ button{
         ยกเลิก
       </button>
 
-
       <div class="payment-note">
-
         ระบบต้นแบบ:
         ปุ่มนี้เป็นการจำลองการชำระเงิน
         และยังไม่มีการหักเงินจริงจากบัญชีธนาคาร
-
       </div>
 
     </div>
-
 
     <div
       id="paymentSuccess"
@@ -1330,36 +1458,21 @@ button{
         จำนวน 1 ครั้ง
       </p>
 
-
       <div class="payment-detail">
 
         <div class="payment-row">
-
-          <span>
-            จำนวนเงิน
-          </span>
-
-          <b>
-            5.00 บาท
-          </b>
-
+          <span>จำนวนเงิน</span>
+          <b>1.00 บาท</b>
         </div>
 
-
         <div class="payment-row">
-
-          <span>
-            สถานะ
-          </span>
-
+          <span>สถานะ</span>
           <b style="color:var(--green)">
             ✓ สำเร็จ
           </b>
-
         </div>
 
       </div>
-
 
       <button
         class="pay-button"
@@ -1381,21 +1494,10 @@ button{
 
 <div class="phone">
 
-
   <div class="status">
-
-    <span id="clock">
-      09:41
-    </span>
-
-    <span>
-      ▮▮▮　◉　100%
-    </span>
-
+    <span id="clock">09:41</span>
+    <span>▮▮▮　◉　100%</span>
   </div>
-
-
-  <!-- USER BAR -->
 
   <div class="user-bar">
 
@@ -1417,6 +1519,20 @@ button{
     >
 
       <button
+        id="driverShortcut"
+        class="logout-btn"
+        style="
+          display:none;
+          background:var(--green-light);
+          color:var(--green-dark);
+          border:1px solid var(--line);
+        "
+        onclick="showPage('driverPage');renderDriverOrders();"
+      >
+        🚚 งานส่ง
+      </button>
+
+      <button
         id="adminShortcut"
         class="logout-btn"
         style="
@@ -1425,7 +1541,7 @@ button{
           color:var(--green-dark);
           border:1px solid var(--line);
         "
-        onclick="showPage('admin'); adminRefresh();"
+        onclick="showPage('admin');adminRefresh();"
       >
         ⚙️ แอดมิน
       </button>
@@ -1474,7 +1590,7 @@ button{
           id="homePriceBadge"
           class="price-badge"
         >
-          ค่าบริการ 5 บาท / ครั้ง
+          ค่าบริการ 1 บาท / ครั้ง
         </span>
 
       </div>
@@ -1483,67 +1599,34 @@ button{
       <div class="quick">
 
         <div>
-
           <b>👥</b>
-
-          <span>
-            สำหรับ<br>
-            ทุกกลุ่ม
-          </span>
-
+          <span>สำหรับ<br>ทุกกลุ่ม</span>
         </div>
 
-
         <div>
-
           <b>👓</b>
-
-          <span>
-            ใช้ง่าย<br>
-            ไม่ยุ่งยาก
-          </span>
-
+          <span>ใช้ง่าย<br>ไม่ยุ่งยาก</span>
         </div>
 
-
         <div>
-
           <b>🛡</b>
-
-          <span>
-            ปลอดภัย<br>
-            เป็นส่วนตัว
-          </span>
-
+          <span>ปลอดภัย<br>เป็นส่วนตัว</span>
         </div>
-
 
         <div>
-
           <b>▮▮</b>
-
-          <span>
-            คัดกรอง<br>
-            การมองเห็น
-          </span>
-
+          <span>คัดกรอง<br>การมองเห็น</span>
         </div>
-
 
         <div
           onclick="requestVisionTest()"
           style="cursor:pointer"
         >
-
           <b>◎</b>
-
           <span>
             วัดสายตา<br>
-            <span id="quickPrice">
-              5 บาท
-            </span>
+            <span id="quickPrice">1 บาท</span>
           </span>
-
         </div>
 
       </div>
@@ -1554,12 +1637,8 @@ button{
         <div class="row">
 
           <div class="icon">
-
-            ก<br>
-            ขค
-
+            ก<br>ขค
           </div>
-
 
           <div style="flex:1">
 
@@ -1574,24 +1653,15 @@ button{
                 font-size:12px;
               "
             >
-
               <span>ปกติ</span>
-
               <span>เล็กน้อย</span>
-
               <span>มาก</span>
-
             </div>
-
 
             <div class="range">
-
               <i></i>
-
               <span class="dot"></span>
-
             </div>
-
 
             <div class="value">
               ค่าตัวอย่าง 0.75 D
@@ -1609,15 +1679,9 @@ button{
         <div class="row">
 
           <div class="icon">
-
             A
-
-            <span style="font-size:25px">
-              A
-            </span>
-
+            <span style="font-size:25px">A</span>
           </div>
-
 
           <div style="flex:1">
 
@@ -1632,27 +1696,15 @@ button{
                 font-size:12px;
               "
             >
-
               <span>สั้น</span>
-
               <span>ปกติ</span>
-
               <span>ยาว</span>
-
             </div>
-
 
             <div class="range">
-
               <i style="width:25%"></i>
-
-              <span
-                class="dot"
-                style="left:25%"
-              ></span>
-
+              <span class="dot" style="left:25%"></span>
             </div>
-
 
             <div class="value">
               ตัวอย่าง สายตาสั้น -1.25 D
@@ -1698,7 +1750,6 @@ button{
 
           </div>
 
-
           <div
             id="servicePrice"
             style="
@@ -1707,7 +1758,7 @@ button{
               color:var(--green);
             "
           >
-            ฿5
+            ฿1
           </div>
 
         </div>
@@ -1716,12 +1767,12 @@ button{
 
 
       <!-- =================================================
-           ขั้นตอนการใช้งานตามบทบาท
+           ข้อ 2–3 : ขั้นตอนการใช้งาน
       ================================================== -->
 
       <div class="card" id="userWorkflowCard">
 
-        <h2 style="color:var(--green)">
+        <h2>
           📋 ขั้นตอนการใช้งาน
         </h2>
 
@@ -1729,79 +1780,150 @@ button{
 
           <div class="workflow-step">
             <b>1. ชำระค่าบริการ</b>
-            <span>ชำระค่าบริการ 5 บาท เพื่อรับสิทธิ์วัดสายตา 1 ครั้ง</span>
+            <span>
+              ชำระค่าบริการ 1 บาท
+              เพื่อรับสิทธิ์วัดสายตา 1 ครั้ง
+            </span>
           </div>
 
           <div class="workflow-step">
-            <b>2. เตรียมตัววัดสายตา</b>
-            <span>เลือกขนาดหน้าจอ และถือโทรศัพท์ตามระยะที่ระบบแนะนำ</span>
+            <b>2. เตรียมตัวก่อนวัด</b>
+            <span>
+              อยู่ในที่มีแสงพอดี
+              เลือกขนาดหน้าจอ
+              และถือโทรศัพท์ตามระยะที่ระบบแนะนำ
+            </span>
           </div>
 
           <div class="workflow-step">
             <b>3. ทำแบบทดสอบ</b>
-            <span>เลือกตัวอักษรที่มองเห็นตามจริง หรือกด “มองไม่เห็น”</span>
+            <span>
+              มองตัวอักษรบนหน้าจอ
+              แล้วเลือกคำตอบตามที่มองเห็นจริง
+              หรือกด “มองไม่เห็น”
+            </span>
           </div>
 
           <div class="workflow-step">
-            <b>4. รอระบบประมวลผล</b>
-            <span>ระบบจะประเมินคำตอบและบันทึกผลการคัดกรอง</span>
+            <b>4. ระบบคำนวณผล</b>
+            <span>
+              ระบบตรวจคำตอบ
+              คำนวณคะแนนและเปอร์เซ็นต์
+              ให้อัตโนมัติ
+            </span>
           </div>
 
           <div class="workflow-step">
             <b>5. ดูผลการวัด</b>
-            <span>ตรวจดูผลการคัดกรองและประวัติการวัดย้อนหลังได้</span>
+            <span>
+              ดูระดับการมองเห็น
+              รายละเอียดการคัดกรอง
+              และประวัติผลการวัด
+            </span>
+          </div>
+
+          <div class="workflow-step">
+            <b>6. สั่งตัดแว่นและติดตามออเดอร์</b>
+            <span>
+              เลือกกรอบแว่น เลนส์ชั้นเดียว
+              กรอกค่าสายตา ยืนยันคำสั่งซื้อ
+              และติดตามสถานะการจัดส่ง
+            </span>
           </div>
 
         </div>
 
-        <div id="medicalWorkflow" style="display:none">
+
+        <div id="driverWorkflow" style="display:none">
 
           <div class="workflow-step">
-            <b>1. เริ่มวัดสายตา</b>
-            <span>บัญชีบุคลากรสามารถเริ่มการทดสอบได้โดยไม่เสียค่าบริการ</span>
+            <b>1. รับออเดอร์ที่ได้รับมอบหมาย</b>
+            <span>
+              คนขับเปิดรายการงานและดูชื่อผู้รับ ที่อยู่
+              เบอร์โทร และรายละเอียดการจัดส่ง
+            </span>
           </div>
 
           <div class="workflow-step">
-            <b>2. ตั้งค่าการทดสอบ</b>
-            <span>เลือกขนาดหน้าจอ ระยะห่าง และตาที่ต้องการวัด</span>
+            <b>2. รับสินค้าออกจากร้าน</b>
+            <span>
+              เปลี่ยนสถานะเป็น “รับสินค้าแล้ว”
+              เมื่อตรวจสอบสินค้าและจำนวนเรียบร้อย
+            </span>
           </div>
 
           <div class="workflow-step">
-            <b>3. ทำแบบทดสอบ</b>
-            <span>เลือกคำตอบตามตัวอักษรที่มองเห็นจริงในแต่ละข้อ</span>
+            <b>3. นำสินค้าไปจัดส่ง</b>
+            <span>
+              เปิดรายละเอียดออเดอร์เพื่อดูเส้นทาง
+              และข้อมูลลูกค้า
+            </span>
           </div>
 
           <div class="workflow-step">
-            <b>4. ตรวจผลการคัดกรอง</b>
-            <span>ระบบประมวลผลคะแนนและแสดงผลการคัดกรองเบื้องต้น</span>
+            <b>4. อัปเดตสถานะการจัดส่ง</b>
+            <span>
+              เปลี่ยนสถานะเป็น “กำลังจัดส่ง”
+              และ “จัดส่งสำเร็จ” ตามงานจริง
+            </span>
           </div>
 
           <div class="workflow-step">
-            <b>5. ดูประวัติผลการวัด</b>
-            <span>สามารถตรวจสอบผลการวัดและประวัติของบัญชีได้</span>
+            <b>5. บันทึกหลักฐาน</b>
+            <span>
+              ระบบบันทึกเวลาและสถานะล่าสุดของออเดอร์
+              เพื่อให้ลูกค้าและแอดมินติดตามได้
+            </span>
           </div>
 
         </div>
+
 
         <div id="adminWorkflow" style="display:none">
 
           <div class="workflow-step">
-            <b>1. เริ่มวัดสายตา</b>
-            <span>บัญชีแอดมินสามารถทดสอบระบบได้ฟรี</span>
+            <b>1. เริ่มทดสอบ</b>
+            <span>
+              บัญชีแอดมินสามารถทดสอบระบบได้ฟรี
+            </span>
           </div>
 
           <div class="workflow-step">
             <b>2. ทำแบบทดสอบ</b>
-            <span>ตั้งค่าหน้าจอและทำแบบทดสอบตามขั้นตอน</span>
+            <span>
+              ตั้งค่าหน้าจอ
+              ระยะทดสอบ
+              และทำแบบทดสอบ
+            </span>
           </div>
 
           <div class="workflow-step">
-            <b>3. ตรวจสอบข้อมูล</b>
-            <span>ตรวจสอบผลการวัด ผู้ใช้งาน และรายการชำระเงินจากแผงควบคุมแอดมิน</span>
+            <b>3. ระบบคำนวณผล</b>
+            <span>
+              ระบบคำนวณคะแนนและผลการคัดกรอง
+              อัตโนมัติ
+            </span>
+          </div>
+
+          <div class="workflow-step">
+            <b>4. ตรวจสอบข้อมูล</b>
+            <span>
+              ตรวจสอบผลการวัด
+              ผู้ใช้งาน
+              และรายการชำระเงิน
+              จากแผงควบคุม
+            </span>
           </div>
 
         </div>
 
+      </div>
+
+
+      <div class="card" style="margin-top:14px">
+        <h2>🔔 การแจ้งเตือน <span id="notificationBadge" class="notification-badge" style="display:none">0</span></h2>
+        <div id="notificationList"></div>
+        <button class="btn" onclick="markAllNotificationsRead()" style="margin-top:6px">✓ อ่านการแจ้งเตือนทั้งหมด</button>
       </div>
 
 
@@ -1810,9 +1932,24 @@ button{
         onclick="requestVisionTest()"
         id="mainTestButton"
       >
-        ◎　วัดสายตา 5 บาท　›
+        ◎　วัดสายตา 1 บาท　›
       </button>
 
+
+
+      <button
+        class="btn primary"
+        onclick="showPage('shop');prepareShopForm()"
+      >
+        👓　สั่งตัดแว่นเลนส์ชั้นเดียว　›
+      </button>
+
+      <button
+        class="btn"
+        onclick="showPage('orders');renderCustomerOrders()"
+      >
+        📦　ติดตามออเดอร์　›
+      </button>
 
       <button
         class="btn"
@@ -1855,16 +1992,17 @@ button{
         ‹ กลับหน้าหลัก
       </button>
 
-
       <h1 style="color:var(--green)">
         วัดสายตา
       </h1>
 
 
+      <!-- ข้อ 2 : ตั้งค่าก่อนทดสอบ -->
+
       <div class="card">
 
         <h2>
-          📱 ขนาดหน้าจอ
+          📱 1. ตั้งค่าก่อนวัด
         </h2>
 
         <p
@@ -1874,7 +2012,8 @@ button{
           "
         >
           เลือกขนาดหน้าจอของอุปกรณ์
-          ที่กำลังใช้งาน
+          เพื่อให้ระบบกำหนดระยะทดสอบ
+          ที่เหมาะสมสำหรับต้นแบบ
         </p>
 
 
@@ -1923,9 +2062,8 @@ button{
       <div class="card">
 
         <h2>
-          เลือกตาที่ต้องการวัด
+          2. เลือกตาที่ต้องการวัด
         </h2>
-
 
         <div class="font-buttons">
 
@@ -1937,14 +2075,12 @@ button{
             สองข้าง
           </button>
 
-
           <button
             id="eyeLeft"
             onclick="selectEye('left')"
           >
             ตาซ้าย
           </button>
-
 
           <button
             id="eyeRight"
@@ -1961,7 +2097,7 @@ button{
       <div class="info">
 
         <b style="color:var(--green)">
-          ก่อนเริ่ม
+          3. เตรียมตัวก่อนเริ่ม
         </b>
 
         <br>
@@ -1969,7 +2105,7 @@ button{
         • อยู่ในที่มีแสงสว่างพอดี
         <br>
 
-        • ถือหน้าจอตามระยะที่แนะนำ
+        • ถือหน้าจอตามระยะที่ระบบแนะนำ
         <br>
 
         • ถ้าต้องการวัดสายตาเปล่าให้ถอดแว่น
@@ -1978,10 +2114,13 @@ button{
         • อย่าขยับหน้าจอเข้าใกล้เมื่อเริ่มมองไม่ชัด
         <br>
 
-        • หากมองตัวอักษรไม่เห็น ให้กด “มองไม่เห็น”
+        • หากมองตัวอักษรไม่เห็น
+        ให้กด “มองไม่เห็น”
 
       </div>
 
+
+      <!-- ข้อ 3 : การทดสอบ -->
 
       <div class="card">
 
@@ -2090,10 +2229,12 @@ button{
       </div>
 
 
+      <!-- ข้อ 4 : ระบบคำนวณผลอัตโนมัติ -->
+
       <div class="card">
 
         <h2>
-          ผลการคัดกรอง
+          🧮 4. ระบบคำนวณผลอัตโนมัติ
         </h2>
 
         <div
@@ -2101,6 +2242,38 @@ button{
           class="result"
         >
           ยังไม่ได้ทำการทดสอบ
+        </div>
+
+        <div
+          id="liveCalculation"
+          class="auto-result-box"
+        >
+
+          <div class="auto-result-item">
+            <span>ตอบถูก</span>
+            <b id="liveCorrect">0 ข้อ</b>
+          </div>
+
+          <div class="auto-result-item">
+            <span>ตอบผิด</span>
+            <b id="liveWrong">0 ข้อ</b>
+          </div>
+
+          <div class="auto-result-item">
+            <span>จำนวนข้อที่ทำ</span>
+            <b id="liveTotal">0 ข้อ</b>
+          </div>
+
+          <div class="auto-result-item">
+            <span>คะแนนปัจจุบัน</span>
+            <b id="livePercent">0%</b>
+          </div>
+
+          <div class="auto-result-item">
+            <span>ระดับปัจจุบัน</span>
+            <b id="liveAcuity">-</b>
+          </div>
+
         </div>
 
       </div>
@@ -2129,6 +2302,13 @@ button{
         </b>
 
         <br>
+
+        ระบบจะคำนวณคะแนน
+        เปอร์เซ็นต์
+        และผลการคัดกรองจากคำตอบที่ทำ
+        โดยอัตโนมัติ
+
+        <br><br>
 
         การทดสอบนี้เป็นการคัดกรองเบื้องต้น
         ขนาดหน้าจอ ความละเอียด
@@ -2214,14 +2394,18 @@ button{
           -
         </b>
 
+        <div id="sphResultValue" style="margin-top:8px;font-size:17px;font-weight:700;color:var(--text)">
+          SPH ที่แนะนำ: -
+        </div>
+
         <p
           style="
             font-size:12px;
             color:var(--muted);
           "
         >
-          เป็นผลคัดกรอง
-          ไม่ใช่ค่าสำหรับตัดแว่น
+          ค่า SPH เป็นค่าประมาณจากการคัดกรอง ใช้ประกอบการเลือกเลนส์เบื้องต้น
+          และควรตรวจยืนยันกับผู้เชี่ยวชาญก่อนตัดแว่นจริง
         </p>
 
       </div>
@@ -2237,8 +2421,9 @@ button{
           class="info"
           style="margin-bottom:12px;"
         >
-          🧮 ระบบคำนวณคะแนนและเปอร์เซ็นต์
-          ให้อัตโนมัติจากคำตอบของการทดสอบ
+          🧮 ระบบคำนวณคะแนน
+          และเปอร์เซ็นต์ให้อัตโนมัติ
+          จากคำตอบของการทดสอบ
         </div>
 
         <p>
@@ -2291,6 +2476,11 @@ button{
           </b>
         </p>
 
+        <p>
+          เวลาทดสอบ:
+          <b id="finalTime">-</b>
+        </p>
+
       </div>
 
 
@@ -2299,7 +2489,7 @@ button{
         onclick="buyAnotherTest()"
         id="anotherTestButton"
       >
-        ◎ ทดสอบอีกครั้ง 5 บาท
+        ◎ ทดสอบอีกครั้ง 1 บาท
       </button>
 
 
@@ -2434,14 +2624,14 @@ button{
         </h2>
 
         <p>
-          “วัดสายตา”
+          “วัดสายตา & ร้านแว่น”
           เป็นแอปต้นแบบสำหรับคัดกรอง
           การมองเห็นเบื้องต้น
         </p>
 
         <p>
           <b>เวอร์ชัน:</b>
-          3.0.0
+          3.1.0
         </p>
 
       </div>
@@ -2459,17 +2649,34 @@ button{
 
         <p>
           👤 ลูกค้า —
-          ชำระ 5 บาทต่อครั้ง
+          ชำระ 1 บาทต่อครั้ง
         </p>
 
         <p>
-          🩺 บุคลากรทางการแพทย์ —
+          🚚 คนขับทางการแพทย์ —
           ใช้งานฟรี
         </p>
 
         <p>
           ⚙️ แอดมิน —
           จัดการและดูข้อมูลระบบ
+        </p>
+
+      </div>
+
+
+      <div class="card">
+
+        <h2>
+          🧮 ระบบคำนวณผล
+        </h2>
+
+        <p>
+          ระบบตรวจสอบคำตอบ
+          และคำนวณคะแนน
+          เปอร์เซ็นต์
+          และระดับการมองเห็น
+          ให้อัตโนมัติ
         </p>
 
       </div>
@@ -2485,7 +2692,7 @@ button{
           การทดสอบสำหรับลูกค้า
           มีค่าบริการ
           <b style="color:var(--green)">
-            5 บาทต่อครั้ง
+            1 บาทต่อครั้ง
           </b>
         </p>
 
@@ -2540,6 +2747,167 @@ button{
     </section>
 
 
+
+    <!-- =================================================
+         GLASSES SHOP
+    ================================================== -->
+    <section id="shop" class="page">
+
+      <button class="back" onclick="showPage('home')">
+        ‹ กลับหน้าหลัก
+      </button>
+
+      <h1 style="color:var(--green)">ร้านแว่นสายตา 👓</h1>
+
+      <div class="info">
+        <b style="color:var(--green)">เลนส์ชั้นเดียว (Single Vision)</b>
+        <br>
+        เลือกกรอบ กำหนดค่าสายตา และระบบจะคำนวณยอดรวมให้อัตโนมัติ
+      </div>
+
+      <div class="card">
+        <h2>1. เลือกกรอบแว่น</h2>
+        <div class="product-grid" id="frameOptions"></div>
+      </div>
+
+      <div class="card">
+        <h2>2. เลือกเลนส์</h2>
+        <div class="product-grid">
+          <div class="product-option selected" id="lensSingleOption">
+            <b>เลนส์ชั้นเดียว (Single Vision)</b>
+            <span>ใช้สำหรับแก้สายตาสั้นหรือสายตายาว โดยรวมอยู่ในราคาของกรอบแต่ละรุ่น</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>3. ค่าสายตา</h2>
+        <div class="info" style="margin-top:0;font-size:12px">
+          ระบบจะดึง <b>ผลวัดล่าสุดของบัญชีที่กำลังใช้งาน</b> มาให้ ไม่ใช้ผลของผู้ใช้อื่น
+          และถ้าวัดใหม่ ผลใหม่จะกลายเป็นผลวัดล่าสุดทันที
+          <br><span id="latestVisionInfo">ยังไม่ได้โหลดผลวัดล่าสุด</span>
+          <br>ผลวัดในแอปเป็นการคัดกรองเบื้องต้น ควรใช้ใบค่าสายตาจากผู้เชี่ยวชาญเมื่อตัดแว่นจริง
+        </div>
+
+        <div class="form-grid">
+          <div class="form-field">
+            <label>SPH ขวา</label>
+            <input id="rxRightSph" type="number" step="0.25" value="0.00">
+          </div>
+          <div class="form-field">
+            <label>SPH ซ้าย</label>
+            <input id="rxLeftSph" type="number" step="0.25" value="0.00">
+          </div>
+          <div class="form-field full">
+            <label>ค่าสายตา (SPH) — สายตาสั้น/สายตายาว</label>
+            <div class="info" style="margin:0">ค่าติดลบ = สายตาสั้น · ค่าบวก = สายตายาว</div>
+          </div>
+          <div class="form-field">
+            <label>PD (มม.)</label>
+            <input id="rxPd" type="number" min="40" max="80" step="1" value="63">
+          </div>
+          <div class="form-field">
+            <label>จำนวน</label>
+            <select id="orderQty" onchange="updateOrderTotal()">
+              <option value="1">1 ชิ้น</option>
+              <option value="2">2 ชิ้น</option>
+            </select>
+          </div>
+        </div>
+
+        <button class="btn" onclick="useLatestVisionResult()">
+          👁 ใช้ข้อมูลจากผลวัดล่าสุด
+        </button>
+      </div>
+
+      <div class="card">
+        <h2>5. ข้อมูลจัดส่ง</h2>
+        <div class="form-grid">
+          <div class="form-field full">
+            <label>ชื่อผู้รับ</label>
+            <input id="shipName" type="text" placeholder="ชื่อ-นามสกุล">
+          </div>
+          <div class="form-field">
+            <label>เบอร์โทร</label>
+            <input id="shipPhone" type="tel" placeholder="08xxxxxxxx">
+          </div>
+          <div class="form-field">
+            <label>จังหวัด</label>
+            <input id="shipProvince" type="text" placeholder="จังหวัด">
+          </div>
+          <div class="form-field full">
+            <label>ที่อยู่จัดส่ง</label>
+            <textarea id="shipAddress" placeholder="บ้านเลขที่ หมู่ ถนน ตำบล อำเภอ และรายละเอียดเพิ่มเติม"></textarea>
+          </div>
+          <div class="form-field full">
+            <label>หมายเหตุ</label>
+            <textarea id="orderNote" placeholder="เช่น ฝากไว้ที่..."></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>6. สรุปคำสั่งซื้อ</h2>
+        <div id="orderSummary" class="result">กำลังคำนวณ...</div>
+        <div class="price-total">
+          <span>ยอดรวมทั้งหมด</span>
+          <strong id="orderGrandTotal">฿0</strong>
+        </div>
+        <button class="btn primary" onclick="createGlassesOrder()">
+          🛒 ยืนยันคำสั่งซื้อ
+        </button>
+      </div>
+
+    </section>
+
+    <!-- =================================================
+         CUSTOMER ORDERS
+    ================================================== -->
+    <section id="orders" class="page">
+
+      <button class="back" onclick="showPage('home')">
+        ‹ กลับหน้าหลัก
+      </button>
+
+      <h1 style="color:var(--green)">ออเดอร์ของฉัน 📦</h1>
+
+      <div class="info">
+        <b style="color:var(--green)">ติดตามสถานะ</b>
+        <br>
+        ระบบจะแสดงสถานะล่าสุดของคำสั่งซื้อแว่นและข้อมูลการจัดส่ง
+      </div>
+
+      <div id="customerOrdersList"></div>
+
+    </section>
+
+    <!-- =================================================
+         DRIVER
+    ================================================== -->
+    <section id="driverPage" class="page">
+
+      <button class="back" onclick="showPage('home')">
+        ‹ กลับหน้าหลัก
+      </button>
+
+      <h1 style="color:var(--green)">งานจัดส่งของคนขับ 🚚</h1>
+
+      <div class="info">
+        <b style="color:var(--green)">คนขับ</b>
+        <br>
+        ดูเฉพาะออเดอร์ที่แอดมินมอบหมายให้ และอัปเดตสถานะการจัดส่ง
+      </div>
+
+      <div class="admin-stat">
+        <div><b id="driverAssignedCount">0</b><span>ได้รับมอบหมาย</span></div>
+        <div><b id="driverDeliveryCount">0</b><span>กำลังจัดส่ง</span></div>
+        <div><b id="driverDoneCount">0</b><span>สำเร็จ</span></div>
+      </div>
+
+      <div id="driverOrdersList"></div>
+
+    </section>
+
     <!-- =================================================
          SETTINGS
     ================================================== -->
@@ -2563,7 +2931,6 @@ button{
 
 
       <div class="card">
-
 
         <div class="setting">
 
@@ -2589,7 +2956,6 @@ button{
             </div>
 
           </div>
-
 
           <div
             id="notifySwitch"
@@ -2621,7 +2987,6 @@ button{
             </div>
 
           </div>
-
 
           <select
             id="fontSize"
@@ -2745,110 +3110,201 @@ button{
 
         <br>
 
-        จัดการข้อมูลระบบและดูสถิติการใช้งาน
+        จัดการข้อมูลระบบ
+        และดูสถิติการใช้งาน
 
       </div>
 
 
-      <div class="admin-stat">
+      <div class="admin-stat five">
 
         <div>
-
-          <b id="adminUserCount">
-            0
-          </b>
-
-          <span>
-            ผู้ใช้
-          </span>
-
+          <b id="adminUserCount">0</b>
+          <span>ผู้ใช้</span>
         </div>
 
-
         <div>
-
-          <b id="adminTestCount">
-            0
-          </b>
-
-          <span>
-            การทดสอบ
-          </span>
-
+          <b id="adminTestCount">0</b>
+          <span>การทดสอบ</span>
         </div>
 
+        <div>
+          <b id="adminPaymentCount">0</b>
+          <span>รายการชำระ</span>
+        </div>
 
         <div>
+          <b id="adminOrderCount">0</b>
+          <span>ออเดอร์</span>
+        </div>
 
-          <b id="adminPaymentCount">
-            0
-          </b>
-
-          <span>
-            รายการชำระ
-          </span>
-
+        <div>
+          <b id="adminRevenue">0</b>
+          <span>ยอดขาย</span>
         </div>
 
       </div>
 
+      <div class="admin-card">
+        <h2>📊 Dashboard และรายงาน</h2>
+        <div class="report-grid">
+          <div class="report-box"><b id="reportDelivered">0</b><span>ส่งสำเร็จ</span></div>
+          <div class="report-box"><b id="reportSuccessRate">0%</b><span>อัตราสำเร็จ</span></div>
+          <div class="report-box"><b id="reportTodayRevenue">฿0</b><span>รายได้วันนี้</span></div>
+          <div class="report-box"><b id="reportGrossProfit">฿0</b><span>กำไรขั้นต้น</span></div>
+          <div class="report-box"><b id="reportNetProfit">฿0</b><span>กำไรหลังค่าทำแว่น/ส่ง</span></div>
+        </div>
+        <div class="info" style="margin-top:10px;font-size:12px">
+          ต้นทุนอ้างอิงต่อชุด: กรอบประมาณ ฿200 + เลนส์ชั้นเดียวประมาณ ฿175 = COGS ประมาณ ฿375
+          และค่าทำแว่น/จัดส่งประมาณ ฿125 ต่อออเดอร์
+        </div>
+        <p style="font-size:12px;color:var(--muted);margin-bottom:4px">ยอดส่งรายวัน (7 วันล่าสุด)</p>
+        <div id="adminDailyChart" class="dashboard-bars"></div>
+      </div>
 
+      <div class="admin-card">
+
+        <h2>
+          🧮 4. ระบบคำนวณอัตโนมัติ — โลจิสติกส์
+        </h2>
+
+        <div class="info" style="margin:0 0 10px">
+          ระบบคำนวณแทนการคิดด้วยมือ โดยใช้จำนวนงาน น้ำหนัก และอัตราค่าขนส่ง
+          แล้วคำนวณ <b>น้ำหนักรวม · ค่าส่ง · ต้นทุนต่อเที่ยว · ต้นทุนเฉลี่ยต่อออเดอร์</b> ให้อัตโนมัติ
+        </div>
+
+        <div class="form-grid">
+          <div class="form-field">
+            <label>จำนวนออเดอร์ในเที่ยว</label>
+            <input id="logOrderCount" type="number" min="0" step="1" value="1" oninput="calculateLogistics()">
+          </div>
+          <div class="form-field">
+            <label>น้ำหนักเฉลี่ย/ออเดอร์ (กก.)</label>
+            <input id="logWeightPerOrder" type="number" min="0" step="0.01" value="0.50" oninput="calculateLogistics()">
+          </div>
+          <div class="form-field">
+            <label>ค่าส่งตามน้ำหนัก (บาท/กก.)</label>
+            <input id="logShippingRate" type="number" min="0" step="1" value="50" oninput="calculateLogistics()">
+          </div>
+          <div class="form-field">
+            <label>ค่าพาหนะ/ค่าเที่ยว (บาท)</label>
+            <input id="logTripCost" type="number" min="0" step="1" value="100" oninput="calculateLogistics()">
+          </div>
+        </div>
+
+        <div class="auto-result-box" style="margin-top:12px">
+          <div class="auto-result-item">
+            <span>น้ำหนักรวม</span>
+            <b id="logTotalWeight">0.00 กก.</b>
+          </div>
+          <div class="auto-result-item">
+            <span>ค่าส่งตามน้ำหนัก</span>
+            <b id="logShippingCost">฿0</b>
+          </div>
+          <div class="auto-result-item">
+            <span>ต้นทุนต่อเที่ยว</span>
+            <b id="logTotalTripCost">฿0</b>
+          </div>
+          <div class="auto-result-item">
+            <span>ต้นทุนเฉลี่ย/ออเดอร์</span>
+            <b id="logCostPerOrder">฿0</b>
+          </div>
+        </div>
+
+        <div id="logCalculationDetail" class="result" style="margin-top:10px">
+          กรอกข้อมูลเพื่อให้ระบบคำนวณ
+        </div>
+
+      </div>
 
 
       <div class="admin-card">
 
         <h2>
-          🔄 ธุรกรรมหลัก
+          🔄 ขั้นตอนการทำงานของระบบ
         </h2>
 
         <div class="info" style="margin:0 0 10px">
+
           <b style="color:var(--green)">
-            ทำกระบวนการหลักของระบบได้ตั้งแต่ต้นจนจบ
+            กระบวนการหลักของแอปวัดสายตา
           </b>
 
           <br>
 
-          ชำระเงิน → วัดสายตา → ประมวลผล → บันทึกผล → ดูผล
+          ชำระเงิน
+          → ตั้งค่าการทดสอบ
+          → วัดสายตา
+          → ประมวลผล
+          → บันทึกผล
+          → ดูผล
+
         </div>
 
         <div class="admin-flow">
 
           <div class="admin-flow-step">
             <b>1</b>
-            <span>💳 <strong>ชำระเงิน</strong> — ยืนยันค่าบริการ 5 บาท</span>
+            <span>
+              💳 <strong>ชำระเงิน</strong>
+              — ลูกค้าชำระค่าบริการ 1 บาท
+            </span>
           </div>
 
           <div class="admin-flow-arrow">↓</div>
 
           <div class="admin-flow-step">
             <b>2</b>
-            <span>👁 <strong>วัดสายตา</strong> — ทำแบบทดสอบการมองเห็น</span>
+            <span>
+              📱 <strong>ตั้งค่าการทดสอบ</strong>
+              — เลือกหน้าจอ ระยะ และตา
+            </span>
           </div>
 
           <div class="admin-flow-arrow">↓</div>
 
           <div class="admin-flow-step">
             <b>3</b>
-            <span>⚙️ <strong>ประมวลผล</strong> — ตรวจคำตอบและคำนวณผล</span>
+            <span>
+              👁 <strong>วัดสายตา</strong>
+              — ทำแบบทดสอบ
+            </span>
           </div>
 
           <div class="admin-flow-arrow">↓</div>
 
           <div class="admin-flow-step">
             <b>4</b>
-            <span>💾 <strong>บันทึกผล</strong> — เก็บผลการทดสอบในระบบ</span>
+            <span>
+              🧮 <strong>ประมวลผล</strong>
+              — ตรวจคำตอบและคำนวณผลอัตโนมัติ
+            </span>
           </div>
 
           <div class="admin-flow-arrow">↓</div>
 
           <div class="admin-flow-step">
             <b>5</b>
-            <span>📊 <strong>ดูผล</strong> — แสดงผลการวัดให้ผู้ใช้ตรวจสอบ</span>
+            <span>
+              💾 <strong>บันทึกผล</strong>
+              — เก็บข้อมูลผลการทดสอบ
+            </span>
+          </div>
+
+          <div class="admin-flow-arrow">↓</div>
+
+          <div class="admin-flow-step">
+            <b>6</b>
+            <span>
+              📊 <strong>ดูผล</strong>
+              — ผู้ใช้ตรวจสอบผลการวัด
+            </span>
           </div>
 
         </div>
 
       </div>
+
 
       <div class="admin-card">
 
@@ -2857,19 +3313,17 @@ button{
         </h2>
 
         <div class="info" style="margin:0 0 10px">
+
           <b style="color:var(--green)">
             ระบบสามารถจัดการข้อมูลหลักได้
           </b>
 
           <br>
 
-          เพิ่ม ดู แก้ไข และลบข้อมูลหลักได้
+          เช่น ข้อมูลผู้ใช้
+          ผลการวัดสายตา
+          และข้อมูลการชำระเงิน
 
-          <br>
-
-          <span style="font-size:12px;color:var(--muted)">
-            เช่น ข้อมูลผู้ใช้ ผลการวัดสายตา และข้อมูลการชำระเงิน
-          </span>
         </div>
 
         <button
@@ -2893,8 +3347,42 @@ button{
           🗑️ ลบข้อมูลการชำระเงินทั้งหมด
         </button>
 
+        <button
+          class="btn"
+          onclick="clearAllOrders()"
+        >
+          🗑️ ลบออเดอร์ทั้งหมด
+        </button>
+
       </div>
 
+
+
+      <div class="admin-card">
+        <h2>📦 จัดการออเดอร์แว่น</h2>
+
+        <div class="info" style="margin:0 0 10px">
+          <b style="color:var(--green)">ข้อ 2–5 ของระบบ</b>
+          <br>
+          เพิ่ม/แก้ไข/ลบข้อมูลออเดอร์ → คำนวณยอดอัตโนมัติ →
+          เปลี่ยนสถานะงาน → มอบหมายคนขับ → ติดตามการจัดส่ง
+        </div>
+
+        <div class="form-field">
+          <label>คนขับสำหรับมอบหมาย</label>
+          <select id="adminDriverSelect" class="select" style="width:100%"></select>
+        </div>
+
+        <button class="btn primary" onclick="assignSelectedOrderToDriver()">
+          🚚 มอบหมายออเดอร์ที่เลือก
+        </button>
+
+        <button class="btn" onclick="deleteSelectedOrder()">
+          🗑️ ลบออเดอร์ที่เลือก
+        </button>
+
+        <div id="adminOrders"></div>
+      </div>
 
       <div class="admin-card">
 
@@ -2947,54 +3435,33 @@ button{
   </main>
 
 
-  <!-- =================================================
-       NAV
-  ================================================== -->
+  <!-- NAV -->
 
   <nav class="nav">
 
-    <button
-      data-page="home"
-      class="active"
-    >
+    <button data-page="home" class="active">
       <span>⌂</span>
       หน้าหลัก
     </button>
 
+    <button data-page="shop">
+      <span>👓</span>
+      ร้านแว่น
+    </button>
+
+    <button data-page="orders">
+      <span>📦</span>
+      ออเดอร์
+    </button>
 
     <button data-page="result">
-
       <span>▮▮</span>
-
-      ผลการวัด
-
+      ผลวัด
     </button>
-
-
-    <button data-page="knowledge">
-
-      <span>▤</span>
-
-      ความรู้
-
-    </button>
-
-
-    <button data-page="info">
-
-      <span>ⓘ</span>
-
-      ข้อมูล
-
-    </button>
-
 
     <button data-page="settings">
-
       <span>⚙</span>
-
       ตั้งค่า
-
     </button>
 
   </nav>
@@ -3002,9 +3469,7 @@ button{
 </div>
 
 
-<!-- =====================================================
-     MODAL
-===================================================== -->
+<!-- MODAL -->
 
 <div
   id="modalBg"
@@ -3047,10 +3512,10 @@ const demoUsers = [
   },
 
   {
-    username:"doctor",
+    username:"driver",
     password:"1234",
-    name:"บุคลากรทางการแพทย์",
-    role:"medical"
+    name:"คนขับ",
+    role:"driver"
   },
 
   {
@@ -3063,8 +3528,7 @@ const demoUsers = [
 ];
 
 
-let selectedLoginRole =
-  "customer";
+let selectedLoginRole = "customer";
 
 
 let currentUser =
@@ -3081,17 +3545,11 @@ let currentUser =
 
 function getRoleName(role){
 
-  if(role === "customer"){
-    return "ลูกค้า";
-  }
+  if(role === "customer") return "ลูกค้า";
 
-  if(role === "medical"){
-    return "บุคลากรทางการแพทย์";
-  }
+  if(role === "driver") return "คนขับ";
 
-  if(role === "admin"){
-    return "แอดมิน";
-  }
+  if(role === "admin") return "แอดมิน";
 
   return role;
 
@@ -3100,9 +3558,7 @@ function getRoleName(role){
 
 function selectLoginRole(role){
 
-  selectedLoginRole =
-    role;
-
+  selectedLoginRole = role;
 
   document
     .querySelectorAll(".role-button")
@@ -3111,46 +3567,39 @@ function selectLoginRole(role){
     });
 
 
+  const buttonMap = {
+    customer:"roleCustomer",
+    driver:"roleDriver",
+    admin:"roleAdmin"
+  };
+
+
+  document
+    .getElementById(buttonMap[role])
+    .classList.add("active");
+
+
+  const note =
+    document.getElementById("roleNote");
+
+
   if(role === "customer"){
 
-    document
-      .getElementById("roleCustomer")
-      .classList.add("active");
-
-
-    document
-      .getElementById("roleNote")
-      .textContent =
-      "ลูกค้าสามารถใช้งานแอปได้โดยชำระค่าบริการ 5 บาทต่อการทดสอบ";
+    note.textContent =
+      "ลูกค้าสามารถใช้งานแอปได้โดยชำระค่าบริการ 1 บาทต่อการทดสอบ";
 
   }
 
+  if(role === "driver"){
 
-  if(role === "medical"){
-
-    document
-      .getElementById("roleMedical")
-      .classList.add("active");
-
-
-    document
-      .getElementById("roleNote")
-      .textContent =
-      "บุคลากรทางการแพทย์สามารถใช้งานการทดสอบได้โดยไม่เสียค่าใช้จ่าย";
+    note.textContent =
+      "คนขับสามารถดูออเดอร์ที่ได้รับมอบหมายและอัปเดตสถานะการจัดส่ง";
 
   }
-
 
   if(role === "admin"){
 
-    document
-      .getElementById("roleAdmin")
-      .classList.add("active");
-
-
-    document
-      .getElementById("roleNote")
-      .textContent =
+    note.textContent =
       "บัญชีแอดมินใช้สำหรับจัดการและดูข้อมูลระบบ";
 
   }
@@ -3165,21 +3614,13 @@ function selectLoginRole(role){
 function login(){
 
   const username =
-    document
-      .getElementById("loginUsername")
-      .value
-      .trim();
-
+    document.getElementById("loginUsername").value.trim();
 
   const password =
-    document
-      .getElementById("loginPassword")
-      .value;
-
+    document.getElementById("loginPassword").value;
 
   const error =
-    document
-      .getElementById("loginError");
+    document.getElementById("loginError");
 
 
   const user =
@@ -3212,8 +3653,7 @@ function login(){
     role:user.role,
 
     loginTime:
-      new Date()
-        .toLocaleString("th-TH")
+      new Date().toLocaleString("th-TH")
 
   };
 
@@ -3226,9 +3666,7 @@ function login(){
 
   loadUserCredits();
 
-
   error.classList.remove("show");
-
 
   updateUserInterface();
 
@@ -3243,6 +3681,12 @@ function login(){
     showPage("admin");
 
     adminRefresh();
+
+  }else if(user.role === "driver"){
+
+    showPage("driverPage");
+
+    renderDriverOrders();
 
   }else{
 
@@ -3259,12 +3703,10 @@ function login(){
 
 function logout(){
 
-  currentUser =
-    null;
-
+  currentUser = null;
 
   updateAdminShortcut();
-
+  updateDriverShortcut();
 
   localStorage.removeItem(
     "eye_current_user"
@@ -3280,11 +3722,9 @@ function logout(){
     .getElementById("loginUsername")
     .value = "";
 
-
   document
     .getElementById("loginPassword")
     .value = "";
-
 
   document
     .getElementById("loginError")
@@ -3303,9 +3743,7 @@ function logout(){
 function checkLogin(){
 
   const saved =
-    localStorage.getItem(
-      "eye_current_user"
-    );
+    localStorage.getItem("eye_current_user");
 
 
   if(saved){
@@ -3346,11 +3784,17 @@ function checkLogin(){
         .classList.add("hidden");
 
 
-      if(
-        currentUser.role === "admin"
-      ){
+      if(currentUser.role === "admin"){
+
+        showPage("admin");
 
         adminRefresh();
+
+      }else if(currentUser.role === "driver"){
+
+        showPage("driverPage");
+
+        renderDriverOrders();
 
       }
 
@@ -3364,7 +3808,6 @@ function checkLogin(){
   }else{
 
     updateAdminShortcut();
-
 
     document
       .getElementById("loginOverlay")
@@ -3389,39 +3832,45 @@ function updateUserInterface(){
   const customerWorkflow =
     document.getElementById("customerWorkflow");
 
-  const medicalWorkflow =
-    document.getElementById("medicalWorkflow");
+  const driverWorkflow =
+    document.getElementById("driverWorkflow");
 
   const adminWorkflow =
     document.getElementById("adminWorkflow");
 
+
   if(customerWorkflow){
+
     customerWorkflow.style.display =
       currentUser.role === "customer"
-      ? "block"
-      : "none";
+        ? "block"
+        : "none";
+
   }
 
-  if(medicalWorkflow){
-    medicalWorkflow.style.display =
-      currentUser.role === "medical"
-      ? "block"
-      : "none";
+
+  if(driverWorkflow){
+
+    driverWorkflow.style.display =
+      currentUser.role === "driver"
+        ? "block"
+        : "none";
+
   }
+
 
   if(adminWorkflow){
+
     adminWorkflow.style.display =
       currentUser.role === "admin"
-      ? "block"
-      : "none";
+        ? "block"
+        : "none";
+
   }
 
 
   const badge =
-    document
-      .getElementById(
-        "currentUserBadge"
-      );
+    document.getElementById("currentUserBadge");
 
 
   badge.innerHTML =
@@ -3439,60 +3888,37 @@ function updateUserInterface(){
 
 
   const priceBadge =
-    document
-      .getElementById(
-        "homePriceBadge"
-      );
-
+    document.getElementById("homePriceBadge");
 
   const quickPrice =
-    document
-      .getElementById(
-        "quickPrice"
-      );
-
+    document.getElementById("quickPrice");
 
   const servicePrice =
-    document
-      .getElementById(
-        "servicePrice"
-      );
-
+    document.getElementById("servicePrice");
 
   const mainTestButton =
-    document
-      .getElementById(
-        "mainTestButton"
-      );
-
+    document.getElementById("mainTestButton");
 
   const anotherTestButton =
-    document
-      .getElementById(
-        "anotherTestButton"
-      );
+    document.getElementById("anotherTestButton");
 
 
   if(
-    currentUser.role === "medical" ||
+    currentUser.role === "driver" ||
     currentUser.role === "admin"
   ){
 
     priceBadge.textContent =
       "ใช้งานฟรีสำหรับบัญชีนี้";
 
-
     quickPrice.textContent =
       "ฟรี";
-
 
     servicePrice.textContent =
       "ฟรี";
 
-
     mainTestButton.innerHTML =
       "◎　วัดสายตาฟรี　›";
-
 
     anotherTestButton.innerHTML =
       "◎ ทดสอบอีกครั้งฟรี";
@@ -3500,28 +3926,29 @@ function updateUserInterface(){
   }else{
 
     priceBadge.textContent =
-      "ค่าบริการ 5 บาท / ครั้ง";
-
+      "ค่าบริการ 1 บาท / ครั้ง";
 
     quickPrice.textContent =
-      "5 บาท";
-
+      "1 บาท";
 
     servicePrice.textContent =
-      "฿5";
-
+      "฿1";
 
     mainTestButton.innerHTML =
-      "◎　วัดสายตา 5 บาท　›";
-
+      "◎　วัดสายตา 1 บาท　›";
 
     anotherTestButton.innerHTML =
-      "◎ ทดสอบอีกครั้ง 5 บาท";
+      "◎ ทดสอบอีกครั้ง 1 บาท";
 
   }
 
 
   updateAdminShortcut();
+  updateDriverShortcut();
+
+  if(currentUser.role === "driver"){
+    renderDriverOrders();
+  }
 
 }
 
@@ -3529,9 +3956,7 @@ function updateUserInterface(){
 function updateAdminShortcut(){
 
   const button =
-    document.getElementById(
-      "adminShortcut"
-    );
+    document.getElementById("adminShortcut");
 
 
   if(!button){
@@ -3557,19 +3982,23 @@ function updateAdminShortcut(){
 }
 
 
+function updateDriverShortcut(){
+  const button = document.getElementById("driverShortcut");
+  if(!button) return;
+
+  button.style.display =
+    currentUser && currentUser.role === "driver"
+      ? "inline-block"
+      : "none";
+}
+
 function getRoleIcon(role){
 
-  if(role === "customer"){
-    return "👤";
-  }
+  if(role === "customer") return "👤";
 
-  if(role === "medical"){
-    return "🩺";
-  }
+  if(role === "driver") return "🚚";
 
-  if(role === "admin"){
-    return "⚙️";
-  }
+  if(role === "admin") return "⚙️";
 
   return "👤";
 
@@ -3582,12 +4011,8 @@ function getRoleIcon(role){
 
 function showPage(id){
 
-  if(
-    !currentUser
-  ){
-
+  if(!currentUser){
     return;
-
   }
 
 
@@ -3600,13 +4025,25 @@ function showPage(id){
 
   }
 
+  if(
+    id === "driverPage" &&
+    currentUser.role !== "driver"
+  ){
+    id = "home";
+  }
+
+  if(
+    id === "shop" &&
+    currentUser.role !== "customer"
+  ){
+    id = "home";
+  }
+
 
   document
     .querySelectorAll(".page")
     .forEach(page=>{
-
       page.classList.remove("active");
-
     });
 
 
@@ -3615,9 +4052,7 @@ function showPage(id){
 
 
   if(target){
-
     target.classList.add("active");
-
   }
 
 
@@ -3633,16 +4068,28 @@ function showPage(id){
     });
 
 
-  window.scrollTo(
-    0,
-    0
-  );
+  window.scrollTo(0,0);
+
+
+  if(id === "result"){
+    loadLastResult();
+  }
 
 
   if(id === "admin"){
-
     adminRefresh();
+  }
 
+  if(id === "shop"){
+    prepareShopForm();
+  }
+
+  if(id === "orders"){
+    renderCustomerOrders();
+  }
+
+  if(id === "driverPage"){
+    renderDriverOrders();
   }
 
 }
@@ -3659,11 +4106,7 @@ document
     button.addEventListener(
       "click",
       ()=>{
-
-        showPage(
-          button.dataset.page
-        );
-
+        showPage(button.dataset.page);
       }
     );
 
@@ -3676,20 +4119,13 @@ document
 
 function updateClock(){
 
-  const now =
-    new Date();
-
+  const now = new Date();
 
   const h =
-    String(
-      now.getHours()
-    ).padStart(2,"0");
-
+    String(now.getHours()).padStart(2,"0");
 
   const m =
-    String(
-      now.getMinutes()
-    ).padStart(2,"0");
+    String(now.getMinutes()).padStart(2,"0");
 
 
   document
@@ -3702,11 +4138,7 @@ function updateClock(){
 
 updateClock();
 
-
-setInterval(
-  updateClock,
-  60000
-);
+setInterval(updateClock,60000);
 
 
 /* =====================================================
@@ -3715,317 +4147,116 @@ setInterval(
 
 let testCredits = 0;
 
-
 function getCreditKey(){
-
-  if(!currentUser){
-
-    return "eye_test_credits";
-
-  }
-
-
-  return (
-    "eye_test_credits_" +
-    currentUser.username
-  );
-
+  return currentUser ? "eye_test_credits_" + currentUser.username : "eye_test_credits";
 }
 
+function getTestAccessKey(){
+  return currentUser ? "eye_test_access_" + currentUser.username : "eye_test_access";
+}
 
 function loadUserCredits(){
-
-  testCredits =
-    parseInt(
-      localStorage.getItem(
-        getCreditKey()
-      ) || "0"
-    );
-
+  testCredits = parseInt(localStorage.getItem(getCreditKey()) || "0", 10);
 }
-
 
 function saveUserCredits(){
-
-  localStorage.setItem(
-    getCreditKey(),
-    testCredits
-  );
-
+  localStorage.setItem(getCreditKey(), String(testCredits));
 }
 
+function hasTestAccess(){
+  return !!currentUser && localStorage.getItem(getTestAccessKey()) === "1";
+}
+
+function grantTestAccess(){
+  localStorage.setItem(getTestAccessKey(), "1");
+}
 
 function requestVisionTest(){
+  if(!currentUser) return;
 
-  if(!currentUser){
-
-    return;
-
-  }
-
-
-  /*
-    บุคลากรทางการแพทย์ใช้ฟรี
-  */
-
-  if(
-    currentUser.role === "medical"
-  ){
-
+  if(currentUser.role === "driver" || currentUser.role === "admin") {
     startVisionTest();
-
     return;
-
   }
 
-
-  /*
-    Admin ฟรี
-  */
-
-  if(
-    currentUser.role === "admin"
-  ){
-
-    startVisionTest();
-
-    return;
-
-  }
-
-
-  /*
-    ลูกค้าใช้เครดิต
-  */
-
-  if(
-    currentUser.role === "customer"
-  ){
-
-    loadUserCredits();
-
-
-    if(testCredits > 0){
-
-      useTestCredit();
-
+  if(currentUser.role === "customer") {
+    if(hasTestAccess()) {
       startVisionTest();
-
     }else{
-
       openPayment();
-
     }
-
   }
-
 }
-
-
-/* =====================================================
-   OPEN PAYMENT
-===================================================== */
 
 function openPayment(){
-
-  if(
-    !currentUser ||
-    currentUser.role !== "customer"
-  ){
-
+  if(!currentUser || currentUser.role !== "customer") {
     startVisionTest();
-
     return;
-
   }
 
+  if(hasTestAccess()){
+    startVisionTest();
+    return;
+  }
 
-  document
-    .getElementById("paymentUser")
-    .textContent =
-    currentUser.name;
-
-
-  document
-    .getElementById("paymentForm")
-    .style.display =
-    "block";
-
-
-  document
-    .getElementById("paymentSuccess")
-    .classList.remove("show");
-
-
-  document
-    .getElementById("paymentOverlay")
-    .classList.add("show");
-
+  document.getElementById("paymentUser").textContent = currentUser.name;
+  document.getElementById("paymentForm").style.display = "block";
+  document.getElementById("paymentSuccess").classList.remove("show");
+  document.getElementById("paymentOverlay").classList.add("show");
 }
-
 
 function closePayment(){
-
-  document
-    .getElementById("paymentOverlay")
-    .classList.remove("show");
-
+  document.getElementById("paymentOverlay").classList.remove("show");
 }
-
-
-/* =====================================================
-   CONFIRM PAYMENT
-===================================================== */
 
 function confirmPayment(){
-
-  const payButton =
-    document.querySelector(
-      "#paymentForm .pay-button"
-    );
-
-
-  payButton.disabled =
-    true;
-
-
-  payButton.textContent =
-    "กำลังตรวจสอบการชำระเงิน...";
-
+  const payButton = document.querySelector("#paymentForm .pay-button");
+  if(!payButton || !currentUser) return;
+  payButton.disabled = true;
+  payButton.textContent = "กำลังตรวจสอบการชำระเงิน...";
 
   setTimeout(()=>{
+    grantTestAccess();
 
-
-    testCredits++;
-
-
-    saveUserCredits();
-
-
-    /*
-      บันทึกการชำระเงิน
-    */
-
-    const payments =
-      JSON.parse(
-        localStorage.getItem(
-          "eye_payment_records"
-        ) || "[]"
-      );
-
-
+    const payments = JSON.parse(localStorage.getItem("eye_payment_records") || "[]");
+    const now = new Date();
     payments.push({
-
-      username:
-        currentUser.username,
-
-      name:
-        currentUser.name,
-
-      role:
-        currentUser.role,
-
-      amount:5,
-
-      status:"success",
-
-      time:
-        new Date()
-          .toLocaleString("th-TH")
-
+      username: currentUser.username,
+      name: currentUser.name,
+      role: currentUser.role,
+      amount: 1,
+      status: "success",
+      service: "สิทธิ์วัดสายตา 1 ครั้ง (สองข้าง/ซ้าย/ขวา)",
+      timestamp: now.getTime(),
+      time: now.toLocaleString("th-TH")
     });
+    localStorage.setItem("eye_payment_records", JSON.stringify(payments));
 
+    localStorage.setItem("last_payment_" + currentUser.username, JSON.stringify({
+      amount: 1,
+      status: "success",
+      service: "สิทธิ์วัดสายตา 1 ครั้ง (สองข้าง/ซ้าย/ขวา)",
+      timestamp: now.getTime(),
+      time: now.toLocaleString("th-TH")
+    }));
 
-    localStorage.setItem(
-      "eye_payment_records",
-      JSON.stringify(payments)
-    );
-
-
-    /*
-      บันทึก Payment ล่าสุด
-    */
-
-    localStorage.setItem(
-
-      "last_payment_" +
-      currentUser.username,
-
-      JSON.stringify({
-
-        amount:5,
-
-        status:"success",
-
-        time:
-          new Date()
-            .toLocaleString("th-TH")
-
-      })
-
-    );
-
-
-    document
-      .getElementById("paymentForm")
-      .style.display =
-      "none";
-
-
-    document
-      .getElementById("paymentSuccess")
-      .classList.add("show");
-
-
-    payButton.disabled =
-      false;
-
-
-    payButton.textContent =
-      "💳 ยืนยันการชำระเงิน 5 บาท";
-
-
-  },1000);
-
+    addNotification("ชำระเงินสำเร็จ", "ได้รับสิทธิ์วัดสายตา 1 ครั้ง สามารถเลือกสองข้าง ตาซ้าย หรือตาขวาได้", "payment");
+    document.getElementById("paymentForm").style.display = "none";
+    document.getElementById("paymentSuccess").classList.add("show");
+    payButton.disabled = false;
+    payButton.textContent = "💳 ยืนยันการชำระเงิน 1 บาท";
+  }, 700);
 }
-
-
-/* =====================================================
-   CONTINUE AFTER PAYMENT
-===================================================== */
 
 function continueAfterPayment(){
-
   closePayment();
-
-
-  useTestCredit();
-
-
   startVisionTest();
-
 }
-
-
-/* =====================================================
-   USE CREDIT
-===================================================== */
 
 function useTestCredit(){
-
-  loadUserCredits();
-
-
-  if(testCredits > 0){
-
-    testCredits--;
-
-    saveUserCredits();
-
-  }
-
+  // สิทธิ์การวัดถูกปลดล็อกด้วยการชำระครั้งเดียว จึงไม่หักเมื่อเลือกตา
+  grantTestAccess();
 }
-
 
 /* =====================================================
    BUY AGAIN
@@ -4042,68 +4273,58 @@ function buyAnotherTest(){
    NOTIFICATION
 ===================================================== */
 
-let notifications =
-  localStorage.getItem(
-    "eye_notifications"
-  ) !== "off";
+let notifications = localStorage.getItem("eye_notifications") !== "off";
 
+function getNotifications(){
+  return JSON.parse(localStorage.getItem("eye_app_notifications") || "[]");
+}
+
+function saveNotifications(list){
+  localStorage.setItem("eye_app_notifications", JSON.stringify(list.slice(-50)));
+}
+
+function addNotification(title, message, type="info"){
+  if(!notifications) return;
+  const list = getNotifications();
+  list.push({id:Date.now(), title, message, type, read:false, timestamp:Date.now(), time:new Date().toLocaleString("th-TH")});
+  saveNotifications(list);
+  renderNotifications();
+}
+
+function markAllNotificationsRead(){
+  const list = getNotifications().map(n => ({...n, read:true}));
+  saveNotifications(list);
+  renderNotifications();
+}
+
+function renderNotifications(){
+  const el = document.getElementById("notificationList");
+  const badge = document.getElementById("notificationBadge");
+  if(!el) return;
+  const list = getNotifications().slice().reverse();
+  const unread = list.filter(n=>!n.read).length;
+  if(badge){ badge.textContent = unread; badge.style.display = unread ? "inline-block" : "none"; }
+  el.innerHTML = list.length ? list.slice(0,10).map(n => `
+    <div class="notification-item ${n.read ? "read" : "unread"}">
+      <b>${n.title}</b><br><span>${n.message}</span><small>${n.time || ""}</small>
+    </div>`).join("") : '<div class="empty-state">ยังไม่มีการแจ้งเตือน</div>';
+}
 
 function updateNotificationUI(){
-
-  const sw =
-    document.getElementById(
-      "notifySwitch"
-    );
-
-
-  const text =
-    document.getElementById(
-      "notifyText"
-    );
-
-
-  if(!sw || !text){
-    return;
+  const sw = document.getElementById("notifySwitch");
+  const text = document.getElementById("notifyText");
+  if(sw && text){
+    if(notifications){ sw.classList.add("on"); text.textContent="เปิดการแจ้งเตือน"; }
+    else { sw.classList.remove("on"); text.textContent="ปิดการแจ้งเตือน"; }
   }
-
-
-  if(notifications){
-
-    sw.classList.add("on");
-
-    text.textContent =
-      "เปิดการแจ้งเตือน";
-
-  }else{
-
-    sw.classList.remove("on");
-
-    text.textContent =
-      "ปิดการแจ้งเตือน";
-
-  }
-
+  renderNotifications();
 }
-
 
 function toggleNotify(){
-
-  notifications =
-    !notifications;
-
-
-  localStorage.setItem(
-    "eye_notifications",
-    notifications
-      ? "on"
-      : "off"
-  );
-
-
+  notifications = !notifications;
+  localStorage.setItem("eye_notifications", notifications ? "on" : "off");
   updateNotificationUI();
-
 }
-
 
 /* =====================================================
    FONT
@@ -4118,23 +4339,19 @@ function changeFont(size){
     scale = .88;
   }
 
-
   if(size === "normal"){
     scale = 1;
   }
-
 
   if(size === "large"){
     scale = 1.15;
   }
 
 
-  document.documentElement
-    .style
-    .setProperty(
-      "--font-scale",
-      scale
-    );
+  document.documentElement.style.setProperty(
+    "--font-scale",
+    scale
+  );
 
 
   localStorage.setItem(
@@ -4144,16 +4361,11 @@ function changeFont(size){
 
 
   const select =
-    document.getElementById(
-      "fontSize"
-    );
+    document.getElementById("fontSize");
 
 
   if(select){
-
-    select.value =
-      size;
-
+    select.value = size;
   }
 
 }
@@ -4177,15 +4389,10 @@ function loadFontSize(){
 ===================================================== */
 
 const modalBg =
-  document.getElementById(
-    "modalBg"
-  );
-
+  document.getElementById("modalBg");
 
 const modalContent =
-  document.getElementById(
-    "modalContent"
-  );
+  document.getElementById("modalContent");
 
 
 function openModal(content){
@@ -4193,10 +4400,7 @@ function openModal(content){
   modalContent.innerHTML =
     content;
 
-
-  modalBg.classList.add(
-    "show"
-  );
+  modalBg.classList.add("show");
 
 }
 
@@ -4207,15 +4411,11 @@ function closeModal(event){
     event &&
     event.target !== modalBg
   ){
-
     return;
-
   }
 
 
-  modalBg.classList.remove(
-    "show"
-  );
+  modalBg.classList.remove("show");
 
 }
 
@@ -4300,11 +4500,11 @@ function openAbout(){
 
       <p>
         <b>ลูกค้า:</b>
-        5 บาท / ครั้ง
+        1 บาท / ครั้ง
       </p>
 
       <p>
-        <b>บุคลากรทางการแพทย์:</b>
+        <b>คนขับ:</b>
         ฟรี
       </p>
 
@@ -4315,7 +4515,7 @@ function openAbout(){
 
       <p>
         <b>เวอร์ชัน:</b>
-        3.0.0
+        3.1.0
       </p>
 
     </div>
@@ -4328,10 +4528,10 @@ function openAbout(){
       ✓ ลูกค้าชำระเงินจำลอง
       <br>
 
-      ✓ บุคลากรทางการแพทย์ใช้ฟรี
+      ✓ คนขับใช้ฟรี
       <br>
 
-      ✓ Admin Dashboard
+      ✓ Admin Dashboard + จัดการออเดอร์
       <br>
 
       ✓ A-Z แบบสุ่ม
@@ -4341,6 +4541,12 @@ function openAbout(){
       <br>
 
       ✓ รองรับหน้าจอ 6–13 นิ้ว
+      <br>
+
+      ✓ ระบบคำนวณคะแนนอัตโนมัติ
+      <br>
+
+      ✓ คำนวณเปอร์เซ็นต์อัตโนมัติ
       <br>
 
       ✓ บันทึกผลแยกผู้ใช้
@@ -4356,40 +4562,23 @@ function openAbout(){
    VISION TEST VARIABLES
 ===================================================== */
 
-let selectedEye =
-  "both";
+let selectedEye = "both";
 
+let screenSize = 6;
 
-let screenSize =
-  6;
+let testQuestion = 0;
 
+let correctAnswers = 0;
 
-let testQuestion =
-  0;
+let wrongAnswers = 0;
 
+let currentLetter = "";
 
-let correctAnswers =
-  0;
+let currentOptions = [];
 
+let testFinished = false;
 
-let wrongAnswers =
-  0;
-
-
-let currentLetter =
-  "";
-
-
-let currentOptions =
-  [];
-
-
-let testFinished =
-  false;
-
-
-let consecutiveWrong =
-  0;
+let consecutiveWrong = 0;
 
 
 /* =====================================================
@@ -4399,21 +4588,13 @@ let consecutiveWrong =
 const screenDistances = {
 
   6:40,
-
   6.5:41,
-
   7:42,
-
   8:43,
-
   9:45,
-
   10:47,
-
   11:49,
-
   12:51,
-
   13:53
 
 };
@@ -4425,65 +4606,18 @@ const screenDistances = {
 
 const testLevels = [
 
-  {
-    name:"20/200",
-    size:100
-  },
-
-  {
-    name:"20/100",
-    size:82
-  },
-
-  {
-    name:"20/80",
-    size:70
-  },
-
-  {
-    name:"20/60",
-    size:58
-  },
-
-  {
-    name:"20/50",
-    size:49
-  },
-
-  {
-    name:"20/40",
-    size:41
-  },
-
-  {
-    name:"20/35",
-    size:35
-  },
-
-  {
-    name:"20/30",
-    size:30
-  },
-
-  {
-    name:"20/25",
-    size:25
-  },
-
-  {
-    name:"20/22",
-    size:22
-  },
-
-  {
-    name:"20/20",
-    size:19
-  },
-
-  {
-    name:"20/15",
-    size:15
-  }
+  {name:"20/200",size:100},
+  {name:"20/100",size:82},
+  {name:"20/80",size:70},
+  {name:"20/60",size:58},
+  {name:"20/50",size:49},
+  {name:"20/40",size:41},
+  {name:"20/35",size:35},
+  {name:"20/30",size:30},
+  {name:"20/25",size:25},
+  {name:"20/22",size:22},
+  {name:"20/20",size:19},
+  {name:"20/15",size:15}
 
 ];
 
@@ -4493,9 +4627,7 @@ const testLevels = [
 ===================================================== */
 
 const alphabet =
-  "ABCDEFGHJKLMNPQRSTUVWXYZ"
-  .split("");
-
+  "ABCDEFGHJKLMNPQRSTUVWXYZ".split("");
 
 
 /* =====================================================
@@ -4509,15 +4641,11 @@ function changeScreenSize(size){
 
 
   const distance =
-    screenDistances[
-      screenSize
-    ] || 40;
+    screenDistances[screenSize] || 40;
 
 
   document
-    .getElementById(
-      "distanceNumber"
-    )
+    .getElementById("distanceNumber")
     .textContent =
       distance + " ซม.";
 
@@ -4530,8 +4658,7 @@ function changeScreenSize(size){
 
 function selectEye(eye){
 
-  selectedEye =
-    eye;
+  selectedEye = eye;
 
 
   document
@@ -4539,32 +4666,21 @@ function selectEye(eye){
       "#visionTest .font-buttons button"
     )
     .forEach(button=>{
-
-      button.classList.remove(
-        "active"
-      );
-
+      button.classList.remove("active");
     });
 
 
   const id =
-
     eye === "both"
-
       ? "eyeBoth"
-
       : eye === "left"
-
         ? "eyeLeft"
-
         : "eyeRight";
 
 
   document
     .getElementById(id)
-    .classList.add(
-      "active"
-    );
+    .classList.add("active");
 
 
   resetTest();
@@ -4580,8 +4696,7 @@ function randomLetter(){
 
   return alphabet[
     Math.floor(
-      Math.random() *
-      alphabet.length
+      Math.random() * alphabet.length
     )
   ];
 
@@ -4594,27 +4709,18 @@ function randomLetter(){
 
 function createOptions(correct){
 
-  const options =
-    [correct];
+  const options = [correct];
 
 
-  while(
-    options.length < 4
-  ){
+  while(options.length < 4){
 
     const letter =
       randomLetter();
 
 
-    if(
-      !options.includes(
-        letter
-      )
-    ){
+    if(!options.includes(letter)){
 
-      options.push(
-        letter
-      );
+      options.push(letter);
 
     }
 
@@ -4622,18 +4728,14 @@ function createOptions(correct){
 
 
   for(
-    let i =
-      options.length - 1;
-
+    let i = options.length - 1;
     i > 0;
-
     i--
   ){
 
     const j =
       Math.floor(
-        Math.random() *
-        (i + 1)
+        Math.random() * (i + 1)
       );
 
 
@@ -4660,8 +4762,7 @@ function createOptions(correct){
 function showQuestion(){
 
   if(
-    testQuestion >=
-    testLevels.length
+    testQuestion >= testLevels.length
   ){
 
     finishTest();
@@ -4672,9 +4773,7 @@ function showQuestion(){
 
 
   const level =
-    testLevels[
-      testQuestion
-    ];
+    testLevels[testQuestion];
 
 
   currentLetter =
@@ -4682,15 +4781,11 @@ function showQuestion(){
 
 
   currentOptions =
-    createOptions(
-      currentLetter
-    );
+    createOptions(currentLetter);
 
 
   const optotype =
-    document.getElementById(
-      "optotype"
-    );
+    document.getElementById("optotype");
 
 
   optotype.textContent =
@@ -4702,18 +4797,13 @@ function showQuestion(){
 
 
   document
-    .getElementById(
-      "levelText"
-    )
+    .getElementById("levelText")
     .textContent =
-      "ระดับ " +
-      level.name;
+      "ระดับ " + level.name;
 
 
   document
-    .getElementById(
-      "questionText"
-    )
+    .getElementById("questionText")
     .textContent =
       (testQuestion + 1)
       + " / "
@@ -4721,42 +4811,104 @@ function showQuestion(){
 
 
   const progress =
-    (
-      testQuestion /
-      testLevels.length
-    ) * 100;
+    (testQuestion / testLevels.length) * 100;
 
 
   document
-    .getElementById(
-      "progressBar"
-    )
+    .getElementById("progressBar")
     .style.width =
       progress + "%";
 
 
-  for(
-    let i=0;
-    i<4;
-    i++
-  ){
+  for(let i=0;i<4;i++){
 
     document
-      .getElementById(
-        "answer" + i
-      )
+      .getElementById("answer" + i)
       .textContent =
-        currentOptions[i];
+      currentOptions[i];
 
   }
 
 
-  document
-    .getElementById(
-      "testMessage"
-    )
-    .textContent =
-      "ตอบตามที่มองเห็นจริง ไม่ต้องเดา";
+  updateLiveCalculation();
+
+}
+
+
+/* =====================================================
+   ข้อ 4 : LIVE CALCULATION
+===================================================== */
+
+function updateLiveCalculation(){
+
+  const total =
+    testQuestion;
+
+
+  const percent =
+    total > 0
+      ? Math.round(
+          (correctAnswers / total) * 100
+        )
+      : 0;
+
+
+  let currentLevelIndex =
+    Math.max(
+      0,
+      Math.min(
+        correctAnswers,
+        testLevels.length - 1
+      )
+    );
+
+
+  const currentLevel =
+    total > 0
+      ? testLevels[currentLevelIndex].name
+      : "-";
+
+
+  const correct =
+    document.getElementById("liveCorrect");
+
+  const wrong =
+    document.getElementById("liveWrong");
+
+  const totalElement =
+    document.getElementById("liveTotal");
+
+  const percentElement =
+    document.getElementById("livePercent");
+
+  const acuityElement =
+    document.getElementById("liveAcuity");
+
+
+  if(correct){
+    correct.textContent =
+      correctAnswers + " ข้อ";
+  }
+
+  if(wrong){
+    wrong.textContent =
+      wrongAnswers + " ข้อ";
+  }
+
+  if(totalElement){
+    totalElement.textContent =
+      total + " ข้อ";
+  }
+
+  if(percentElement){
+    percentElement.textContent =
+      percent + "%";
+  }
+
+  if(acuityElement){
+    acuityElement.textContent =
+      currentLevel;
+  }
 
 }
 
@@ -4772,16 +4924,13 @@ function answerTest(index){
   }
 
 
-  let isCorrect =
-    false;
+  let isCorrect = false;
 
 
   if(index !== -1){
 
     isCorrect =
-      currentOptions[index]
-      ===
-      currentLetter;
+      currentOptions[index] === currentLetter;
 
   }
 
@@ -4794,9 +4943,7 @@ function answerTest(index){
 
 
     document
-      .getElementById(
-        "testMessage"
-      )
+      .getElementById("testMessage")
       .innerHTML =
         '<span style="color:var(--green);font-weight:700">✓ ถูกต้อง</span>';
 
@@ -4810,18 +4957,14 @@ function answerTest(index){
     if(index === -1){
 
       document
-        .getElementById(
-          "testMessage"
-        )
+        .getElementById("testMessage")
         .innerHTML =
           '<span style="color:var(--danger);font-weight:700">มองไม่เห็น</span>';
 
     }else{
 
       document
-        .getElementById(
-          "testMessage"
-        )
+        .getElementById("testMessage")
         .innerHTML =
           '<span style="color:var(--danger);font-weight:700">✕ ไม่ถูกต้อง</span>';
 
@@ -4831,6 +4974,9 @@ function answerTest(index){
 
 
   testQuestion++;
+
+
+  updateLiveCalculation();
 
 
   if(
@@ -4849,8 +4995,7 @@ function answerTest(index){
 
 
   if(
-    testQuestion >=
-    testLevels.length
+    testQuestion >= testLevels.length
   ){
 
     setTimeout(
@@ -4879,9 +5024,7 @@ function startVisionTest(){
 
   resetTest();
 
-  showPage(
-    "visionTest"
-  );
+  showPage("visionTest");
 
 }
 
@@ -4904,22 +5047,20 @@ function resetTest(){
 
 
   document
-    .getElementById(
-      "liveResult"
-    )
+    .getElementById("liveResult")
     .textContent =
       "ยังไม่ได้ทำการทดสอบ";
 
 
   document
-    .getElementById(
-      "testMessage"
-    )
+    .getElementById("testMessage")
     .textContent =
       "ตอบตามที่มองเห็นจริง ไม่ต้องเดา";
 
 
   updateTestTitle();
+
+  updateLiveCalculation();
 
   showQuestion();
 
@@ -4933,22 +5074,15 @@ function resetTest(){
 function updateTestTitle(){
 
   const title =
-
     selectedEye === "both"
-
       ? "ทดสอบการมองเห็นสองข้าง"
-
       : selectedEye === "left"
-
         ? "ทดสอบตาซ้าย"
-
         : "ทดสอบตาขวา";
 
 
   document
-    .getElementById(
-      "testTitle"
-    )
+    .getElementById("testTitle")
     .textContent =
       title;
 
@@ -4956,26 +5090,99 @@ function updateTestTitle(){
 
 
 /* =====================================================
-   ESTIMATE
+   AUTO ESTIMATE
 ===================================================== */
 
+function estimateSphFromAcuity(acuity){
+  const map = {
+    "20/15": 0.00,
+    "20/20": 0.00,
+    "20/22": -0.25,
+    "20/25": -0.25,
+    "20/30": -0.50,
+    "20/35": -0.75,
+    "20/40": -0.75,
+    "20/50": -1.00,
+    "20/60": -1.25,
+    "20/80": -1.50,
+    "20/100": -2.00,
+    "20/200": -3.00
+  };
+  const value = Object.prototype.hasOwnProperty.call(map, String(acuity)) ? map[String(acuity)] : 0;
+  return Number(value).toFixed(2);
+}
+
 function estimateVision(){
+
+  const total =
+    testQuestion;
+
+
+  const percent =
+    total > 0
+      ? Math.round(
+          (correctAnswers / total) * 100
+        )
+      : 0;
+
+
+  /*
+    ระบบประเมินจากจำนวนข้อที่ตอบถูก
+    และระดับของแบบทดสอบที่ผ่าน
+  */
 
   let levelIndex =
     Math.max(
       0,
-      testQuestion - 1
+      Math.min(
+        correctAnswers,
+        testLevels.length - 1
+      )
     );
 
 
-  if(
-    wrongAnswers > 0
-  ){
+  /*
+    ถ้าตอบผิด ให้ลดระดับลงตามจำนวนข้อผิด
+    เพื่อไม่ให้ผลสูงเกินกว่าการตอบจริง
+  */
+
+  if(wrongAnswers > 0){
 
     levelIndex =
       Math.max(
         0,
-        levelIndex - 1
+        levelIndex -
+        Math.min(
+          wrongAnswers,
+          2
+        )
+      );
+
+  }
+
+
+  /*
+    หากคะแนนต่ำมาก ให้ใช้ระดับต้น
+  */
+
+  if(percent < 40){
+
+    levelIndex = 0;
+
+  }else if(percent < 60){
+
+    levelIndex =
+      Math.min(
+        levelIndex,
+        3
+      );
+
+  }else if(percent < 75){
+
+    levelIndex =
+      Math.min(
+        levelIndex,
+        6
       );
 
   }
@@ -4989,9 +5196,7 @@ function estimateVision(){
 
 
   const acuity =
-    testLevels[
-      levelIndex
-    ].name;
+    testLevels[levelIndex].name;
 
 
   let title =
@@ -4999,23 +5204,21 @@ function estimateVision(){
 
 
   let detail =
-    "สามารถอ่านตัวอักษรขนาดเล็กได้ดี";
+    "สามารถมองเห็นตัวอักษรในการทดสอบได้ดี";
 
 
   let refraction =
     "ไม่พบความผิดปกติเด่นชัดจากการคัดกรอง";
 
 
-  if(
-    levelIndex <= 3
-  ){
+  if(percent < 60){
 
     title =
       "แนะนำให้ตรวจสายตาเพิ่มเติม";
 
 
     detail =
-      "เริ่มมองตัวอักษรขนาดเล็กได้ยาก";
+      "เริ่มมองตัวอักษรในการทดสอบได้ยาก";
 
 
     refraction =
@@ -5023,9 +5226,7 @@ function estimateVision(){
 
   }
 
-  else if(
-    levelIndex <= 6
-  ){
+  else if(percent < 80){
 
     title =
       "การมองเห็นลดลงเล็กน้อย";
@@ -5044,12 +5245,13 @@ function estimateVision(){
   return {
 
     acuity,
-
     title,
-
     detail,
-
-    refraction
+    refraction,
+    sph: estimateSphFromAcuity(acuity),
+    score:correctAnswers,
+    total:total,
+    percent:percent
 
   };
 
@@ -5067,8 +5269,22 @@ function finishTest(){
   }
 
 
-  testFinished =
-    true;
+  /*
+    ป้องกันการกดดูผลก่อนตอบคำถาม
+  */
+
+  if(testQuestion <= 0){
+
+    alert(
+      "กรุณาทำแบบทดสอบอย่างน้อย 1 ข้อก่อนดูผล"
+    );
+
+    return;
+
+  }
+
+
+  testFinished = true;
 
 
   const result =
@@ -5076,153 +5292,120 @@ function finishTest(){
 
 
   const eyeText =
-
     selectedEye === "both"
-
       ? "สองข้าง"
-
       : selectedEye === "left"
-
         ? "ตาซ้าย"
-
         : "ตาขวา";
 
 
   const distance =
-    screenDistances[
-      screenSize
-    ] || 40;
+    screenDistances[screenSize] || 40;
 
 
   const price =
     (
-      currentUser.role === "medical" ||
+      currentUser.role === "driver" ||
       currentUser.role === "admin"
     )
       ? 0
-      : 5;
+      : 1;
+
+
+  const testTime =
+    new Date().toLocaleString("th-TH");
 
 
   document
-    .getElementById(
-      "finalTitle"
-    )
+    .getElementById("finalTitle")
     .textContent =
       result.title;
 
 
   document
-    .getElementById(
-      "finalDetail"
-    )
+    .getElementById("finalDetail")
     .textContent =
       result.detail;
 
 
   document
-    .getElementById(
-      "visionValue"
-    )
+    .getElementById("visionValue")
     .textContent =
       result.acuity;
 
 
   document
-    .getElementById(
-      "refractionValue"
-    )
+    .getElementById("refractionValue")
     .textContent =
       result.refraction;
 
+  const sphResult = document.getElementById("sphResultValue");
+  if(sphResult){
+    sphResult.textContent = "SPH ที่แนะนำโดยประมาณ: " + result.sph;
+  }
+
 
   document
-    .getElementById(
-      "finalUser"
-    )
+    .getElementById("finalUser")
     .textContent =
       currentUser.name;
 
 
   document
-    .getElementById(
-      "finalRole"
-    )
+    .getElementById("finalRole")
     .textContent =
-      getRoleName(
-        currentUser.role
-      );
+      getRoleName(currentUser.role);
 
 
   document
-    .getElementById(
-      "finalEye"
-    )
+    .getElementById("finalEye")
     .textContent =
       eyeText;
 
 
   document
-    .getElementById(
-      "finalScreen"
-    )
+    .getElementById("finalScreen")
     .textContent =
       screenSize + " นิ้ว";
 
 
   document
-    .getElementById(
-      "finalDistance"
-    )
+    .getElementById("finalDistance")
     .textContent =
       distance + " ซม.";
 
 
-  /* คำนวณคะแนนและเปอร์เซ็นต์อัตโนมัติ */
-
-  const totalQuestions =
-    testQuestion > 0
-      ? testQuestion
-      : 0;
-
-  const scorePercent =
-    totalQuestions > 0
-      ? Math.round(
-          (correctAnswers / totalQuestions) * 100
-        )
-      : 0;
-
   document
-    .getElementById(
-      "finalScore"
-    )
+    .getElementById("finalScore")
     .textContent =
       correctAnswers
       + " / "
-      + totalQuestions
+      + testQuestion
       + " คะแนน";
 
+
   document
-    .getElementById(
-      "finalPercent"
-    )
+    .getElementById("finalPercent")
     .textContent =
-      scorePercent + "%";
+      result.percent + "%";
 
 
   document
-    .getElementById(
-      "finalPrice"
-    )
+    .getElementById("finalPrice")
     .textContent =
       price === 0
         ? "ฟรี"
-        : "5 บาท";
+        : "1 บาท";
 
 
   document
-    .getElementById(
-      "liveResult"
-    )
+    .getElementById("finalTime")
+    .textContent =
+      testTime;
+
+
+  document
+    .getElementById("liveResult")
     .innerHTML =
 
       "<strong>"
@@ -5236,13 +5419,18 @@ function finishTest(){
       + "คะแนน "
       + correctAnswers
       + " / "
-      + totalQuestions
+      + testQuestion
       + " คะแนน"
       + "<br>"
+
       + "คิดเป็น "
-      + scorePercent
+      + result.percent
       + "%";
 
+
+  /*
+    ข้อมูลผลการวัด
+  */
 
   const data = {
 
@@ -5261,6 +5449,9 @@ function finishTest(){
     refraction:
       result.refraction,
 
+    sph:
+      result.sph,
+
     screenSize:
       screenSize,
 
@@ -5271,10 +5462,10 @@ function finishTest(){
       correctAnswers,
 
     total:
-      totalQuestions,
+      testQuestion,
 
     scorePercent:
-      scorePercent,
+      result.percent,
 
     price:
       price,
@@ -5289,13 +5480,20 @@ function finishTest(){
       currentUser.role,
 
     time:
-      new Date()
-        .toLocaleString(
-          "th-TH"
-        )
+      testTime,
+
+    timestamp:
+      Date.now(),
+
+    accessType:
+      selectedEye === "both" ? "สองข้าง" : selectedEye === "left" ? "ตาซ้าย" : "ตาขวา"
 
   };
 
+
+  /*
+    บันทึกผลล่าสุดของผู้ใช้
+  */
 
   localStorage.setItem(
 
@@ -5307,12 +5505,18 @@ function finishTest(){
   );
 
 
+  /*
+    บันทึกประวัติรวม
+  */
+
   saveUserTestRecord(data);
 
 
-  showPage(
-    "result"
-  );
+  /*
+    แสดงผล
+  */
+
+  showPage("result");
 
 }
 
@@ -5353,17 +5557,24 @@ function loadLastResult(){
   }
 
 
-  const saved =
-    localStorage.getItem(
-
-      "last_eye_test_" +
-      currentUser.username
-
-    );
+  const latestData = getLatestEyeTestForCurrentUser();
+  const saved = latestData ? JSON.stringify(latestData) : null;
 
 
   if(!saved){
+
+    document
+      .getElementById("finalTitle")
+      .textContent =
+      "ยังไม่มีผล";
+
+    document
+      .getElementById("finalDetail")
+      .textContent =
+      "กรุณาทำการทดสอบก่อน";
+
     return;
+
   }
 
 
@@ -5374,63 +5585,51 @@ function loadLastResult(){
 
 
     const eyeText =
-
       data.eye === "both"
-
         ? "สองข้าง"
-
         : data.eye === "left"
-
           ? "ตาซ้าย"
-
           : "ตาขวา";
 
 
     document
-      .getElementById(
-        "finalTitle"
-      )
+      .getElementById("finalTitle")
       .textContent =
       data.result;
 
 
     document
-      .getElementById(
-        "finalDetail"
-      )
+      .getElementById("finalDetail")
       .textContent =
       "ผลการคัดกรองล่าสุด";
 
 
     document
-      .getElementById(
-        "visionValue"
-      )
+      .getElementById("visionValue")
       .textContent =
       data.acuity;
 
 
     document
-      .getElementById(
-        "refractionValue"
-      )
+      .getElementById("refractionValue")
       .textContent =
       data.refraction;
 
+    const loadedSph = document.getElementById("sphResultValue");
+    if(loadedSph){
+      loadedSph.textContent = "SPH ที่แนะนำโดยประมาณ: " + (data.sph || estimateSphFromAcuity(data.acuity));
+    }
+
 
     document
-      .getElementById(
-        "finalUser"
-      )
+      .getElementById("finalUser")
       .textContent =
       data.userName ||
       currentUser.name;
 
 
     document
-      .getElementById(
-        "finalRole"
-      )
+      .getElementById("finalRole")
       .textContent =
       getRoleName(
         data.role ||
@@ -5439,35 +5638,27 @@ function loadLastResult(){
 
 
     document
-      .getElementById(
-        "finalEye"
-      )
+      .getElementById("finalEye")
       .textContent =
       eyeText;
 
 
     document
-      .getElementById(
-        "finalScreen"
-      )
+      .getElementById("finalScreen")
       .textContent =
       data.screenSize +
       " นิ้ว";
 
 
     document
-      .getElementById(
-        "finalDistance"
-      )
+      .getElementById("finalDistance")
       .textContent =
       data.distance +
       " ซม.";
 
 
     document
-      .getElementById(
-        "finalScore"
-      )
+      .getElementById("finalScore")
       .textContent =
       data.score
       + " / "
@@ -5475,31 +5666,37 @@ function loadLastResult(){
       + " คะแนน";
 
 
-    document
-      .getElementById(
-        "finalPercent"
-      )
-      .textContent =
-      (
-        typeof data.scorePercent === "number"
-          ? data.scorePercent
-          : (data.total > 0
+    const percent =
+      typeof data.scorePercent === "number"
+        ? data.scorePercent
+        : (
+            data.total > 0
               ? Math.round(
                   (data.score / data.total) * 100
                 )
-              : 0)
-      )
-      + "%";
+              : 0
+          );
 
 
     document
-      .getElementById(
-        "finalPrice"
-      )
+      .getElementById("finalPercent")
+      .textContent =
+      percent + "%";
+
+
+    document
+      .getElementById("finalPrice")
       .textContent =
       data.price === 0
         ? "ฟรี"
-        : "5 บาท";
+        : "1 บาท";
+
+
+    document
+      .getElementById("finalTime")
+      .textContent =
+      data.time || "-";
+
 
   }
   catch(error){
@@ -5513,14 +5710,577 @@ function loadLastResult(){
 }
 
 
+
 /* =====================================================
-   ADMIN DASHBOARD
+   ข้อ 4: ระบบคำนวณอัตโนมัติด้านโลจิสติกส์
+===================================================== */
+
+function calculateLogistics(){
+  const orderCount = Math.max(0, Number(document.getElementById("logOrderCount")?.value || 0));
+  const weightPerOrder = Math.max(0, Number(document.getElementById("logWeightPerOrder")?.value || 0));
+  const shippingRate = Math.max(0, Number(document.getElementById("logShippingRate")?.value || 0));
+  const tripCost = Math.max(0, Number(document.getElementById("logTripCost")?.value || 0));
+
+  const totalWeight = orderCount * weightPerOrder;
+  const shippingCost = totalWeight * shippingRate;
+  const totalTripCost = shippingCost + tripCost;
+  const costPerOrder = orderCount > 0 ? totalTripCost / orderCount : 0;
+
+  const set = (id, value) => {
+    const el = document.getElementById(id);
+    if(el) el.textContent = value;
+  };
+
+  set("logTotalWeight", totalWeight.toFixed(2) + " กก.");
+  set("logShippingCost", "฿" + Math.round(shippingCost).toLocaleString());
+  set("logTotalTripCost", "฿" + Math.round(totalTripCost).toLocaleString());
+  set("logCostPerOrder", "฿" + Math.round(costPerOrder).toLocaleString());
+
+  const detail = document.getElementById("logCalculationDetail");
+  if(detail){
+    detail.innerHTML =
+      "น้ำหนักรวม = " + orderCount + " ออเดอร์ × " + weightPerOrder.toFixed(2) + " กก. = <b>" + totalWeight.toFixed(2) + " กก.</b>"
+      + "<br>ค่าส่ง = " + totalWeight.toFixed(2) + " × ฿" + shippingRate.toLocaleString() + " = <b>฿" + Math.round(shippingCost).toLocaleString() + "</b>"
+      + "<br>ต้นทุนต่อเที่ยว = ค่าส่ง ฿" + Math.round(shippingCost).toLocaleString() + " + ค่าพาหนะ ฿" + Math.round(tripCost).toLocaleString() + " = <b>฿" + Math.round(totalTripCost).toLocaleString() + "</b>"
+      + "<br>ต้นทุนเฉลี่ย/ออเดอร์ = <b>฿" + Math.round(costPerOrder).toLocaleString() + "</b>";
+  }
+
+  return {orderCount, weightPerOrder, shippingRate, tripCost, totalWeight, shippingCost, totalTripCost, costPerOrder};
+}
+
+
+/* =====================================================
+   GLASSES SHOP / ORDER SYSTEM
+   ข้อ 2: จัดการข้อมูล
+   ข้อ 3: กระบวนการหลัก
+   ข้อ 4: คำนวณอัตโนมัติ
+   ข้อ 5: ติดตามสถานะ
+===================================================== */
+
+const LENS_COST = 175;
+const PRODUCTION_SHIPPING_COST = 125;
+const SINGLE_LENS_PRICE = 0;
+const SHIPPING_PRICE = 0;
+
+/* ราคาขายเลือกตามประเภทกรอบ จากช่วงราคาที่กำหนด */
+const frameProducts = [
+  {id:"F01", name:"กรอบทั่วไป", desc:"กรอบพลาสติก/โลหะพื้นฐาน · เลนส์ชั้นเดียวรวมในราคา", price:990, costFrame:200, stock:8, image:"https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&w=600&q=80"},
+  {id:"F02", name:"กรอบดีไซน์ / วินเทจ", desc:"ดีไซน์เรียบง่ายหรือสไตล์วินเทจ · เลนส์ชั้นเดียวรวมในราคา", price:1290, costFrame:250, stock:6, image:"https://images.unsplash.com/photo-1574258495973-f010dfbb5371?auto=format&fit=crop&w=600&q=80"},
+  {id:"F03", name:"กรอบโลหะ", desc:"กรอบโลหะสำหรับใช้งานทั่วไป · เลนส์ชั้นเดียวรวมในราคา", price:1590, costFrame:400, stock:4, image:"https://images.unsplash.com/photo-1508296695146-257a814070b4?auto=format&fit=crop&w=600&q=80"},
+  {id:"F04", name:"กรอบสปอร์ต", desc:"วัสดุยืดหยุ่นและทนแรงกระแทก · เลนส์ชั้นเดียวรวมในราคา", price:1990, costFrame:500, stock:3, image:"https://images.unsplash.com/photo-1577803645773-f96470509666?auto=format&fit=crop&w=600&q=80"}
+];
+
+let selectedFrameId = "F01";
+
+function getOrders(){
+  return JSON.parse(localStorage.getItem("eyeglass_orders") || "[]");
+}
+
+function saveOrders(orders){
+  localStorage.setItem("eyeglass_orders", JSON.stringify(orders));
+}
+
+function getDrivers(){
+  return demoUsers.filter(u => u.role === "driver");
+}
+
+function orderStatusClass(status){
+  if(status === "จัดส่งสำเร็จ") return "status-success";
+  if(status === "กำลังจัดส่ง") return "status-delivery";
+  if(status === "กำลังเตรียมสินค้า" || status === "รับสินค้าแล้ว") return "status-processing";
+  return "status-pending";
+}
+
+function getFrameStock(frame){
+  const saved = JSON.parse(localStorage.getItem("eyeglass_stock") || "{}");
+  if(typeof saved[frame.id] === "number") return saved[frame.id];
+  return Number(frame.stock || 0);
+}
+
+function setFrameStock(frameId, value){
+  const saved = JSON.parse(localStorage.getItem("eyeglass_stock") || "{}");
+  saved[frameId] = Math.max(0, Number(value || 0));
+  localStorage.setItem("eyeglass_stock", JSON.stringify(saved));
+}
+
+function renderFrameOptions(){
+  const el = document.getElementById("frameOptions");
+  if(!el) return;
+
+  el.innerHTML = frameProducts.map(frame => `
+    <div class="product-option frame-option ${frame.id === selectedFrameId ? "selected" : ""}"
+         onclick="selectFrame('${frame.id}')">
+      <img class="frame-image" src="${frame.image}" alt="${frame.name}" loading="lazy">
+      <b>${frame.name}</b>
+      <span>${frame.desc}</span>
+      <span style="font-size:11px;color:${getFrameStock(frame) <= 2 ? 'var(--danger)' : 'var(--muted)'}">คงเหลือ ${getFrameStock(frame)} ชิ้น</span>
+      <strong style="display:block;margin-top:7px;color:var(--green)">฿${frame.price.toLocaleString()}</strong>
+    </div>
+  `).join("");
+}
+
+function selectFrame(id){
+  selectedFrameId = id;
+  renderFrameOptions();
+  updateOrderTotal();
+}
+
+function updateOrderTotal(){
+  const frame = frameProducts.find(f => f.id === selectedFrameId) || frameProducts[0];
+  const qty = Math.max(1, Number(document.getElementById("orderQty")?.value || 1));
+
+  const packageTotal = frame.price * qty;
+  const frameTotal = packageTotal;
+  const lensTotal = 0;
+  const coatingTotal = 0;
+  const shipping = 0;
+  const grand = packageTotal;
+
+  const summary = document.getElementById("orderSummary");
+  const total = document.getElementById("orderGrandTotal");
+
+  if(summary){
+    summary.innerHTML =
+      "แพ็กเกจตัดแว่น " + frame.name + " × " + qty + " = ฿" + packageTotal.toLocaleString() +
+      "<br>เลนส์ชั้นเดียว (Single Vision) = รวมในราคากรอบรุ่นนี้" +
+      "<br>ค่าทำแว่นและจัดส่ง = รวมในราคาที่แสดง" +
+      "<br><b>ราคาขายรวมต่อชิ้น ฿" + frame.price.toLocaleString() + "</b>";
+  }
+  if(total) total.textContent = "฿" + grand.toLocaleString();
+  return {frame, coating:0, qty, frameTotal, lensTotal, coatingTotal, shipping, grand};
+}
+
+function prepareShopForm(){
+  if(!currentUser) return;
+
+  renderFrameOptions();
+  const name = document.getElementById("shipName");
+  if(name && !name.value) name.value = currentUser.name || "";
+
+  useLatestVisionResult(true);
+  updateOrderTotal();
+}
+
+function getLatestEyeTestForCurrentUser(){
+  if(!currentUser) return null;
+
+  const records = JSON.parse(localStorage.getItem("eye_test_records") || "[]");
+  const mine = records
+    .filter(r => r && (r.username === currentUser.username || r.userName === currentUser.username))
+    .sort((a,b) => Number(b.timestamp || 0) - Number(a.timestamp || 0));
+
+  if(!mine.length){
+    const saved = localStorage.getItem("last_eye_test_" + currentUser.username);
+    if(saved){ try { return JSON.parse(saved); } catch(e){} }
+    return null;
+  }
+
+  // ผลล่าสุดแบบรวม: ถ้าล่าสุดเป็นซ้าย ให้ค้นหาผลขวาล่าสุดของบัญชีเดียวกันมารวมด้วย
+  const latestBoth = mine.find(r => r.eye === "both");
+  const latestLeft = mine.find(r => r.eye === "left");
+  const latestRight = mine.find(r => r.eye === "right");
+  const latest = mine[0];
+
+  const combined = {
+    ...latest,
+    eye: latestBoth ? "both" : latest.eye,
+    latestRecord: latest,
+    leftRecord: latestLeft || (latestBoth ? latestBoth : null),
+    rightRecord: latestRight || (latestBoth ? latestBoth : null),
+    combinedLatest: true
+  };
+
+  localStorage.setItem("last_eye_test_" + currentUser.username, JSON.stringify(latest));
+  return combined;
+}
+
+function parseRefractionValue(record){
+  if(!record) return "0.00";
+  if(record.sph !== undefined && record.sph !== null && record.sph !== "") return Number(record.sph).toFixed(2);
+  return estimateSphFromAcuity(record.acuity);
+}
+
+function useLatestVisionResult(silent=false){
+  if(!currentUser) return;
+
+  const data = getLatestEyeTestForCurrentUser();
+  if(!data){
+    if(!silent) alert("ยังไม่มีผลวัดสายตาล่าสุดของผู้ใช้");
+    return;
+  }
+
+  try{
+    const rightRecord = data.rightRecord || (data.eye === "right" || data.eye === "both" ? data : null);
+    const leftRecord = data.leftRecord || (data.eye === "left" || data.eye === "both" ? data : null);
+
+    const right = document.getElementById("rxRightSph");
+    const left = document.getElementById("rxLeftSph");
+
+    if(rightRecord) right.value = parseRefractionValue(rightRecord);
+    if(leftRecord) left.value = parseRefractionValue(leftRecord);
+
+    const info = document.getElementById("latestVisionInfo");
+    if(info){
+      const latestEyeText = data.latestRecord?.eye === "left" ? "ผลล่าสุด: ซ้าย" : data.latestRecord?.eye === "right" ? "ผลล่าสุด: ขวา" : "ผลล่าสุด: สองข้าง";
+      const combinedText = rightRecord && leftRecord ? " · รวมผลขวา+ซ้ายจากประวัติล่าสุดของบัญชีนี้" : "";
+      info.innerHTML = "<b>" + latestEyeText + "</b> · " + (data.latestRecord?.time || data.time || "-") + combinedText;
+    }
+
+    updateOrderTotal();
+    if(!silent){
+      alert("นำผลวัดล่าสุดมาใช้แล้ว โดยรวมผลตาซ้ายและตาขวาของบัญชีนี้ให้ด้วยเมื่อมีข้อมูล");
+    }
+  }catch(e){
+    if(!silent) alert("ไม่สามารถอ่านผลวัดล่าสุดได้");
+  }
+}
+
+function createGlassesOrder(){
+  if(!currentUser || currentUser.role !== "customer"){
+    alert("บัญชีนี้ไม่มีสิทธิ์สั่งซื้อแว่น กรุณาเข้าสู่ระบบด้วยบัญชีลูกค้า");
+    return;
+  }
+
+  const shipName = document.getElementById("shipName").value.trim();
+  const shipPhone = document.getElementById("shipPhone").value.trim();
+  const shipProvince = document.getElementById("shipProvince").value.trim();
+  const shipAddress = document.getElementById("shipAddress").value.trim();
+
+  if(!shipName || !shipPhone || !shipProvince || !shipAddress){
+    alert("กรุณากรอกชื่อผู้รับ เบอร์โทร จังหวัด และที่อยู่จัดส่งให้ครบ");
+    return;
+  }
+
+  const calc = updateOrderTotal();
+  const currentStock = getFrameStock(calc.frame);
+  if(currentStock < calc.qty){
+    alert("กรอบ " + calc.frame.name + " มีสินค้าเหลือ " + currentStock + " ชิ้น ไม่เพียงพอกับจำนวนที่สั่ง");
+    return;
+  }
+
+  const order = {
+    id:"ORD-" + Date.now().toString().slice(-8),
+    username:currentUser.username,
+    customerName:shipName,
+    customerPhone:shipPhone,
+    province:shipProvince,
+    address:shipAddress,
+    note:document.getElementById("orderNote").value.trim(),
+    frameId:calc.frame.id,
+    frameName:calc.frame.name,
+    framePrice:calc.frame.price,
+    lensType:"เลนส์ชั้นเดียว (Single Vision)",
+    lensPrice:SINGLE_LENS_PRICE,
+    coating:0,
+    packagePrice:calc.frame.price * calc.qty,
+    costFrame:calc.frame.costFrame * calc.qty,
+    costLens:LENS_COST * calc.qty,
+    cogs:(calc.frame.costFrame + LENS_COST) * calc.qty,
+    productionShippingCost:PRODUCTION_SHIPPING_COST * calc.qty,
+    grossProfit:(calc.frame.price - calc.frame.costFrame - LENS_COST) * calc.qty,
+    netProfit:(calc.frame.price - calc.frame.costFrame - LENS_COST - PRODUCTION_SHIPPING_COST) * calc.qty,
+    quantity:calc.qty,
+    rx:{
+      rightSph:Number(document.getElementById("rxRightSph").value || 0),
+      leftSph:Number(document.getElementById("rxLeftSph").value || 0),
+      pd:Number(document.getElementById("rxPd").value || 0)
+    },
+    subtotal:calc.frameTotal + calc.lensTotal + calc.coatingTotal,
+    shipping:calc.shipping,
+    total:calc.grand,
+    paymentStatus:"ยังไม่ชำระ",
+    status:"รอยืนยัน",
+    driverUsername:"",
+    driverName:"",
+    createdAt:new Date().toLocaleString("th-TH"),
+    createdTimestamp:Date.now(),
+    updatedAt:new Date().toLocaleString("th-TH"),
+    updatedTimestamp:Date.now()
+  };
+
+  const orders = getOrders();
+  orders.push(order);
+  saveOrders(orders);
+  setFrameStock(calc.frame.id, currentStock - calc.qty);
+  addNotification("มีออเดอร์ใหม่", "ออเดอร์ " + order.id + " จาก " + currentUser.name, "order");
+  if(currentStock - calc.qty <= 2){
+    addNotification("สต็อกกรอบแว่นต่ำ", calc.frame.name + " เหลือ " + (currentStock - calc.qty) + " ชิ้น", "stock");
+  }
+
+  alert("สร้างออเดอร์ " + order.id + " เรียบร้อยแล้ว");
+  showPage("orders");
+  renderCustomerOrders();
+}
+
+function renderCustomerOrders(){
+  const el = document.getElementById("customerOrdersList");
+  if(!el || !currentUser) return;
+
+  const orders = getOrders()
+    .filter(o => o.username === currentUser.username)
+    .reverse();
+
+  if(!orders.length){
+    el.innerHTML = '<div class="empty-state">ยังไม่มีคำสั่งซื้อ<br>กด “ร้านแว่น” เพื่อเริ่มสั่งซื้อ</div>';
+    return;
+  }
+
+  el.innerHTML = orders.map(o => `
+    <div class="order-card">
+      <div class="order-head">
+        <div>
+          <b>${o.id}</b>
+          <div class="order-meta">${o.createdAt}</div>
+        </div>
+        <span class="status-badge ${orderStatusClass(o.status)}">${o.status}</span>
+      </div>
+      <hr style="border:0;border-top:1px solid var(--line);margin:10px 0">
+      <b>${o.frameName}</b> · ${o.lensType}<br>
+      จำนวน ${o.quantity} ชิ้น · ยอดรวม <b style="color:var(--green)">฿${Number(o.total).toLocaleString()}</b>
+      <div class="order-meta" style="margin-top:6px">
+        ผู้รับ: ${o.customerName}<br>
+        ${o.address}, ${o.province}<br>
+        คนขับ: ${o.driverName || "รอแอดมินมอบหมาย"}
+      </div>
+      <div class="delivery-route">
+        สถานะชำระเงิน: <b>${o.paymentStatus}</b><br>
+        อัปเดตล่าสุด: ${o.updatedAt}
+      </div>
+    </div>
+  `).join("");
+}
+
+function renderDriverOrders(){
+  const list = document.getElementById("driverOrdersList");
+  if(!list || !currentUser || currentUser.role !== "driver") return;
+
+  const orders = getOrders().filter(o => o.driverUsername === currentUser.username);
+  const assigned = orders.length;
+  const delivery = orders.filter(o => o.status === "กำลังจัดส่ง").length;
+  const done = orders.filter(o => o.status === "จัดส่งสำเร็จ").length;
+
+  document.getElementById("driverAssignedCount").textContent = assigned;
+  document.getElementById("driverDeliveryCount").textContent = delivery;
+  document.getElementById("driverDoneCount").textContent = done;
+
+  if(!orders.length){
+    list.innerHTML = '<div class="empty-state">ยังไม่มีออเดอร์ที่ได้รับมอบหมาย</div>';
+    return;
+  }
+
+  list.innerHTML = orders.slice().reverse().map(o => `
+    <div class="order-card">
+      <div class="order-head">
+        <div>
+          <b>${o.id}</b>
+          <div class="order-meta">${o.createdAt}</div>
+        </div>
+        <span class="status-badge ${orderStatusClass(o.status)}">${o.status}</span>
+      </div>
+      <p><b>ผู้รับ:</b> ${o.customerName}</p>
+      <p><b>โทร:</b> ${o.customerPhone}</p>
+      <div class="delivery-route">
+        📍 ${o.address}, ${o.province}
+      </div>
+      <p class="order-meta">
+        ${o.frameName} · ${o.lensType} · ${o.quantity} ชิ้น<br>
+        ยอดรวม ฿${Number(o.total).toLocaleString()}
+      </p>
+      <div class="order-actions">
+        <button class="btn" onclick="driverUpdateOrder('${o.id}','รับสินค้าแล้ว')">📦 รับสินค้า</button>
+        <button class="btn" onclick="driverUpdateOrder('${o.id}','กำลังจัดส่ง')">🚚 ออกส่ง</button>
+        <button class="btn primary" onclick="driverUpdateOrder('${o.id}','จัดส่งสำเร็จ')">✓ ส่งสำเร็จ</button>
+        <button class="btn" onclick="showPage('orders');renderCustomerOrders()">📋 รายละเอียด</button>
+      </div>
+    </div>
+  `).join("");
+}
+
+function driverUpdateOrder(id,status){
+  if(!currentUser || currentUser.role !== "driver") return;
+
+  const orders = getOrders();
+  const order = orders.find(o => o.id === id && o.driverUsername === currentUser.username);
+  if(!order){
+    alert("ไม่พบออเดอร์ที่ได้รับมอบหมาย");
+    return;
+  }
+
+  order.status = status;
+  order.updatedAt = new Date().toLocaleString("th-TH");
+  order.updatedTimestamp = Date.now();
+  if(status === "จัดส่งสำเร็จ") order.deliveredTimestamp = Date.now();
+  saveOrders(orders);
+  addNotification(status === "จัดส่งสำเร็จ" ? "จัดส่งสำเร็จ" : "อัปเดตออเดอร์", "ออเดอร์ " + order.id + " เปลี่ยนสถานะเป็น " + status, "order");
+  renderDriverOrders();
+  alert("อัปเดตสถานะเป็น “" + status + "” แล้ว");
+}
+
+function renderAdminDrivers(){
+  const select = document.getElementById("adminDriverSelect");
+  if(!select) return;
+
+  const drivers = getDrivers();
+  select.innerHTML = drivers.length
+    ? drivers.map(d => `<option value="${d.username}">${d.name} (${d.username})</option>`).join("")
+    : '<option value="">ไม่มีคนขับ</option>';
+}
+
+let selectedAdminOrderId = "";
+
+function renderAdminOrders(){
+  const el = document.getElementById("adminOrders");
+  if(!el) return;
+
+  const orders = getOrders();
+
+  if(!orders.length){
+    el.innerHTML = '<div class="empty-state">ยังไม่มีออเดอร์</div>';
+    return;
+  }
+
+  el.innerHTML = orders.slice().reverse().map(o => `
+    <div class="order-card" style="${selectedAdminOrderId === o.id ? "border:2px solid var(--green)" : ""}">
+      <div class="order-head">
+        <div>
+          <b>${o.id}</b><br>
+          <span class="order-meta">${o.customerName} · ${o.createdAt}</span>
+        </div>
+        <span class="status-badge ${orderStatusClass(o.status)}">${o.status}</span>
+      </div>
+      <p>
+        ${o.frameName} · ${o.lensType} · ${o.quantity} ชิ้น<br>
+        ยอดรวม <b style="color:var(--green)">฿${Number(o.total).toLocaleString()}</b>
+      </p>
+      <p class="order-meta">
+        ชำระเงิน: ${o.paymentStatus}<br>
+        คนขับ: ${o.driverName || "ยังไม่มอบหมาย"}<br>
+        ปลายทาง: ${o.address}, ${o.province}
+      </p>
+      <div class="order-actions">
+        <button class="btn" onclick="selectAdminOrder('${o.id}')">เลือก</button>
+        <button class="btn" onclick="adminSetOrderStatus('${o.id}','กำลังเตรียมสินค้า')">เตรียมสินค้า</button>
+        <button class="btn" onclick="adminSetPayment('${o.id}')">✓ ชำระแล้ว</button>
+        <button class="btn" onclick="adminEditOrder('${o.id}')">✏️ แก้ไข</button>
+      </div>
+    </div>
+  `).join("");
+}
+
+function selectAdminOrder(id){
+  selectedAdminOrderId = id;
+  renderAdminOrders();
+}
+
+function assignSelectedOrderToDriver(){
+  if(!currentUser || currentUser.role !== "admin") return;
+  if(!selectedAdminOrderId){
+    alert("กรุณาเลือกออเดอร์ก่อน");
+    return;
+  }
+
+  const driverUsername = document.getElementById("adminDriverSelect").value;
+  const driver = getDrivers().find(d => d.username === driverUsername);
+  if(!driver){
+    alert("ยังไม่มีคนขับให้มอบหมาย");
+    return;
+  }
+
+  const orders = getOrders();
+  const order = orders.find(o => o.id === selectedAdminOrderId);
+  if(!order) return;
+
+  order.driverUsername = driver.username;
+  order.driverName = driver.name;
+  order.status = "รอรับสินค้า";
+  order.updatedAt = new Date().toLocaleString("th-TH");
+  order.updatedTimestamp = Date.now();
+  saveOrders(orders);
+  addNotification("งานจัดส่งใหม่", "ออเดอร์ " + order.id + " มอบหมายให้ " + driver.name, "delivery");
+  renderAdminOrders();
+  alert("มอบหมาย " + order.id + " ให้ " + driver.name + " แล้ว");
+}
+
+function adminSetOrderStatus(id,status){
+  if(!currentUser || currentUser.role !== "admin") return;
+  const orders = getOrders();
+  const order = orders.find(o => o.id === id);
+  if(!order) return;
+
+  order.status = status;
+  order.updatedAt = new Date().toLocaleString("th-TH");
+  order.updatedTimestamp = Date.now();
+  if(status === "จัดส่งสำเร็จ") order.deliveredTimestamp = Date.now();
+  saveOrders(orders);
+  addNotification(status === "จัดส่งสำเร็จ" ? "จัดส่งสำเร็จ" : "อัปเดตออเดอร์", "ออเดอร์ " + order.id + " เปลี่ยนสถานะเป็น " + status, "order");
+  renderAdminOrders();
+}
+
+function adminSetPayment(id){
+  if(!currentUser || currentUser.role !== "admin") return;
+  const orders = getOrders();
+  const order = orders.find(o => o.id === id);
+  if(!order) return;
+
+  order.paymentStatus = "ชำระแล้ว";
+  if(order.status === "รอยืนยัน") order.status = "กำลังเตรียมสินค้า";
+  order.updatedAt = new Date().toLocaleString("th-TH");
+  order.updatedTimestamp = Date.now();
+  saveOrders(orders);
+  addNotification("ชำระเงินออเดอร์สำเร็จ", "ออเดอร์ " + order.id + " ชำระเงินแล้ว", "payment");
+  renderAdminOrders();
+}
+
+function adminEditOrder(id){
+  if(!currentUser || currentUser.role !== "admin") return;
+  const orders = getOrders();
+  const order = orders.find(o => o.id === id);
+  if(!order) return;
+
+  const name = prompt("แก้ไขชื่อผู้รับ", order.customerName);
+  if(name === null) return;
+  const phone = prompt("แก้ไขเบอร์โทร", order.customerPhone);
+  if(phone === null) return;
+  const address = prompt("แก้ไขที่อยู่", order.address);
+  if(address === null) return;
+
+  order.customerName = name.trim() || order.customerName;
+  order.customerPhone = phone.trim() || order.customerPhone;
+  order.address = address.trim() || order.address;
+  order.updatedAt = new Date().toLocaleString("th-TH");
+  saveOrders(orders);
+  renderAdminOrders();
+}
+
+function deleteSelectedOrder(){
+  if(!currentUser || currentUser.role !== "admin") return;
+  if(!selectedAdminOrderId){
+    alert("กรุณาเลือกออเดอร์ก่อน");
+    return;
+  }
+
+  const orders = getOrders();
+  const index = orders.findIndex(o => o.id === selectedAdminOrderId);
+  if(index < 0) return;
+
+  if(!confirm("ต้องการลบออเดอร์ " + selectedAdminOrderId + " หรือไม่?")) return;
+
+  orders.splice(index,1);
+  saveOrders(orders);
+  selectedAdminOrderId = "";
+  adminRefresh();
+}
+
+/* =====================================================
+   ADMIN USER
 ===================================================== */
 
 function getUserNameOverrides(){
 
   return JSON.parse(
-    localStorage.getItem("eye_user_name_overrides") || "{}"
+    localStorage.getItem(
+      "eye_user_name_overrides"
+    ) || "{}"
   );
 
 }
@@ -5535,32 +6295,44 @@ function editAdminUser(){
     return;
   }
 
+
   const username =
     prompt(
-      "กรอกชื่อผู้ใช้ที่ต้องการแก้ไข\\n\\ncustomer / doctor / admin",
+      "กรอกชื่อผู้ใช้ที่ต้องการแก้ไข\n\ncustomer / driver / admin",
       "customer"
     );
+
 
   if(!username){
     return;
   }
+
 
   const user =
     demoUsers.find(
       u => u.username === username.trim()
     );
 
+
   if(!user){
 
-    alert("ไม่พบชื่อผู้ใช้นี้ในระบบ");
+    alert(
+      "ไม่พบชื่อผู้ใช้นี้ในระบบ"
+    );
 
     return;
+
   }
 
-  const overrides = getUserNameOverrides();
+
+  const overrides =
+    getUserNameOverrides();
+
 
   const currentName =
-    overrides[user.username] || user.name;
+    overrides[user.username] ||
+    user.name;
+
 
   const newName =
     prompt(
@@ -5568,34 +6340,69 @@ function editAdminUser(){
       currentName
     );
 
+
   if(newName === null){
     return;
   }
 
+
   const cleanName =
     newName.trim();
 
+
   if(!cleanName){
 
-    alert("กรุณากรอกชื่อผู้ใช้");
+    alert(
+      "กรุณากรอกชื่อผู้ใช้"
+    );
 
     return;
+
   }
+
 
   overrides[user.username] =
     cleanName;
+
 
   localStorage.setItem(
     "eye_user_name_overrides",
     JSON.stringify(overrides)
   );
 
-  alert("แก้ไขข้อมูลผู้ใช้เรียบร้อยแล้ว");
+
+  if(
+    currentUser.username === user.username
+  ){
+
+    currentUser.name =
+      cleanName;
+
+
+    localStorage.setItem(
+      "eye_current_user",
+      JSON.stringify(currentUser)
+    );
+
+
+    updateUserInterface();
+
+  }
+
+
+  alert(
+    "แก้ไขข้อมูลผู้ใช้เรียบร้อยแล้ว"
+  );
+
 
   adminRefresh();
 
 }
 
+
+/* =====================================================
+   ADMIN CLEAR TESTS
+===================================================== */
 
 function clearAdminTests(){
 
@@ -5606,29 +6413,51 @@ function clearAdminTests(){
     return;
   }
 
+
   const tests =
     JSON.parse(
-      localStorage.getItem("eye_test_records") || "[]"
+      localStorage.getItem(
+        "eye_test_records"
+      ) || "[]"
     );
+
 
   if(tests.length === 0){
 
-    alert("ยังไม่มีข้อมูลผลการวัดให้ลบ");
+    alert(
+      "ยังไม่มีข้อมูลผลการวัดให้ลบ"
+    );
 
     return;
+
   }
+
 
   if(
     confirm(
-      "ต้องการลบข้อมูลผลการวัดทั้งหมด " +
-      tests.length +
-      " รายการหรือไม่?"
+      "ต้องการลบข้อมูลผลการวัดทั้งหมด "
+      + tests.length
+      + " รายการหรือไม่?"
     )
   ){
 
-    localStorage.removeItem("eye_test_records");
+    localStorage.removeItem(
+      "eye_test_records"
+    );
 
-    alert("ลบข้อมูลผลการวัดเรียบร้อยแล้ว");
+
+    demoUsers.forEach(user=>{
+      localStorage.removeItem(
+        "last_eye_test_" +
+        user.username
+      );
+    });
+
+
+    alert(
+      "ลบข้อมูลผลการวัดเรียบร้อยแล้ว"
+    );
+
 
     adminRefresh();
 
@@ -5636,6 +6465,10 @@ function clearAdminTests(){
 
 }
 
+
+/* =====================================================
+   ADMIN CLEAR PAYMENTS
+===================================================== */
 
 function clearAdminPayments(){
 
@@ -5646,29 +6479,43 @@ function clearAdminPayments(){
     return;
   }
 
+
   const payments =
     JSON.parse(
-      localStorage.getItem("eye_payment_records") || "[]"
+      localStorage.getItem(
+        "eye_payment_records"
+      ) || "[]"
     );
+
 
   if(payments.length === 0){
 
-    alert("ยังไม่มีข้อมูลการชำระเงินให้ลบ");
+    alert(
+      "ยังไม่มีข้อมูลการชำระเงินให้ลบ"
+    );
 
     return;
+
   }
+
 
   if(
     confirm(
-      "ต้องการลบข้อมูลการชำระเงินทั้งหมด " +
-      payments.length +
-      " รายการหรือไม่?"
+      "ต้องการลบข้อมูลการชำระเงินทั้งหมด "
+      + payments.length
+      + " รายการหรือไม่?"
     )
   ){
 
-    localStorage.removeItem("eye_payment_records");
+    localStorage.removeItem(
+      "eye_payment_records"
+    );
 
-    alert("ลบข้อมูลการชำระเงินเรียบร้อยแล้ว");
+
+    alert(
+      "ลบข้อมูลการชำระเงินเรียบร้อยแล้ว"
+    );
+
 
     adminRefresh();
 
@@ -5677,15 +6524,59 @@ function clearAdminPayments(){
 }
 
 
+function clearAllOrders(){
+  if(!currentUser || currentUser.role !== "admin") return;
+  const orders = getOrders();
+  if(!orders.length){
+    alert("ยังไม่มีออเดอร์ให้ลบ");
+    return;
+  }
+  if(confirm("ต้องการลบออเดอร์ทั้งหมด " + orders.length + " รายการหรือไม่?")){
+    localStorage.removeItem("eyeglass_orders");
+    selectedAdminOrderId = "";
+    adminRefresh();
+  }
+}
+
+/* =====================================================
+   ADMIN DASHBOARD
+===================================================== */
+
+function renderAdminDashboardReports(orders){
+  const delivered = orders.filter(o => o.status === "จัดส่งสำเร็จ").length;
+  const completedOrFailed = orders.filter(o => o.status === "จัดส่งสำเร็จ" || o.status === "จัดส่งไม่สำเร็จ").length;
+  const rate = completedOrFailed ? Math.round(delivered / completedOrFailed * 100) : 0;
+  const paidOrders = orders.filter(o => o.paymentStatus === "ชำระแล้ว");
+  const revenue = paidOrders.reduce((s,o)=>s + Number(o.total || o.packagePrice || 0),0);
+  const cogs = paidOrders.reduce((s,o)=>s + Number(o.cogs ?? (PACKAGE_COGS * Number(o.quantity || 1))),0);
+  const gross = paidOrders.reduce((s,o)=>s + Number(o.grossProfit ?? (Number(o.total || o.packagePrice || 0) - Number(o.cogs ?? (PACKAGE_COGS * Number(o.quantity || 1))))),0);
+  const ops = paidOrders.reduce((s,o)=>s + Number(o.productionShippingCost ?? (PRODUCTION_SHIPPING_COST * Number(o.quantity || 1))),0);
+  const net = paidOrders.reduce((s,o)=>s + Number(o.netProfit ?? (Number(o.total || o.packagePrice || 0) - Number(o.cogs ?? 0) - Number(o.productionShippingCost ?? 0))),0);
+  const todayKey = new Date().toLocaleDateString("th-TH");
+  const todayRevenue = paidOrders.filter(o => new Date(o.createdTimestamp || 0).toLocaleDateString("th-TH") === todayKey).reduce((s,o)=>s+Number(o.total||o.packagePrice||0),0);
+
+  const set=(id,val)=>{const el=document.getElementById(id);if(el)el.textContent=val;};
+  set("reportDelivered", delivered);
+  set("reportSuccessRate", rate+"%");
+  set("reportTodayRevenue", "฿"+todayRevenue.toLocaleString());
+  set("reportGrossProfit", "฿"+gross.toLocaleString());
+  set("reportNetProfit", "฿"+net.toLocaleString());
+
+  const chart=document.getElementById("adminDailyChart"); if(!chart)return;
+  const days=[]; for(let i=6;i>=0;i--){ const dt=new Date(); dt.setHours(0,0,0,0); dt.setDate(dt.getDate()-i); days.push(dt); }
+  const vals=days.map(dt=>{ const key=dt.toLocaleDateString("th-TH"); return orders.filter(o => o.status === "จัดส่งสำเร็จ" && new Date(o.deliveredTimestamp || o.updatedTimestamp || o.createdTimestamp || 0).toLocaleDateString("th-TH")===key).length; });
+  const max=Math.max(1,...vals);
+  chart.innerHTML=days.map((dt,i)=>`<div class="dashboard-bar"><b>${vals[i]}</b><i style="height:${Math.max(4,Math.round(vals[i]/max*105))}px"></i><span>${dt.getDate()}/${dt.getMonth()+1}</span></div>`).join("");
+}
+
 function adminRefresh(){
+  calculateLogistics();
 
   if(
     !currentUser ||
     currentUser.role !== "admin"
   ){
-
     return;
-
   }
 
 
@@ -5704,43 +6595,51 @@ function adminRefresh(){
       ) || "[]"
     );
 
+  const orders = getOrders();
+  renderAdminDashboardReports(orders);
+  const revenue = orders
+    .filter(o => o.paymentStatus === "ชำระแล้ว")
+    .reduce((sum,o) => sum + Number(o.total || 0), 0);
+
 
   document
-    .getElementById(
-      "adminUserCount"
-    )
+    .getElementById("adminUserCount")
     .textContent =
     demoUsers.length;
 
 
   document
-    .getElementById(
-      "adminTestCount"
-    )
+    .getElementById("adminTestCount")
     .textContent =
     tests.length;
 
 
   document
-    .getElementById(
-      "adminPaymentCount"
-    )
+    .getElementById("adminPaymentCount")
     .textContent =
     payments.length;
 
+  document
+    .getElementById("adminOrderCount")
+    .textContent =
+    orders.length;
 
-  /*
-    USERS
-  */
+  document
+    .getElementById("adminRevenue")
+    .textContent =
+    "฿" + revenue.toLocaleString();
+
+
+  renderAdminDrivers();
+  renderAdminOrders();
+
 
   const nameOverrides =
     getUserNameOverrides();
 
 
   document
-    .getElementById(
-      "adminUsers"
-    )
+    .getElementById("adminUsers")
     .innerHTML =
 
       demoUsers.map(
@@ -5749,7 +6648,10 @@ function adminRefresh(){
           <div class="admin-user-row">
 
             <b>
-              ${nameOverrides[user.username] || user.name}
+              ${
+                nameOverrides[user.username]
+                || user.name
+              }
             </b>
 
             <br>
@@ -5768,13 +6670,13 @@ function adminRefresh(){
             <br>
 
             ${
-              user.role === "medical"
+              user.role === "driver"
               ?
               '<span class="free-badge">ใช้งานฟรี</span>'
               :
               user.role === "customer"
               ?
-              '<span class="paid-badge">5 บาท/ครั้ง</span>'
+              '<span class="paid-badge">1 บาท/ครั้ง</span>'
               :
               '<span class="free-badge">Admin</span>'
             }
@@ -5785,16 +6687,12 @@ function adminRefresh(){
       ).join("");
 
 
-  /*
-    TESTS
-  */
+  /* TESTS */
 
   if(tests.length === 0){
 
     document
-      .getElementById(
-        "adminTests"
-      )
+      .getElementById("adminTests")
       .textContent =
       "ยังไม่มีข้อมูลการทดสอบ";
 
@@ -5808,9 +6706,7 @@ function adminRefresh(){
 
 
     document
-      .getElementById(
-        "adminTests"
-      )
+      .getElementById("adminTests")
       .innerHTML =
 
         latest.map(
@@ -5829,6 +6725,17 @@ function adminRefresh(){
 
               <br>
 
+              ตาที่ทดสอบ:
+              ${
+                test.eye === "both"
+                  ? "สองข้าง"
+                  : test.eye === "left"
+                    ? "ตาซ้าย"
+                    : "ตาขวา"
+              }
+
+              <br>
+
               ผล:
               ${test.acuity}
 
@@ -5839,11 +6746,16 @@ function adminRefresh(){
 
               <br>
 
+              เปอร์เซ็นต์:
+              ${test.scorePercent || 0}%
+
+              <br>
+
               ค่าบริการ:
               ${
                 test.price === 0
-                ? "ฟรี"
-                : "5 บาท"
+                  ? "ฟรี"
+                  : "1 บาท"
               }
 
               <br>
@@ -5865,16 +6777,12 @@ function adminRefresh(){
   }
 
 
-  /*
-    PAYMENTS
-  */
+  /* PAYMENTS */
 
   if(payments.length === 0){
 
     document
-      .getElementById(
-        "adminPayments"
-      )
+      .getElementById("adminPayments")
       .textContent =
       "ยังไม่มีรายการชำระเงิน";
 
@@ -5888,9 +6796,7 @@ function adminRefresh(){
 
 
     document
-      .getElementById(
-        "adminPayments"
-      )
+      .getElementById("adminPayments")
       .innerHTML =
 
         latestPayments.map(
@@ -5946,28 +6852,26 @@ function adminRefresh(){
 ===================================================== */
 
 updateNotificationUI();
+renderNotifications();
 
 loadFontSize();
 
 changeScreenSize(
   document
-    .getElementById(
-      "screenSize"
-    )
+    .getElementById("screenSize")
     .value
 );
 
 
 /*
   ตรวจสอบ Login
-  ก่อนเริ่มระบบอื่น
 */
 
 checkLogin();
 
 
 /*
-  โหลดผลของผู้ใช้ปัจจุบัน
+  โหลดผลล่าสุด
 */
 
 if(currentUser){
@@ -5989,12 +6893,8 @@ document
     "keydown",
     function(event){
 
-      if(
-        event.key === "Enter"
-      ){
-
+      if(event.key === "Enter"){
         login();
-
       }
 
     }
