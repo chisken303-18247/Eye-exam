@@ -1254,6 +1254,18 @@ button{
 }
 
 
+/* ORDER STATUS / ADMIN EDIT */
+.status-step{padding:9px 10px;border:1px solid var(--line);border-radius:11px;background:#fff;margin:6px 0;font-size:12px;display:flex;align-items:center;gap:8px;}
+.status-step.done{background:var(--green-light);border-color:#bfe4ca;color:var(--green-dark);}
+.status-step.current{border:2px solid var(--green);font-weight:700;}
+.status-step .step-icon{width:25px;height:25px;border-radius:50%;display:grid;place-items:center;background:#eef5f0;}
+.status-step.done .step-icon{background:var(--green);color:#fff;}
+.admin-edit-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;}
+.admin-edit-grid .full{grid-column:1 / -1;}
+.admin-edit-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px;}
+.admin-edit-actions .btn{margin:0;}
+@media(max-width:360px){.admin-edit-grid{grid-template-columns:1fr;}.admin-edit-grid .full{grid-column:auto;}}
+
 /* subtle visual polish */
 .card,.order-card,.admin-card{
   box-shadow:0 3px 14px #00000008;
@@ -1584,6 +1596,61 @@ button{
 
 </div>
 
+
+<!-- =====================================================
+     PAYMENT CONFIRM / ORDER DETAIL / ADMIN EDIT
+===================================================== -->
+<div id="paymentConfirmOverlay" class="modal-bg">
+  <div class="modal">
+    <div class="confirm-box">
+      <div class="confirm-icon">💳</div>
+      <h2>ยืนยันการชำระเงิน</h2>
+      <p>คุณต้องการชำระค่าบริการวัดสายตาใช่หรือไม่?</p>
+      <div class="confirm-total">฿1.00</div>
+      <div class="info" style="text-align:left">ชำระครั้งเดียว สามารถใช้สิทธิ์วัดได้ทั้งสองข้าง ตาซ้าย หรือตาขวา</div>
+      <div class="confirm-actions" style="margin-top:12px">
+        <button class="btn" onclick="closePaymentConfirm()">ยกเลิก</button>
+        <button class="btn primary" onclick="proceedConfirmedPayment()">✓ ยืนยันจ่าย 1 บาท</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="orderDetailOverlay" class="modal-bg">
+  <div class="modal" style="max-height:88vh;overflow:auto">
+    <button class="modal-close" onclick="closeOrderDetail()">×</button>
+    <h2>📦 รายละเอียดออเดอร์</h2>
+    <div id="orderDetailContent"></div>
+  </div>
+</div>
+
+<div id="adminEditOrderOverlay" class="modal-bg">
+  <div class="modal" style="max-height:90vh;overflow:auto">
+    <button class="modal-close" onclick="closeAdminEditOrder()">×</button>
+    <h2>✏️ แก้ไขออเดอร์</h2>
+    <div class="info">แก้ไขข้อมูลแล้วกด “บันทึกการแก้ไข” ข้อมูลจะถูกบันทึกลงออเดอร์จริงทันที</div>
+    <input type="hidden" id="adminEditOrderId">
+    <div class="admin-edit-grid">
+      <div class="form-field"><label>ชื่อผู้รับ</label><input id="adminEditName" type="text"></div>
+      <div class="form-field"><label>เบอร์โทร</label><input id="adminEditPhone" type="text"></div>
+      <div class="form-field"><label>จังหวัด</label><input id="adminEditProvince" type="text"></div>
+      <div class="form-field"><label>จำนวน</label><input id="adminEditQty" type="number" min="1" step="1"></div>
+      <div class="form-field full"><label>ที่อยู่จัดส่ง</label><textarea id="adminEditAddress"></textarea></div>
+      <div class="form-field"><label>กรอบแว่น</label><select id="adminEditFrame"></select></div>
+      <div class="form-field"><label>สถานะออเดอร์</label><select id="adminEditStatus">
+        <option>รอยืนยัน</option><option>กำลังเตรียมสินค้า</option><option>รอรับสินค้า</option><option>รับสินค้าแล้ว</option><option>กำลังจัดส่ง</option><option>จัดส่งสำเร็จ</option>
+      </select></div>
+      <div class="form-field"><label>สถานะชำระเงิน</label><select id="adminEditPayment"><option>ยังไม่ชำระ</option><option>ชำระแล้ว</option></select></div>
+      <div class="form-field"><label>คนขับ</label><select id="adminEditDriver"></select></div>
+      <div class="form-field full"><label>หมายเหตุ</label><textarea id="adminEditNote"></textarea></div>
+    </div>
+    <div id="adminEditTotal" class="price-total"><span>ยอดรวมใหม่</span><strong>฿0</strong></div>
+    <div class="admin-edit-actions">
+      <button class="btn" onclick="closeAdminEditOrder()">ยกเลิก</button>
+      <button class="btn primary" onclick="saveAdminOrderEdit()">✓ บันทึกการแก้ไข</button>
+    </div>
+  </div>
+</div>
 
 <!-- =====================================================
      APP
@@ -6249,27 +6316,44 @@ function renderCustomerOrders(){
 }
 
 
+function getOrderStatusSteps(){
+  return [
+    {status:"รอยืนยัน",label:"รอการยืนยัน",icon:"📝"},
+    {status:"กำลังเตรียมสินค้า",label:"กำลังเตรียมสินค้า",icon:"🔧"},
+    {status:"รอรับสินค้า",label:"รอคนขับรับสินค้า",icon:"📦"},
+    {status:"รับสินค้าแล้ว",label:"รับสินค้าแล้ว",icon:"🤝"},
+    {status:"กำลังจัดส่ง",label:"กำลังจัดส่ง",icon:"🚚"},
+    {status:"จัดส่งสำเร็จ",label:"จัดส่งสำเร็จ",icon:"✓"}
+  ];
+}
+
+function renderOrderStatusTimeline(order){
+  const steps = getOrderStatusSteps();
+  let current = steps.findIndex(s => s.status === order.status);
+  if(current < 0) current = 0;
+  return steps.map((s,i)=>`
+    <div class="status-step ${i < current ? "done" : ""} ${i === current ? "current" : ""}">
+      <span class="step-icon">${i < current ? "✓" : s.icon}</span>
+      <span>${s.label}</span>
+      ${i === current ? `<span style="margin-left:auto;color:var(--green)">ปัจจุบัน</span>` : ""}
+    </div>
+  `).join("");
+}
+
 function openOrderDetail(id, role="customer"){
   const orders = getOrders();
   const order = orders.find(o => o.id === id);
-  if(!order){
-    alert("ไม่พบข้อมูลออเดอร์");
-    return;
-  }
+  if(!order){ alert("ไม่พบข้อมูลออเดอร์"); return; }
 
   if(role === "customer" && currentUser && order.username !== currentUser.username){
-    alert("ไม่สามารถดูรายละเอียดออเดอร์ของผู้ใช้อื่นได้");
-    return;
+    alert("ไม่สามารถดูรายละเอียดออเดอร์ของผู้ใช้อื่นได้"); return;
   }
-
   if(role === "driver" && currentUser && order.driverUsername !== currentUser.username){
-    alert("ออเดอร์นี้ยังไม่ได้มอบหมายให้คุณ");
-    return;
+    alert("ออเดอร์นี้ยังไม่ได้มอบหมายให้คุณ"); return;
   }
 
   const content = document.getElementById("orderDetailContent");
   if(!content) return;
-
   const rxRight = Number(order.rx?.rightSph || 0).toFixed(2);
   const rxLeft = Number(order.rx?.leftSph || 0).toFixed(2);
   const pd = Number(order.rx?.pd || 0).toFixed(1);
@@ -6283,83 +6367,48 @@ function openOrderDetail(id, role="customer"){
         <button class="btn primary" onclick="driverUpdateOrder('${order.id}','จัดส่งสำเร็จ');openOrderDetail('${order.id}','driver')">✓ ส่งสำเร็จ</button>
         <button class="btn" onclick="closeOrderDetail()">ปิด</button>
       </div>`;
+  }else if(role === "admin"){
+    actions = `
+      <div class="info" style="margin-top:12px"><b>⚙️ แอดมินจัดการสถานะ</b><br>เมื่อกดสถานะ ระบบจะบันทึกลงออเดอร์เดียวกัน และลูกค้าจะเห็นสถานะใหม่ทันที</div>
+      <div class="order-detail-actions">
+        <button class="btn" onclick="adminSetOrderStatus('${order.id}','รับสินค้าแล้ว');openOrderDetail('${order.id}','admin')">📦 รับสินค้า</button>
+        <button class="btn" onclick="adminSetOrderStatus('${order.id}','กำลังจัดส่ง');openOrderDetail('${order.id}','admin')">🚚 ออกส่ง</button>
+        <button class="btn primary" onclick="adminSetOrderStatus('${order.id}','จัดส่งสำเร็จ');openOrderDetail('${order.id}','admin')">✓ ส่งสำเร็จ</button>
+        <button class="btn" onclick="adminEditOrder('${order.id}')">✏️ แก้ไขออเดอร์</button>
+      </div>
+      <div class="order-detail-actions" style="margin-top:7px"><button class="btn" onclick="closeOrderDetail();adminRefresh()">ปิด</button></div>`;
   }else{
     actions = `
+      <div class="info" style="margin-top:12px"><b>📍 ติดตามสถานะการจัดส่ง</b><br>สถานะนี้เชื่อมกับออเดอร์จริง เมื่อแอดมินหรือคนขับอัปเดต ลูกค้าจะเห็นสถานะใหม่ในหน้านี้</div>
       <div class="order-detail-actions">
-        <button class="btn primary" onclick="closeOrderDetail();showPage('orders');renderCustomerOrders()">↻ กลับรายการออเดอร์</button>
-        <button class="btn" onclick="closeOrderDetail()">ปิดรายละเอียด</button>
+        <button class="btn primary" onclick="openOrderDetail('${order.id}','customer')">↻ อัปเดตสถานะ</button>
+        <button class="btn" onclick="closeOrderDetail();showPage('orders');renderCustomerOrders()">กลับรายการออเดอร์</button>
       </div>`;
   }
 
   content.innerHTML = `
     <div class="shop-highlight">
-      <b>${order.id}</b>
-      <div class="order-meta">${order.createdAt}</div>
-      <div style="margin-top:6px">
-        <span class="status-badge ${orderStatusClass(order.status)}">${order.status}</span>
-        <span class="status-badge" style="margin-left:5px">${order.paymentStatus}</span>
-      </div>
+      <b>${order.id}</b><div class="order-meta">สร้างเมื่อ ${order.createdAt}</div>
+      <div style="margin-top:6px"><span class="status-badge ${orderStatusClass(order.status)}">${order.status}</span><span class="status-badge" style="margin-left:5px">${order.paymentStatus}</span></div>
     </div>
-
     <div class="order-detail-grid">
-      <div class="order-detail-item">
-        <span>สินค้า</span>
-        <b>${order.frameName}</b>
-      </div>
-      <div class="order-detail-item">
-        <span>ประเภทเลนส์</span>
-        <b>${order.lensType}</b>
-      </div>
-      <div class="order-detail-item">
-        <span>จำนวน</span>
-        <b>${order.quantity} ชิ้น</b>
-      </div>
-      <div class="order-detail-item">
-        <span>ยอดรวม</span>
-        <b style="color:var(--green)">฿${Number(order.total).toLocaleString()}</b>
-      </div>
-      <div class="order-detail-item">
-        <span>ผู้รับ</span>
-        <b>${order.customerName}</b>
-      </div>
-      <div class="order-detail-item">
-        <span>เบอร์โทร</span>
-        <b>${order.customerPhone}</b>
-      </div>
-      <div class="order-detail-item full">
-        <span>ที่อยู่จัดส่ง</span>
-        <b>${order.address}, ${order.province}</b>
-      </div>
-      <div class="order-detail-item">
-        <span>ค่าสายตาขวา</span>
-        <b>${rxRight} D</b>
-      </div>
-      <div class="order-detail-item">
-        <span>ค่าสายตาซ้าย</span>
-        <b>${rxLeft} D</b>
-      </div>
-      <div class="order-detail-item">
-        <span>PD</span>
-        <b>${pd} mm</b>
-      </div>
-      <div class="order-detail-item">
-        <span>คนขับ</span>
-        <b>${order.driverName || "รอแอดมินมอบหมาย"}</b>
-      </div>
-      <div class="order-detail-item full">
-        <span>หมายเหตุ</span>
-        <b>${order.note || "-"}</b>
-      </div>
+      <div class="order-detail-item"><span>สินค้า</span><b>${order.frameName}</b></div>
+      <div class="order-detail-item"><span>ประเภทเลนส์</span><b>${order.lensType}</b></div>
+      <div class="order-detail-item"><span>จำนวน</span><b>${order.quantity} ชิ้น</b></div>
+      <div class="order-detail-item"><span>ยอดรวม</span><b style="color:var(--green)">฿${Number(order.total).toLocaleString()}</b></div>
+      <div class="order-detail-item"><span>ผู้รับ</span><b>${order.customerName}</b></div>
+      <div class="order-detail-item"><span>เบอร์โทร</span><b>${order.customerPhone}</b></div>
+      <div class="order-detail-item full"><span>ที่อยู่จัดส่ง</span><b>${order.address}, ${order.province}</b></div>
+      <div class="order-detail-item"><span>ค่าสายตาขวา</span><b>${rxRight} D</b></div>
+      <div class="order-detail-item"><span>ค่าสายตาซ้าย</span><b>${rxLeft} D</b></div>
+      <div class="order-detail-item"><span>PD</span><b>${pd} mm</b></div>
+      <div class="order-detail-item"><span>คนขับ</span><b>${order.driverName || "รอแอดมินมอบหมาย"}</b></div>
+      <div class="order-detail-item full"><span>หมายเหตุ</span><b>${order.note || "-"}</b></div>
     </div>
-
-    <div class="order-timeline">
-      <div>🕐 สร้างออเดอร์: <b>${order.createdAt}</b></div>
-      <div>🔄 อัปเดตล่าสุด: <b>${order.updatedAt}</b></div>
-      ${order.deliveredTimestamp ? `<div>✓ จัดส่งสำเร็จ: <b>${new Date(order.deliveredTimestamp).toLocaleString("th-TH")}</b></div>` : ""}
-    </div>
-
-    ${actions}
-  `;
+    <div style="font-weight:700;margin-top:10px">เส้นทางสถานะออเดอร์</div>
+    <div class="order-timeline">${renderOrderStatusTimeline(order)}</div>
+    <div class="order-meta">อัปเดตล่าสุด: ${order.updatedAt}${order.deliveredTimestamp ? `<br>จัดส่งสำเร็จ: ${new Date(order.deliveredTimestamp).toLocaleString("th-TH")}` : ""}</div>
+    ${actions}`;
 
   const overlay = document.getElementById("orderDetailOverlay");
   if(overlay) overlay.classList.add("show");
@@ -6433,6 +6482,8 @@ function driverUpdateOrder(id,status){
   saveOrders(orders);
   addNotification(status === "จัดส่งสำเร็จ" ? "จัดส่งสำเร็จ" : "อัปเดตออเดอร์", "ออเดอร์ " + order.id + " เปลี่ยนสถานะเป็น " + status, "order");
   renderDriverOrders();
+  renderCustomerOrders();
+  renderAdminOrders();
   alert("อัปเดตสถานะเป็น “" + status + "” แล้ว");
 }
 
@@ -6480,7 +6531,9 @@ function renderAdminOrders(){
       <div class="order-actions">
         <button class="btn" onclick="selectAdminOrder('${o.id}')">เลือก</button>
         <button class="btn" onclick="openOrderDetail('${o.id}','admin')">📋 รายละเอียด</button>
-        <button class="btn" onclick="adminSetOrderStatus('${o.id}','กำลังเตรียมสินค้า')">เตรียมสินค้า</button>
+        <button class="btn" onclick="adminSetOrderStatus('${o.id}','รับสินค้าแล้ว')">📦 รับสินค้า</button>
+        <button class="btn" onclick="adminSetOrderStatus('${o.id}','กำลังจัดส่ง')">🚚 ออกส่ง</button>
+        <button class="btn primary" onclick="adminSetOrderStatus('${o.id}','จัดส่งสำเร็จ')">✓ ส่งสำเร็จ</button>
         <button class="btn" onclick="adminSetPayment('${o.id}')">✓ ชำระแล้ว</button>
         <button class="btn" onclick="adminEditOrder('${o.id}')">✏️ แก้ไข</button>
       </div>
@@ -6535,6 +6588,8 @@ function adminSetOrderStatus(id,status){
   saveOrders(orders);
   addNotification(status === "จัดส่งสำเร็จ" ? "จัดส่งสำเร็จ" : "อัปเดตออเดอร์", "ออเดอร์ " + order.id + " เปลี่ยนสถานะเป็น " + status, "order");
   renderAdminOrders();
+  renderCustomerOrders();
+  renderDriverOrders();
 }
 
 function adminSetPayment(id){
@@ -6552,26 +6607,134 @@ function adminSetPayment(id){
   renderAdminOrders();
 }
 
-function adminEditOrder(id){
+function openAdminEditOrder(id){
   if(!currentUser || currentUser.role !== "admin") return;
-  const orders = getOrders();
-  const order = orders.find(o => o.id === id);
-  if(!order) return;
+  const order = getOrders().find(o => o.id === id);
+  if(!order){ alert("ไม่พบออเดอร์"); return; }
 
-  const name = prompt("แก้ไขชื่อผู้รับ", order.customerName);
-  if(name === null) return;
-  const phone = prompt("แก้ไขเบอร์โทร", order.customerPhone);
-  if(phone === null) return;
-  const address = prompt("แก้ไขที่อยู่", order.address);
-  if(address === null) return;
+  document.getElementById("adminEditOrderId").value = order.id;
+  document.getElementById("adminEditName").value = order.customerName || "";
+  document.getElementById("adminEditPhone").value = order.customerPhone || "";
+  document.getElementById("adminEditProvince").value = order.province || "";
+  document.getElementById("adminEditAddress").value = order.address || "";
+  document.getElementById("adminEditQty").value = Math.max(1,Number(order.quantity || 1));
+  document.getElementById("adminEditNote").value = order.note || "";
 
-  order.customerName = name.trim() || order.customerName;
-  order.customerPhone = phone.trim() || order.customerPhone;
-  order.address = address.trim() || order.address;
-  order.updatedAt = new Date().toLocaleString("th-TH");
-  saveOrders(orders);
-  renderAdminOrders();
+  const frameSelect = document.getElementById("adminEditFrame");
+  frameSelect.innerHTML = frameProducts.map(f => `<option value="${f.id}">${f.name} — ฿${Number(f.price).toLocaleString()} (เหลือ ${getFrameStock(f)})</option>`).join("");
+  frameSelect.value = order.frameId || frameProducts[0]?.id || "";
+
+  document.getElementById("adminEditStatus").value = order.status || "รอยืนยัน";
+  document.getElementById("adminEditPayment").value = order.paymentStatus || "ยังไม่ชำระ";
+
+  const driverSelect = document.getElementById("adminEditDriver");
+  driverSelect.innerHTML = `<option value="">ยังไม่มอบหมาย</option>` + getDrivers().map(d=>`<option value="${d.username}">${d.name} (${d.username})</option>`).join("");
+  driverSelect.value = order.driverUsername || "";
+
+  updateAdminEditTotal();
+  document.getElementById("adminEditOrderOverlay").classList.add("show");
 }
+
+function adminEditOrder(id){
+  openAdminEditOrder(id);
+}
+
+function updateAdminEditTotal(){
+  const frame = frameProducts.find(f=>f.id === document.getElementById("adminEditFrame")?.value) || frameProducts[0];
+  const qty = Math.max(1,Number(document.getElementById("adminEditQty")?.value || 1));
+  const total = frame ? frame.price * qty : 0;
+  const box = document.querySelector("#adminEditTotal strong");
+  if(box) box.textContent = "฿" + total.toLocaleString();
+}
+
+function closeAdminEditOrder(){
+  const overlay=document.getElementById("adminEditOrderOverlay");
+  if(overlay) overlay.classList.remove("show");
+}
+
+function saveAdminOrderEdit(){
+  if(!currentUser || currentUser.role !== "admin") return;
+  const id=document.getElementById("adminEditOrderId")?.value;
+  const orders=getOrders();
+  const order=orders.find(o=>o.id===id);
+  if(!order){ alert("ไม่พบออเดอร์"); return; }
+
+  const name=document.getElementById("adminEditName").value.trim();
+  const phone=document.getElementById("adminEditPhone").value.trim();
+  const province=document.getElementById("adminEditProvince").value.trim();
+  const address=document.getElementById("adminEditAddress").value.trim();
+  const qty=Math.max(1,parseInt(document.getElementById("adminEditQty").value,10)||1);
+  const frameId=document.getElementById("adminEditFrame").value;
+  const newFrame=frameProducts.find(f=>f.id===frameId);
+  const status=document.getElementById("adminEditStatus").value;
+  const paymentStatus=document.getElementById("adminEditPayment").value;
+  const driverUsername=document.getElementById("adminEditDriver").value;
+  const note=document.getElementById("adminEditNote").value.trim();
+
+  if(!name || !phone || !province || !address || !newFrame){ alert("กรุณากรอกข้อมูลสำคัญให้ครบ"); return; }
+
+  // คืนสต็อกเดิมก่อน แล้วตรวจ/หักสต็อกใหม่
+  const oldFrameId=order.frameId;
+  const oldQty=Math.max(1,Number(order.quantity||1));
+  if(oldFrameId===newFrame.id){
+    const available=getFrameStock(newFrame)+oldQty;
+    if(available<qty){ alert("สต็อกกรอบรุ่นนี้ไม่เพียงพอ เหลือใช้ได้ " + available + " ชิ้น"); return; }
+    setFrameStock(newFrame.id,available-qty);
+  }else{
+    const oldFrame=frameProducts.find(f=>f.id===oldFrameId);
+    if(oldFrame) setFrameStock(oldFrame.id,getFrameStock(oldFrame)+oldQty);
+    if(getFrameStock(newFrame)<qty){
+      if(oldFrame) setFrameStock(oldFrame.id,getFrameStock(oldFrame)-oldQty);
+      alert("กรอบรุ่นใหม่มีสินค้าไม่เพียงพอ เหลือ " + getFrameStock(newFrame) + " ชิ้น");
+      return;
+    }
+    setFrameStock(newFrame.id,getFrameStock(newFrame)-qty);
+  }
+
+  const driver=getDrivers().find(d=>d.username===driverUsername);
+  order.customerName=name;
+  order.customerPhone=phone;
+  order.province=province;
+  order.address=address;
+  order.note=note;
+  order.frameId=newFrame.id;
+  order.frameName=newFrame.name;
+  order.framePrice=newFrame.price;
+  order.quantity=qty;
+  order.packagePrice=newFrame.price*qty;
+  order.costFrame=newFrame.costFrame*qty;
+  order.costLens=LENS_COST*qty;
+  order.cogs=(newFrame.costFrame+LENS_COST)*qty;
+  order.productionShippingCost=PRODUCTION_SHIPPING_COST*qty;
+  order.grossProfit=(newFrame.price-newFrame.costFrame-LENS_COST)*qty;
+  order.netProfit=(newFrame.price-newFrame.costFrame-LENS_COST-PRODUCTION_SHIPPING_COST)*qty;
+  order.subtotal=newFrame.price*qty;
+  order.shipping=0;
+  order.total=newFrame.price*qty;
+  order.status=status;
+  order.paymentStatus=paymentStatus;
+  order.driverUsername=driver ? driver.username : "";
+  order.driverName=driver ? driver.name : "";
+  order.updatedAt=new Date().toLocaleString("th-TH");
+  order.updatedTimestamp=Date.now();
+  if(status === "จัดส่งสำเร็จ" && !order.deliveredTimestamp) order.deliveredTimestamp=Date.now();
+  if(status !== "จัดส่งสำเร็จ") order.deliveredTimestamp=null;
+
+  saveOrders(orders);
+  addNotification("แก้ไขออเดอร์", "ออเดอร์ " + order.id + " ถูกแก้ไขโดยแอดมิน", "order");
+  closeAdminEditOrder();
+  selectedAdminOrderId=order.id;
+  renderAdminOrders();
+  alert("บันทึกการแก้ไขออเดอร์ " + order.id + " เรียบร้อยแล้ว");
+  openOrderDetail(order.id,"admin");
+}
+
+document.addEventListener("input", function(e){
+  if(e.target && e.target.id === "adminEditQty") updateAdminEditTotal();
+});
+document.addEventListener("change", function(e){
+  if(e.target && e.target.id === "adminEditFrame") updateAdminEditTotal();
+});
 
 function deleteSelectedOrder(){
   if(!currentUser || currentUser.role !== "admin") return;
