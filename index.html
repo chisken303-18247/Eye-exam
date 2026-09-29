@@ -1171,6 +1171,103 @@ button{
   }
 }
 
+
+/* =====================================================
+   MODAL CONFIRMATION / ORDER DETAIL
+===================================================== */
+.confirm-box{
+  text-align:center;
+}
+.confirm-icon{
+  width:68px;
+  height:68px;
+  margin:0 auto 10px;
+  border-radius:50%;
+  background:var(--green-light);
+  display:grid;
+  place-items:center;
+  font-size:34px;
+}
+.confirm-total{
+  font-size:30px;
+  font-weight:900;
+  color:var(--green);
+  margin:8px 0 14px;
+}
+.confirm-actions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+}
+.confirm-actions button{
+  margin:0;
+}
+.order-detail-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  margin:12px 0;
+}
+.order-detail-item{
+  background:#f7fbf8;
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:10px;
+}
+.order-detail-item.full{
+  grid-column:1 / -1;
+}
+.order-detail-item span{
+  display:block;
+  font-size:10px;
+  color:var(--muted);
+  margin-bottom:3px;
+}
+.order-detail-item b{
+  font-size:13px;
+}
+.order-timeline{
+  border-left:3px solid var(--green);
+  padding-left:12px;
+  margin:12px 0;
+}
+.order-timeline div{
+  margin:8px 0;
+  font-size:12px;
+}
+.order-detail-actions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:7px;
+}
+.order-detail-actions .btn{
+  margin:0;
+  padding:11px 7px;
+  font-size:13px;
+}
+.shop-highlight{
+  border:1px solid var(--line);
+  background:linear-gradient(135deg,#f7fbf8,#effaf3);
+  border-radius:16px;
+  padding:12px;
+  margin:10px 0;
+}
+
+
+/* subtle visual polish */
+.card,.order-card,.admin-card{
+  box-shadow:0 3px 14px #00000008;
+}
+.btn,.pay-button{
+  transition:transform .15s,box-shadow .15s,filter .15s;
+}
+.btn:active,.pay-button:active{
+  transform:scale(.985);
+}
+.shop-highlight b{
+  color:var(--green-dark);
+}
+
 /* MOBILE */
 
 @media(max-width:430px){
@@ -1420,9 +1517,9 @@ button{
 
       <button
         class="pay-button"
-        onclick="confirmPayment()"
+        onclick="openPaymentConfirm()"
       >
-        💳 ยืนยันการชำระเงิน 1 บาท
+        💳 ดำเนินการชำระเงิน 1 บาท
       </button>
 
       <button
@@ -1434,7 +1531,7 @@ button{
 
       <div class="payment-note">
         ระบบต้นแบบ:
-        ปุ่มนี้เป็นการจำลองการชำระเงิน
+        หลังยืนยัน ระบบจะบันทึกการชำระเงิน
         และยังไม่มีการหักเงินจริงจากบัญชีธนาคาร
       </div>
 
@@ -1455,7 +1552,7 @@ button{
 
       <p>
         ได้รับสิทธิ์ทดสอบสายตา
-        จำนวน 1 ครั้ง
+        1 สิทธิ์ / ชำระครั้งเดียว
       </p>
 
       <div class="payment-detail">
@@ -1781,8 +1878,8 @@ button{
           <div class="workflow-step">
             <b>1. ชำระค่าบริการ</b>
             <span>
-              ชำระค่าบริการ 1 บาท
-              เพื่อรับสิทธิ์วัดสายตา 1 ครั้ง
+              ชำระค่าบริการเพียง 1 บาทครั้งเดียว
+              เพื่อรับสิทธิ์วัดสองข้าง ตาซ้าย หรือตาขวา
             </span>
           </div>
 
@@ -2484,13 +2581,19 @@ button{
       </div>
 
 
-      <button
-        class="btn primary"
-        onclick="buyAnotherTest()"
-        id="anotherTestButton"
-      >
-        ◎ ทดสอบอีกครั้ง 1 บาท
-      </button>
+      <div id="nextEyeTestActions">
+
+        <button
+          class="btn primary"
+          onclick="buyAnotherTest()"
+          id="anotherTestButton"
+        >
+          ◎ วัดตาอื่นต่อ (ไม่เสียเงินเพิ่ม)
+        </button>
+
+        <div id="nextEyeButtons" style="display:none"></div>
+
+      </div>
 
 
       <div class="info">
@@ -3938,7 +4041,7 @@ function updateUserInterface(){
       "◎　วัดสายตา 1 บาท　›";
 
     anotherTestButton.innerHTML =
-      "◎ ทดสอบอีกครั้ง 1 บาท";
+      "◎ วัดตาอื่นต่อ (ไม่เสียเงินเพิ่ม)";
 
   }
 
@@ -4209,6 +4312,22 @@ function closePayment(){
   document.getElementById("paymentOverlay").classList.remove("show");
 }
 
+
+function openPaymentConfirm(){
+  const overlay = document.getElementById("paymentConfirmOverlay");
+  if(overlay) overlay.classList.add("show");
+}
+
+function closePaymentConfirm(){
+  const overlay = document.getElementById("paymentConfirmOverlay");
+  if(overlay) overlay.classList.remove("show");
+}
+
+function proceedConfirmedPayment(){
+  closePaymentConfirm();
+  confirmPayment();
+}
+
 function confirmPayment(){
   const payButton = document.querySelector("#paymentForm .pay-button");
   if(!payButton || !currentUser) return;
@@ -4264,7 +4383,70 @@ function useTestCredit(){
 
 function buyAnotherTest(){
 
+  // จ่ายเงินครั้งเดียวแล้ว สามารถเลือกวัดตาอื่นต่อได้ทันที
+  // ไม่เปิดหน้าชำระเงินซ้ำ
   requestVisionTest();
+
+}
+
+/* =====================================================
+   NEXT EYE AFTER ONE EYE IS TESTED
+===================================================== */
+
+function startNextEyeTest(eye){
+
+  if(!currentUser){
+    return;
+  }
+
+  // สิทธิ์ 1 บาทเป็นสิทธิ์ของการวัดทั้งชุด
+  // ไม่หักเงินและไม่เปิด Payment อีกครั้ง
+  if(currentUser.role === "customer" && !hasTestAccess()){
+    openPayment();
+    return;
+  }
+
+  selectEye(eye);
+  startVisionTest();
+
+}
+
+function updateNextEyeButtons(){
+
+  const wrap = document.getElementById("nextEyeButtons");
+  const main = document.getElementById("anotherTestButton");
+
+  if(!wrap || !main || !currentUser){
+    return;
+  }
+
+  wrap.innerHTML = "";
+  wrap.style.display = "none";
+
+  const current = selectedEye;
+  const labels = [];
+
+  if(current === "left"){
+    labels.push({eye:"right", text:"◎ วัดตาขวา ต่อ (ไม่เสียเงินเพิ่ม)"});
+    labels.push({eye:"both", text:"◎ วัดสองข้าง (ไม่เสียเงินเพิ่ม)"});
+  }else if(current === "right"){
+    labels.push({eye:"left", text:"◎ วัดตาซ้าย ต่อ (ไม่เสียเงินเพิ่ม)"});
+    labels.push({eye:"both", text:"◎ วัดสองข้าง (ไม่เสียเงินเพิ่ม)"});
+  }else{
+    labels.push({eye:"left", text:"◎ วัดตาซ้าย (ไม่เสียเงินเพิ่ม)"});
+    labels.push({eye:"right", text:"◎ วัดตาขวา (ไม่เสียเงินเพิ่ม)"});
+  }
+
+  main.style.display = "none";
+  wrap.style.display = "block";
+
+  labels.forEach((item, index)=>{
+    const button = document.createElement("button");
+    button.className = index === 0 ? "btn primary" : "btn";
+    button.textContent = item.text;
+    button.onclick = () => startNextEyeTest(item.eye);
+    wrap.appendChild(button);
+  });
 
 }
 
@@ -5517,6 +5699,7 @@ function finishTest(){
   */
 
   showPage("result");
+  updateNextEyeButtons();
 
 }
 
@@ -6010,6 +6193,7 @@ function createGlassesOrder(){
   alert("สร้างออเดอร์ " + order.id + " เรียบร้อยแล้ว");
   showPage("orders");
   renderCustomerOrders();
+  setTimeout(()=>openOrderDetail(order.id,"customer"),80);
 }
 
 function renderCustomerOrders(){
@@ -6021,7 +6205,7 @@ function renderCustomerOrders(){
     .reverse();
 
   if(!orders.length){
-    el.innerHTML = '<div class="empty-state">ยังไม่มีคำสั่งซื้อ<br>กด “ร้านแว่น” เพื่อเริ่มสั่งซื้อ</div>';
+    el.innerHTML = '<div class="empty-state">ยังไม่มีคำสั่งซื้อ<br>กด “สั่งตัดแว่นเลนส์ชั้นเดียว” เพื่อเริ่มสั่งซื้อ</div>';
     return;
   }
 
@@ -6034,20 +6218,156 @@ function renderCustomerOrders(){
         </div>
         <span class="status-badge ${orderStatusClass(o.status)}">${o.status}</span>
       </div>
-      <hr style="border:0;border-top:1px solid var(--line);margin:10px 0">
-      <b>${o.frameName}</b> · ${o.lensType}<br>
-      จำนวน ${o.quantity} ชิ้น · ยอดรวม <b style="color:var(--green)">฿${Number(o.total).toLocaleString()}</b>
-      <div class="order-meta" style="margin-top:6px">
-        ผู้รับ: ${o.customerName}<br>
-        ${o.address}, ${o.province}<br>
-        คนขับ: ${o.driverName || "รอแอดมินมอบหมาย"}
+
+      <div class="shop-highlight">
+        <b>👓 ${o.frameName}</b><br>
+        <span class="order-meta">${o.lensType} · ${o.quantity} ชิ้น</span>
       </div>
+
+      <div class="order-meta">
+        ผู้รับ: ${o.customerName}<br>
+        📍 ${o.address}, ${o.province}<br>
+        🚚 คนขับ: ${o.driverName || "รอแอดมินมอบหมาย"}
+      </div>
+
+      <div class="price-total">
+        <span>ยอดรวม</span>
+        <strong>฿${Number(o.total).toLocaleString()}</strong>
+      </div>
+
       <div class="delivery-route">
         สถานะชำระเงิน: <b>${o.paymentStatus}</b><br>
         อัปเดตล่าสุด: ${o.updatedAt}
       </div>
+
+      <div class="order-actions">
+        <button class="btn primary" onclick="openOrderDetail('${o.id}','customer')">📋 ดูรายละเอียด</button>
+        <button class="btn" onclick="showPage('orders');renderCustomerOrders()">↻ รีเฟรชสถานะ</button>
+      </div>
     </div>
   `).join("");
+}
+
+
+function openOrderDetail(id, role="customer"){
+  const orders = getOrders();
+  const order = orders.find(o => o.id === id);
+  if(!order){
+    alert("ไม่พบข้อมูลออเดอร์");
+    return;
+  }
+
+  if(role === "customer" && currentUser && order.username !== currentUser.username){
+    alert("ไม่สามารถดูรายละเอียดออเดอร์ของผู้ใช้อื่นได้");
+    return;
+  }
+
+  if(role === "driver" && currentUser && order.driverUsername !== currentUser.username){
+    alert("ออเดอร์นี้ยังไม่ได้มอบหมายให้คุณ");
+    return;
+  }
+
+  const content = document.getElementById("orderDetailContent");
+  if(!content) return;
+
+  const rxRight = Number(order.rx?.rightSph || 0).toFixed(2);
+  const rxLeft = Number(order.rx?.leftSph || 0).toFixed(2);
+  const pd = Number(order.rx?.pd || 0).toFixed(1);
+
+  let actions = "";
+  if(role === "driver"){
+    actions = `
+      <div class="order-detail-actions">
+        <button class="btn" onclick="driverUpdateOrder('${order.id}','รับสินค้าแล้ว');openOrderDetail('${order.id}','driver')">📦 รับสินค้า</button>
+        <button class="btn" onclick="driverUpdateOrder('${order.id}','กำลังจัดส่ง');openOrderDetail('${order.id}','driver')">🚚 ออกส่ง</button>
+        <button class="btn primary" onclick="driverUpdateOrder('${order.id}','จัดส่งสำเร็จ');openOrderDetail('${order.id}','driver')">✓ ส่งสำเร็จ</button>
+        <button class="btn" onclick="closeOrderDetail()">ปิด</button>
+      </div>`;
+  }else{
+    actions = `
+      <div class="order-detail-actions">
+        <button class="btn primary" onclick="closeOrderDetail();showPage('orders');renderCustomerOrders()">↻ กลับรายการออเดอร์</button>
+        <button class="btn" onclick="closeOrderDetail()">ปิดรายละเอียด</button>
+      </div>`;
+  }
+
+  content.innerHTML = `
+    <div class="shop-highlight">
+      <b>${order.id}</b>
+      <div class="order-meta">${order.createdAt}</div>
+      <div style="margin-top:6px">
+        <span class="status-badge ${orderStatusClass(order.status)}">${order.status}</span>
+        <span class="status-badge" style="margin-left:5px">${order.paymentStatus}</span>
+      </div>
+    </div>
+
+    <div class="order-detail-grid">
+      <div class="order-detail-item">
+        <span>สินค้า</span>
+        <b>${order.frameName}</b>
+      </div>
+      <div class="order-detail-item">
+        <span>ประเภทเลนส์</span>
+        <b>${order.lensType}</b>
+      </div>
+      <div class="order-detail-item">
+        <span>จำนวน</span>
+        <b>${order.quantity} ชิ้น</b>
+      </div>
+      <div class="order-detail-item">
+        <span>ยอดรวม</span>
+        <b style="color:var(--green)">฿${Number(order.total).toLocaleString()}</b>
+      </div>
+      <div class="order-detail-item">
+        <span>ผู้รับ</span>
+        <b>${order.customerName}</b>
+      </div>
+      <div class="order-detail-item">
+        <span>เบอร์โทร</span>
+        <b>${order.customerPhone}</b>
+      </div>
+      <div class="order-detail-item full">
+        <span>ที่อยู่จัดส่ง</span>
+        <b>${order.address}, ${order.province}</b>
+      </div>
+      <div class="order-detail-item">
+        <span>ค่าสายตาขวา</span>
+        <b>${rxRight} D</b>
+      </div>
+      <div class="order-detail-item">
+        <span>ค่าสายตาซ้าย</span>
+        <b>${rxLeft} D</b>
+      </div>
+      <div class="order-detail-item">
+        <span>PD</span>
+        <b>${pd} mm</b>
+      </div>
+      <div class="order-detail-item">
+        <span>คนขับ</span>
+        <b>${order.driverName || "รอแอดมินมอบหมาย"}</b>
+      </div>
+      <div class="order-detail-item full">
+        <span>หมายเหตุ</span>
+        <b>${order.note || "-"}</b>
+      </div>
+    </div>
+
+    <div class="order-timeline">
+      <div>🕐 สร้างออเดอร์: <b>${order.createdAt}</b></div>
+      <div>🔄 อัปเดตล่าสุด: <b>${order.updatedAt}</b></div>
+      ${order.deliveredTimestamp ? `<div>✓ จัดส่งสำเร็จ: <b>${new Date(order.deliveredTimestamp).toLocaleString("th-TH")}</b></div>` : ""}
+    </div>
+
+    ${actions}
+  `;
+
+  const overlay = document.getElementById("orderDetailOverlay");
+  if(overlay) overlay.classList.add("show");
+}
+
+function closeOrderDetail(){
+  const overlay = document.getElementById("orderDetailOverlay");
+  if(overlay) overlay.classList.remove("show");
 }
 
 function renderDriverOrders(){
@@ -6090,7 +6410,7 @@ function renderDriverOrders(){
         <button class="btn" onclick="driverUpdateOrder('${o.id}','รับสินค้าแล้ว')">📦 รับสินค้า</button>
         <button class="btn" onclick="driverUpdateOrder('${o.id}','กำลังจัดส่ง')">🚚 ออกส่ง</button>
         <button class="btn primary" onclick="driverUpdateOrder('${o.id}','จัดส่งสำเร็จ')">✓ ส่งสำเร็จ</button>
-        <button class="btn" onclick="showPage('orders');renderCustomerOrders()">📋 รายละเอียด</button>
+        <button class="btn" onclick="openOrderDetail('${o.id}','driver')">📋 รายละเอียด</button>
       </div>
     </div>
   `).join("");
@@ -6159,6 +6479,7 @@ function renderAdminOrders(){
       </p>
       <div class="order-actions">
         <button class="btn" onclick="selectAdminOrder('${o.id}')">เลือก</button>
+        <button class="btn" onclick="openOrderDetail('${o.id}','admin')">📋 รายละเอียด</button>
         <button class="btn" onclick="adminSetOrderStatus('${o.id}','กำลังเตรียมสินค้า')">เตรียมสินค้า</button>
         <button class="btn" onclick="adminSetPayment('${o.id}')">✓ ชำระแล้ว</button>
         <button class="btn" onclick="adminEditOrder('${o.id}')">✏️ แก้ไข</button>
