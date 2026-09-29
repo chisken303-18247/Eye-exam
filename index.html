@@ -4338,7 +4338,11 @@ function hasTestAccess(){
 }
 
 function grantTestAccess(){
+  const alreadyHadAccess = hasTestAccess();
   localStorage.setItem(getTestAccessKey(), "1");
+  if(!alreadyHadAccess){
+    resetEyeSession();
+  }
 }
 
 function requestVisionTest(){
@@ -4473,6 +4477,11 @@ function startNextEyeTest(eye){
     return;
   }
 
+  if(isEyeCompleted(eye)){
+    updateNextEyeButtons();
+    return;
+  }
+
   selectEye(eye);
   startVisionTest();
 
@@ -4489,25 +4498,45 @@ function updateNextEyeButtons(){
 
   wrap.innerHTML = "";
   wrap.style.display = "none";
+  main.style.display = "none";
 
-  const current = selectedEye;
-  const labels = [];
+  const completed = getCompletedEyes();
 
-  if(current === "left"){
-    labels.push({eye:"right", text:"◎ วัดตาขวา ต่อ (ไม่เสียเงินเพิ่ม)"});
-    labels.push({eye:"both", text:"◎ วัดสองข้าง (ไม่เสียเงินเพิ่ม)"});
-  }else if(current === "right"){
-    labels.push({eye:"left", text:"◎ วัดตาซ้าย ต่อ (ไม่เสียเงินเพิ่ม)"});
-    labels.push({eye:"both", text:"◎ วัดสองข้าง (ไม่เสียเงินเพิ่ม)"});
-  }else{
-    labels.push({eye:"left", text:"◎ วัดตาซ้าย (ไม่เสียเงินเพิ่ม)"});
-    labels.push({eye:"right", text:"◎ วัดตาขวา (ไม่เสียเงินเพิ่ม)"});
+  // เมื่อวัดครบทั้ง 3 รูปแบบแล้ว ให้เหลือแค่กลับหน้าหลัก
+  if(completed.includes("left") && completed.includes("right") && completed.includes("both")){
+    wrap.style.display = "block";
+    const home = document.createElement("button");
+    home.className = "btn primary";
+    home.textContent = "‹ กลับหน้าหลัก";
+    home.onclick = () => {
+      wrap.style.display = "none";
+      showPage("home");
+    };
+    wrap.appendChild(home);
+    return;
   }
 
-  main.style.display = "none";
+  const order = [
+    {eye:"left", text:"◎ วัดตาซ้าย (ไม่เสียเงินเพิ่ม)"},
+    {eye:"right", text:"◎ วัดตาขวา (ไม่เสียเงินเพิ่ม)"},
+    {eye:"both", text:"◎ วัดสองข้าง (ไม่เสียเงินเพิ่ม)"}
+  ];
+
+  const available = order.filter(item => !completed.includes(item.eye));
+
+  if(!available.length){
+    wrap.style.display = "block";
+    const home = document.createElement("button");
+    home.className = "btn primary";
+    home.textContent = "‹ กลับหน้าหลัก";
+    home.onclick = () => showPage("home");
+    wrap.appendChild(home);
+    return;
+  }
+
   wrap.style.display = "block";
 
-  labels.forEach((item, index)=>{
+  available.forEach((item, index)=>{
     const button = document.createElement("button");
     button.className = index === 0 ? "btn primary" : "btn";
     button.textContent = item.text;
@@ -4515,7 +4544,10 @@ function updateNextEyeButtons(){
     wrap.appendChild(button);
   });
 
+  updateEyeSelectionButtons();
+
 }
+
 
 
 /* =====================================================
@@ -4902,10 +4934,83 @@ function changeScreenSize(size){
 
 
 /* =====================================================
-   SELECT EYE
+   EYE TEST SESSION
+   จดจำว่าตาไหนวัดไปแล้วในรอบการวัดปัจจุบัน
 ===================================================== */
 
+function getEyeSessionKey(){
+  return currentUser ? "eye_test_session_" + currentUser.username : "eye_test_session";
+}
+
+function getEyeSession(){
+  try{
+    return JSON.parse(localStorage.getItem(getEyeSessionKey()) || '{"completed":[]}');
+  }catch(e){
+    return {completed:[]};
+  }
+}
+
+function saveEyeSession(session){
+  localStorage.setItem(getEyeSessionKey(), JSON.stringify(session));
+}
+
+function getCompletedEyes(){
+  const session = getEyeSession();
+  return Array.isArray(session.completed) ? session.completed : [];
+}
+
+function markEyeCompleted(eye){
+  const session = getEyeSession();
+  if(!Array.isArray(session.completed)) session.completed = [];
+  if(!session.completed.includes(eye)) session.completed.push(eye);
+  saveEyeSession(session);
+}
+
+function resetEyeSession(){
+  saveEyeSession({completed:[]});
+}
+
+function isEyeCompleted(eye){
+  return getCompletedEyes().includes(eye);
+}
+
+function updateEyeSelectionButtons(){
+  const completed = getCompletedEyes();
+  const buttons = {
+    left: document.getElementById("eyeLeft"),
+    right: document.getElementById("eyeRight"),
+    both: document.getElementById("eyeBoth")
+  };
+
+  Object.keys(buttons).forEach(eye=>{
+    const btn = buttons[eye];
+    if(!btn) return;
+    btn.style.display = completed.includes(eye) ? "none" : "";
+    btn.disabled = completed.includes(eye);
+  });
+
+  if(completed.includes(selectedEye)){
+    const available = ["both","left","right"].find(eye=>!completed.includes(eye));
+    if(available){
+      selectedEye = available;
+      ["eyeBoth","eyeLeft","eyeRight"].forEach(id=>{
+        const b=document.getElementById(id);
+        if(b) b.classList.remove("active");
+      });
+      const activeId = available === "both" ? "eyeBoth" : available === "left" ? "eyeLeft" : "eyeRight";
+      const active=document.getElementById(activeId);
+      if(active) active.classList.add("active");
+    }
+  }
+}
+
 function selectEye(eye){
+
+  if(isEyeCompleted(eye)){
+    alert("ตานี้วัดไปแล้วในรอบการวัดนี้");
+    updateEyeSelectionButtons();
+    return;
+  }
 
   selectedEye = eye;
 
@@ -5271,8 +5376,16 @@ function answerTest(index){
 
 function startVisionTest(){
 
-  resetTest();
+  const completed = getCompletedEyes();
 
+  // ถ้ารอบก่อนวัดครบแล้ว การกดเริ่มวัดจากหน้าหลักให้เริ่มรอบใหม่
+  if(completed.includes("left") && completed.includes("right") && completed.includes("both")){
+    resetEyeSession();
+    selectedEye = "both";
+  }
+
+  resetTest();
+  updateEyeSelectionButtons();
   showPage("visionTest");
 
 }
@@ -5762,11 +5875,17 @@ function finishTest(){
 
 
   /*
+    จดจำว่าตานี้วัดเสร็จแล้ว
+  */
+  markEyeCompleted(selectedEye);
+
+  /*
     แสดงผล
   */
 
   showPage("result");
   updateNextEyeButtons();
+  updateEyeSelectionButtons();
 
 }
 
